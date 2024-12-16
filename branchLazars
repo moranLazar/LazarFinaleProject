@@ -1,0 +1,49 @@
+import os
+import subprocess
+import sys
+
+
+def run_command(command, error_message):
+    """Run a shell command and handle errors."""
+    try:
+        result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        print(result.stdout)
+    except subprocess.CalledProcessError as e:
+        print(f"{error_message}\n{e.stderr}")
+        sys.exit(1)
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: python branchLazars.py <Lazar>")
+        sys.exit(1)
+
+    Lazars = sys.argv[1]
+
+    print(f"Switching to the 'main' branch...")
+    run_command(["git", "checkout", "main"], "Error: Could not switch to the main branch.")
+
+    print(f"Pulling the latest changes from the 'main' branch...")
+    run_command(["git", "pull", "origin", "main"], "Error: Could not pull the latest changes from the main branch.")
+
+    print(f"Creating a new branch: {Lazars}")
+    run_command(["git", "checkout", "-b", Lazars], f"Error: Could not create branch {Lazars}.")
+
+    print("Adding all files in the current folder to the new branch...")
+    run_command(["git", "add", "."], "Error: Could not add files to the staging area.")
+
+    print(f"Committing the files to branch '{Lazars}'...")
+    commit_message = f"Initialize branch {Lazars} with current folder files"
+    run_command(["git", "commit", "-m", commit_message], "Error: Could not commit changes.")
+
+    print(f"Pushing the new branch '{Lazars}' to the remote repository...")
+    run_command(["git", "push", "origin", Lazars], f"Error: Could not push branch {Lazars} to the remote.")
+
+    print(f"New branch '{Lazars}' created successfully with all files in the current folder added.")
+
+
+if __name__ == "__main__":
+    # Check if Git is initialized in the current folder
+    if not os.path.exists(".git"):
+        print("Error: This is not a Git repository. Please initialize Git first.")
+        sys.exit(1)
+
+    main()
