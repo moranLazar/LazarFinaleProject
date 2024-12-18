@@ -18,8 +18,6 @@ def print_hi(name):
 # TODO adaptive framework
 # TODO GUI
 # delay between exercises
-
-
 if __name__ == '__main__':
     s.camera_num = 0  # 0 - webcam, 2 - second USB in maya's computer
 
@@ -34,7 +32,7 @@ if __name__ == '__main__':
                          str(current_time.minute) + "." + str(current_time.second)
 
     # Training variables initialization
-    s.exercise_amount = 6
+    s.exercise_amount = 5
     s.rep = 8
     s.req_exercise = ""
     s.finish_workout = False
@@ -46,10 +44,11 @@ if __name__ == '__main__':
     s.camera_done = False
     s.robot_count = True
     s.try_again = False
+    s.team = 1
+    s.have_voice = True
     # Excel variable
     Excel.create_workbook()
     s.ex_list = []
-
     # Create all components
     s.camera = Camera()
     s.training = Training()
