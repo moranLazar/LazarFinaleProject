@@ -242,6 +242,11 @@ class Camera(threading.Thread):
     def impossible_EX(self):
         self.exercise_two_angles_3d("impossible_EX","Shoulder", "Elbow", "Wrist", 85, 95, 80, 100,
                                     "Elbow","Shoulder", "Wrist", 85, 95, 0, 360, "first", True)
+        
+    def impossible_EX_Adaptive(self):
+        self.exercise_two_angles_3d("impossible_EX_Adaptive","Shoulder", "Elbow", "Wrist", 85, 95, 80, 100,
+                                    "Elbow","Shoulder", "Wrist", 85, 95, 0, 360, "first", True)
+        
     def raise_arms_horizontally(self):
         self.exercise_two_angles_3d("raise_arms_horizontally", "Hip", "Shoulder", "Wrist", 80, 105, 5, 30,
                                     "Shoulder", "Shoulder", "Wrist", 150, 180, 80, 110, "first", True)
