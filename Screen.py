@@ -98,6 +98,26 @@ class EyesPage(tk.Frame):
         self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
         tk.Label(self, image=self.photo_image).pack()
 
+    def __finished_impossible_ex_good__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//finished_impossible_ex_good.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+    
+    def __continue_inter__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//continue_inter.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+
+    def __Alert__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//Alert.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+
+    
+
 class FullScreenApp(object):
     def __init__(self, master, **kwargs):
         self.master = master
