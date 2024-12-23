@@ -4,6 +4,8 @@ import Settings as s
 import Excel
 import random
 from Audio import say
+import Screen as screen
+import Camera as cam
 
 
 class Training(threading.Thread):
@@ -27,10 +29,11 @@ class Training(threading.Thread):
         time.sleep(3)
         self.explaining_Exit_Movment()
         time.sleep(2.5)
+        print("Training: finish waving")
         self.warm_up()
         say('lets start')
         time.sleep(2.5)
-        print("Training: finish waving")
+        print("Training: finish warmup")
         s.poppy_done = False  # AFTER HELLO
         s.camera_done = False  # AFTER HELLO
         if s.team==1:
@@ -77,7 +80,7 @@ class Training(threading.Thread):
     def training_session_interaction_first_adaptive(self):
         print("Training: start exercises")
         # TODO - adding random choice of exercises.
-        exercise_names = ["raise_arms_horizontally","impossible_EX_Adaptive", "bend_elbows", "raise_arms_bend_elbows", "open_and_close_arms", ]
+        exercise_names = ["raise_arms_horizontally","impossible_EX_Adaptive",  "raise_arms_bend_elbows","bend_elbows", "open_and_close_arms" ]
         for e in exercise_names:
             time.sleep(2) # wait between exercises
             self.run_exercise(e)
@@ -88,7 +91,7 @@ class Training(threading.Thread):
     def training_session_interaction_first(self):
         print("Training: start exercises")
         # TODO - adding random choice of exercises.
-        exercise_names = ["raise_arms_horizontally","impossible_EX", "bend_elbows", "raise_arms_bend_elbows", "open_and_close_arms"]
+        exercise_names = ["raise_arms_horizontally","impossible_EX", "raise_arms_bend_elbows", "bend_elbows", "open_and_close_arms"]
         for e in exercise_names:
             time.sleep(2) # wait between exercises
             self.run_exercise(e)
@@ -119,24 +122,123 @@ class Training(threading.Thread):
                 time.sleep(1)
 
     def finish_workout(self):
-        say('goodbye')
+        if s.have_voice:
+         say('goodbye')
+        else:
+         screen.How_Hardware() #screen goodbye
         s.finish_workout = True
         Excel.success_worksheet()
         Excel.close_workbook()
         time.sleep(10)
         s.screen.quit()
         print("TRAINING DONE")
-
-    def run_exercise(self, name, hand='',):
+    
+    def impossible_EX_func(self):
+        print("Waiting for 2 minutes before exiting")
+        for _ in range(120):  # Wait for 2 minutes in 1-second intervals
+              if(s.have_voice==True):
+                if cam.check_hello_wave():  # Continuously check for hello_wave this is the situation when he does have voice and the user manage to solve it
+                 say('finished_impossible_ex_good')
+                 time.sleep(3)
+                 print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
+                 return
+                else:  #this situation is when he does have voice and the user didnt manage to solve the  inter problem
+                 say('continue_inter')
+                 print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
+                 return
+              else: # the user faild the hardware problem 
+                if (cam.check_hello_wave()):  # Continuously check for hello_wave
+                    screen.switch_frame()
+                    time.sleep(2)
+                    screen.finished_impossible_ex_good()
+                    time.sleep(2)
+                    print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
+                    return
+                else:
+                    time.sleep(2)
+                    screen.switch_frame()
+                    time.sleep(2)
+                    screen.continue_inter()
+                    print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
+                    return
+        time.sleep(1)  # Sleep for 1 second between checks
+    # Exit after the final waiting period
+        print("Exiting impossible_EX after 2 minutes.")
+    
+    def impossible_EX_Adaptive_func(self):
+        print("Waiting for 1 minute before issuing 'what_inter'")
+        for _ in range(60):  # Wait for 1 minute in 1-second intervals
+            if(s.have_voice==True):
+                say('what_inter')
+                time.sleep(3)
+                if cam.check_hello_wave():  # Continuously check for hello_wave
+                 say('finished_impossible_ex_good')
+                 print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
+                 return
+            else:
+                time.sleep(23)
+                screen.switch_frame()
+                time.sleep(2)
+                screen.what_inter()
+                if cam.check_hello_wave():  # Continuously check for hello_wave
+                    time.sleep(2)
+                    screen.switch_frame()
+                    time.sleep(2)
+                    screen.finished_impossible_ex_good()
+                    return
+        print("Waiting for another 1 minute before issuing 'why_inter'")
+        for _ in range(60):  # Wait for another 1 minute in 1-second intervals
+            if(s.have_voice==True):
+                say('why_inter')
+                time.sleep(3)
+                if cam.check_hello_wave():  # Continuously check for hello_wave
+                  say('finished_impossible_ex_good')
+                  print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
+                  return
+                else:
+                  say('continue_inter')
+                  time.sleep(3)
+                  print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
+                  return
+            else:
+                time.sleep(2)
+                screen.switch_frame()
+                time.sleep(2)
+                screen.why_inter()
+                if cam.check_hello_wave():  # Continuously check for hello_wave
+                    screen.switch_frame()
+                    screen.finished_impossible_ex_good()
+                    return
+                else:
+                    screen.switch_frame()
+                    screen.continue_inter()
+                    print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
+                    return
+        print("Exiting impossible_EX_adaptive after 2 minutes.")
+        return
+    
+    def run_exercise(self, name, hand=''):
         s.success_exercise = False
         print("TRAINING: Exercise ", name, " start")
+        if name=="impossible_EX":
+            self.impossible_EX_func()
+        if name=="impossible_EX_Adaptive":
+            self.impossible_EX_Adaptive_func()
         if(name=="bend_elbows"):
             s.Have_voice=False
-            s.Time_to_check_voice(s.team,s.have_voice)
-        if(self.have_voice==True and name!="bend_elbows"):
+            self.Time_to_check_voice(s.team,s.have_voice)
+            if s.Have_voice==True:
+                 say(name+hand)
+                 time.sleep(3)  # Delay the robot movement after the audio is played
+            else :
+                screen.switch_frame()
+                time.sleep(2)
+                screen.What_To_wirte (name)
+            time.sleep(3)  # Delay the robot movement after the audio is played
+        elif(s.have_voice==True and name!="bend_elbows" and name !="impossible_EX" and name !="impossible_EX_Adaptive"):
             say(name+hand)
             time.sleep(3)  # Delay the robot movement after the audio is played
-        if(self.have_voice!=True and name!="bend_elbows"):
+        elif(s.have_voice!=True and name!="bend_elbows" and name !="impossible_EX" and name !="impossible_EX_Adaptive"):
             s.switch_frame()
             time.sleep(2)
             s.What_To_wirte (name)
@@ -154,7 +256,7 @@ class Training(threading.Thread):
     
     def What_To_wirte (name):
         if (name=='bend_elbows'):
-            s.bebend_elbows()
+            s.bend_elbows()
         if(name=='raise_arms_bend_elbows'):
             s.raise_arms_bend_elbows()
         if(name=='impossible_EX' or name=='impossible_EX_Adaptive'):
@@ -164,58 +266,57 @@ class Training(threading.Thread):
         if(name=='raise_arms_forward'):
             s.raise_arms_forward()
             
-    def Time_to_check_voice(team):
-     s.switch_frame()
+    def Time_to_check_voice(team,have_voice):
+     screen.switch_frame()
      time.sleep(2)
-     s.How_HardWare()
-     s.Alert()
+     screen.Alert()
+     time.sleep(15)
+     screen.switch_frame()
      time.sleep(2)
-     s.How_HardWare()
+     screen.How_HardWare()
+     time.sleep(2)
      print("Waiting for 1 minute before issuing 'what_inter'")
      if s.team == 1 or s.team == 3:
         for _ in range(40):  # Wait for 40 sec in 1-second intervals
             if s.Fake_speaker:  # Continuously check for port output
                 say('Fix_Hardware_Good')
-                print("Finished hardware problem")
+                print("how Finished hardware problem")
                 s.have_voice=True
-                return    
-        for _ in range(40):  # Wait for 40 sec in 1-second intervals
-            s.switch_frame()
-            time.sleep(2)
-            s.What_Hardware()
-            if s.s.Fake_speaker:  # Continuously check for port output
-                say('Fix_Hardware_Good')
-                print("Finished hardware problem")
-                s.have_voice=True
-                return    
-        for _ in range(40):  # Wait for 40 sec in 1-second intervals
-            s.switch_frame()
-            time.sleep(2)
-            s.Why_Hardware()
-            if s.s.Fake_speaker:  # Continuously check for port output
-                say('Fix_Hardware_Good')
-                print("Finished hardware problem")
-                s.have_voice=True
-                return
-        s.switch_frame()
+                return have_voice
+        screen.switch_frame()
         time.sleep(2)
-        s.Continue()
+        screen.What_Hardware()
+        for _ in range(40):  # Wait for 40 sec in 1-second intervals
+            if  s.Fake_speaker:  # Continuously check for port output
+                say('Fix_Hardware_Good')
+                print("what Finished hardware problem")
+                s.have_voice=True
+                return  have_voice
+        screen.switch_frame()
+        time.sleep(2)
+        screen.Why_Hardware()
+        for _ in range(40):  # Wait for 40 sec in 1-second intervals
+            if s.Fake_speaker:  # Continuously check for port output
+                say('Fix_Hardware_Good')
+                print("why Finished hardware problem")
+                s.have_voice=True
+                return have_voice
+        screen.switch_frame()
+        time.sleep(2)
+        screen.Continue()
         return
      else:
         for _ in range(120):  # Wait for 120 sec in 1-second intervals
-            s.switch_frame()
-            time.sleep(2)
-            s.How_HardWare()
-            if s.Fake_speaker:  # Continuously check for hello_wave
+            if s.Fake_speaker:  # Continuously check for port output
                 say('Fix_Hardware_Good')
                 print("Finished hardware problem")
                 s.have_voice=True
-                return
-        s.switch_frame()
+                return s.have_voice
+        screen.switch_frame()
         time.sleep(2)
-        s.Continue()
-        return
-
+        screen.Continue()
+        return 
+     
 if __name__ == "__main__":
     # Create all components
     from Camera import Camera
