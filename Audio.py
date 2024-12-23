@@ -43,8 +43,6 @@ if __name__ == '__main__':
     language = 'Hebrew'
     gender = 'male'
     s.audio_path = 'audio files/' + language + '/' + gender + '/'
-
     # audio = Audio()
-    # audio.say('raise arms forward')
     say("open_and_close_arms_90_one_hand_false")
     time.sleep(5)

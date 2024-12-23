@@ -24,7 +24,7 @@ class Screen(tk.Tk):
         self._frame = new_frame
         self._frame.pack()
 
-
+##### need to make sure all paths are good##############
 class EyesPage(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master)
@@ -32,6 +32,91 @@ class EyesPage(tk.Frame):
         self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
         tk.Label(self, image=self.photo_image).pack()
 
+    def __How_Hardware__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//How_Hardware.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+    
+    def __What_Hardware__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//What_Hardware.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+
+    def __Why_Hardware__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//Why_Hardware.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+
+    def __What_inter__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//What_inter.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+
+    def __Why_inter__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//Why_inter.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+    
+    def __Continue__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//Continue.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+
+    def __impossible_EX__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//impossible_EX.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+
+    def __bend_elbows__(self, master): 
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//bend_elbows.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+
+    def __raise_arms_forward__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//raise_arms_forward.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+
+    def __open_and_close_arms__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//open_and_close_arms.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+    
+    def __raise_arms_bend_elbows__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//raise_arms_bend_elbows.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+
+    def __finished_impossible_ex_good__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//finished_impossible_ex_good.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+    
+    def __continue_inter__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//continue_inter.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+
+    def __Alert__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//Alert.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+
+    
 
 class FullScreenApp(object):
     def __init__(self, master, **kwargs):

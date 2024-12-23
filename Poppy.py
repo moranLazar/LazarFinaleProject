@@ -3,14 +3,15 @@ from pypot.creatures import PoppyTorso
 import time
 import Settings as s
 from Audio import say
+import Screen as screen
 
 
 class Poppy(threading.Thread):
 
     def __init__(self):
         threading.Thread.__init__(self)
-        self.poppy = PoppyTorso()  # for real robot
-        # self.poppy = PoppyTorso(simulator='vrep')  # for simulator
+        #self.poppy = PoppyTorso()  # for real robot
+        self.poppy = PoppyTorso(simulator='vrep')  # for simulator
         print("ROBOT INITIALIZATION")
         for m in self.poppy.motors:  # motors need to be initialized, False=stiff, True=loose
             m.compliant = False
@@ -49,8 +50,6 @@ class Poppy(threading.Thread):
                 getattr(self, ex)(i)
                 if s.success_exercise:
                     break
-
-
     def hello_waving(self):
         self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)
         self.poppy.r_elbow_y.goto_position(-20, 1.5, wait=False)
@@ -65,6 +64,71 @@ class Poppy(threading.Thread):
         self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
         self.poppy.r_arm_z.goto_position(0, 1.5, wait=False)
 
+    #impossible EX  
+    def impossible_EX(self):
+    # Step 1: Raise arms to a 90-degree angle from the armpit
+        print("Step 1: Lifting arms to 90 degrees")
+        self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False)  # Left shoulder to 90 degrees
+        self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)  # Right shoulder to -90 degrees
+        time.sleep(1.5)
+
+    # Step 2: Bend elbows to a 90-degree angle
+        print("Step 2: Bending elbows to 90 degrees")
+        self.poppy.l_elbow_y.goto_position(-90, 1.5, wait=False)  # Left elbow to -90 degrees
+        self.poppy.r_elbow_y.goto_position(-90, 1.5, wait=False)  # Right elbow to -90 degrees
+        time.sleep(1.5)
+
+    # Step 3: Rotate elbows to simulate a 360-degree motion
+        print("Step 3: Rotating elbows 360 degrees")
+        for _ in range(2):  # Two full rotations
+            self.poppy.l_elbow_y.goto_position(90, 1.0, wait=False)  # Rotate left elbow forward
+            self.poppy.r_elbow_y.goto_position(90, 1.0, wait=False)  # Rotate right elbow forward
+            time.sleep(1.0)
+            self.poppy.l_elbow_y.goto_position(-90, 1.0, wait=False)  # Rotate left elbow back
+            self.poppy.r_elbow_y.goto_position(-90, 1.0, wait=False)  # Rotate right elbow back
+            time.sleep(1.0)
+
+    # Return to the initial position
+        print("Returning to initial position")
+        self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False)  # Left shoulder to neutral
+        self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)  # Right shoulder to neutral
+        self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False)  # Left elbow to 90 degrees
+        self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)  # Right elbow to 90 degrees
+        time.sleep(3)
+
+
+    #impossible EX ADAPTIVE 
+    def impossible_EX_Adaptive(self):
+    # Step 1: Raise arms to a 90-degree angle from the armpit
+        print("Step 1: Lifting arms to 90 degrees")
+        self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False)  # Left shoulder to 90 degrees
+        self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)  # Right shoulder to -90 degrees
+        time.sleep(1.5)
+
+    # Step 2: Bend elbows to a 90-degree angle
+        print("Step 2: Bending elbows to 90 degrees")
+        self.poppy.l_elbow_y.goto_position(-90, 1.5, wait=False)  # Left elbow to -90 degrees
+        self.poppy.r_elbow_y.goto_position(-90, 1.5, wait=False)  # Right elbow to -90 degrees
+        time.sleep(1.5)
+
+    # Step 3: Rotate elbows to simulate a 360-degree motion
+        print("Step 3: Rotating elbows 360 degrees")
+        for _ in range(2):  # Two full rotations
+            self.poppy.l_elbow_y.goto_position(90, 1.0, wait=False)  # Rotate left elbow forward
+            self.poppy.r_elbow_y.goto_position(90, 1.0, wait=False)  # Rotate right elbow forward
+            time.sleep(1.0)
+            self.poppy.l_elbow_y.goto_position(-90, 1.0, wait=False)  # Rotate left elbow back
+            self.poppy.r_elbow_y.goto_position(-90, 1.0, wait=False)  # Rotate right elbow back
+            time.sleep(1.0)
+
+    # Return to the initial position
+        print("Returning to initial position")
+        self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False)  # Left shoulder to neutral
+        self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)  # Right shoulder to neutral
+        self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False)  # Left elbow to 90 degrees
+        self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)  # Right elbow to 90 degrees
+        time.sleep(1.5)
+        
     # EX1 - Raise arms horizontally
     def raise_arms_horizontally(self, counter):
         hands_up = [self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False),
@@ -213,7 +277,7 @@ class Poppy(threading.Thread):
         if s.robot_count:
             say(str(counter + 1))
         time.sleep(1)
-        if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
+        if counter == 4 or s.success_exercise:  # need to change it to constant
             self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
             self.poppy.l_elbow_y.goto_position(90, 1.5, wait=True)
             self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
@@ -262,9 +326,10 @@ class Poppy(threading.Thread):
         self.poppy.r_arm_z.goto_position(0, 1.5, wait=False)
         self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
         self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
-        if s.robot_count:
+        if s.robot_count==4:
             say(str(counter + 1))
         time.sleep(1)
+        return
 
     # EX 6 raise_arms_forward - one hand
     def raise_arms_forward_one_hand(self, counter):
