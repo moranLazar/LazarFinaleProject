@@ -238,15 +238,7 @@ class Camera(threading.Thread):
             self.classify_performance(list_joints, exercise_name, 6, 7, counter)
         s.ex_list.append([exercise_name, counter])
         Excel.wf_joints(exercise_name, list_joints)
-
-    def impossible_EX(self):
-        self.exercise_two_angles_3d("impossible_EX","Shoulder", "Elbow", "Wrist", 85, 95, 80, 100,
-                                    "Elbow","Shoulder", "Wrist", 85, 95, 0, 360, "first", True)
-        
-    def impossible_EX_Adaptive(self):
-        self.exercise_two_angles_3d("impossible_EX_Adaptive","Shoulder", "Elbow", "Wrist", 85, 95, 80, 100,
-                                    "Elbow","Shoulder", "Wrist", 85, 95, 0, 360, "first", True)
-        
+  
     def raise_arms_horizontally(self):
         self.exercise_two_angles_3d("raise_arms_horizontally", "Hip", "Shoulder", "Wrist", 80, 105, 5, 30,
                                     "Shoulder", "Shoulder", "Wrist", 150, 180, 80, 110, "first", True)
@@ -286,7 +278,6 @@ class Camera(threading.Thread):
         self.exercise_two_angles_3d("raise_arms_forward_one_hand", "Wrist", "Shoulder", "Hip", 85, 135, 10, 50,
                                    "Shoulder", "Shoulder", "Wrist", 80, 115, 80, 115, "first", True)
     def check_hello_wave(self):
-    
         print("Checking for hello_wave motion...")
         joints = self.get_skeleton_data()  # Fetch skeleton data
         if joints is not None:
