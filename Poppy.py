@@ -65,7 +65,7 @@ class Poppy(threading.Thread):
         self.poppy.r_arm_z.goto_position(0, 1.5, wait=False)
 
     #impossible EX  
-    def impossible_EX(self, counter):
+    def impossible_EX(self):
     # Step 1: Raise arms to a 90-degree angle from the armpit
         print("Step 1: Lifting arms to 90 degrees")
         self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False)  # Left shoulder to 90 degrees
@@ -94,20 +94,37 @@ class Poppy(threading.Thread):
         self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)  # Right shoulder to neutral
         self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False)  # Left elbow to 90 degrees
         self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)  # Right elbow to 90 degrees
-        time.sleep(1.5)
-    # Step 3: Wait 4 minutes and check for hello_wave()
-        print("Waiting for 4 minutes before exiting")
-        for _ in range(240):  # Wait for 2 minutes in 1-second intervals
-            if self.check_hello_wave():  # Continuously check for hello_wave
-                say('finished_impossible_ex_good')
-                print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
-                return
-            time.sleep(1)  # Sleep for 1 second between checks
+        time.sleep(3)
+    # Step 3: Wait 2 minutes and check for hello_wave()
+        print("Waiting for 2 minutes before exiting")
+        for _ in range(120):  # Wait for 2 minutes in 1-second intervals
+            if(s.have_voice==True):
+                if self.check_hello_wave():  # Continuously check for hello_wave
+                 say('finished_impossible_ex_good')
+                 time.sleep(3)
+                 print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
+                 return
+                else:
+                 say('continue_inter')
+                 print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
+                 return
+            else:
+                if (self.check_hello_wave()):  # Continuously check for hello_wave
+                    screen.switswitch_frame()
+                    screen.finished_impossible_ex_good()
+                    print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
+                    return
+                else:
+                    screen.switswitch_frame()
+                    screen.continue_inter()
+                    print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
+                    return
+        time.sleep(1)  # Sleep for 1 second between checks
     # Exit after the final waiting period
         print("Exiting impossible_EX after 4 minutes.")
 
     #impossible EX ADAPTIVE 
-    def impossible_EX_Adaptive(self, counter):
+    def impossible_EX_Adaptive(self):
     # Step 1: Raise arms to a 90-degree angle from the armpit
         print("Step 1: Lifting arms to 90 degrees")
         self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False)  # Left shoulder to 90 degrees
@@ -141,36 +158,61 @@ class Poppy(threading.Thread):
     # Step 4: Wait and check for hello_wave() during the waiting periods
         print("Waiting for 1 minute before issuing 'what_inter'")
         for _ in range(60):  # Wait for 1 minute in 1-second intervals
-            if self.check_hello_wave():  # Continuously check for hello_wave
+            if(s.have_voice==True):
+                say('what_inter')
+                time.sleep(3)
+                if self.check_hello_wave():  # Continuously check for hello_wave
                  say('finished_impossible_ex_good')
-                 print("Hello_wave motion detected during waiting period. Ending impossible_EX.")
+                 print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
                  return
-            time.sleep(1)  # Sleep for 1 second between checks
-        if(s.Have_voice):
-         say("what_inter")
-        else:
+            else:
                 screen.switswitch_frame()
-                screen.What_Hardware()
+                screen.what_inter()
+                if self.check_hello_wave():  # Continuously check for hello_wave
+                    screen.switswitch_frame()
+                    screen.finished_impossible_ex_good()
+                    return
         print("Waiting for another 1 minute before issuing 'why_inter'")
         for _ in range(60):  # Wait for another 1 minute in 1-second intervals
-            if self.check_hello_wave():  # Continuously check for hello_wave
-                say('finished_impossible_ex_good')
-                print("Hello_wave motion detected during second waiting period. Ending impossible_EX.")
-                return
-            time.sleep(1)  # Sleep for 1 second between checks
-        if(s.Have_voice):
-          say("why_inter")
-        else:
-            screen.switswitch_frame()
-            screen.Why_Hardware()
+            if(s.have_voice==True):
+                say('why_inter')
+                time.sleep(3)
+                if self.check_hello_wave():  # Continuously check for hello_wave
+                 say('finished_impossible_ex_good')
+                 print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
+                 return
+            else:
+                screen.switswitch_frame()
+                screen.why_inter()
+                if self.check_hello_wave():  # Continuously check for hello_wave
+                    screen.switswitch_frame()
+                    screen.finished_impossible_ex_good()
+                    return
     # Step 5: Wait 2 minutes and check for hello_wave()
         print("Waiting for 2 minutes before exiting")
         for _ in range(120):  # Wait for 2 minutes in 1-second intervals
-            if self.check_hello_wave():  # Continuously check for hello_wave
-                say('finished_impossible_ex_good')
-                print("Hello_wave motion detected during final waiting period. Ending impossible_EX_Adaptive.")
-                return
-            time.sleep(1)  # Sleep for 1 second between checks
+            if(s.have_voice==True):
+                if self.check_hello_wave():  # Continuously check for hello_wave
+                 say('finished_impossible_ex_good')
+                 time.sleep(3)
+                 print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
+                 return
+                else:
+                 say('continue_inter')
+                 time.sleep(3)
+                 print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
+                 return
+            else:
+                if self.check_hello_wave():  # Continuously check for hello_wave
+                    screen.switswitch_frame()
+                    screen.finished_impossible_ex_good()
+                    print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
+                    return
+                else:
+                    screen.switswitch_frame()
+                    screen.continue_inter()
+                    print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
+                    return
     # Exit after the final waiting period
         print("Exiting impossible_EX_adaptive after 2 minutes.")
     # EX1 - Raise arms horizontally
@@ -321,7 +363,7 @@ class Poppy(threading.Thread):
         if s.robot_count:
             say(str(counter + 1))
         time.sleep(1)
-        if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
+        if counter == 4 or s.success_exercise:  # need to change it to constant
             self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
             self.poppy.l_elbow_y.goto_position(90, 1.5, wait=True)
             self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
@@ -370,9 +412,10 @@ class Poppy(threading.Thread):
         self.poppy.r_arm_z.goto_position(0, 1.5, wait=False)
         self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
         self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
-        if s.robot_count:
+        if s.robot_count==4:
             say(str(counter + 1))
         time.sleep(1)
+        return
 
     # EX 6 raise_arms_forward - one hand
     def raise_arms_forward_one_hand(self, counter):
