@@ -6,7 +6,7 @@ import random
 from Audio import say
 import Screen as screen
 import Camera as cam
-
+import os
 
 class Training(threading.Thread):
     def __init__(self):
@@ -265,8 +265,15 @@ class Training(threading.Thread):
             s.open_and_close_arms()
         if(name=='raise_arms_forward'):
             s.raise_arms_forward()
-            
-    def Time_to_check_voice(team,have_voice):
+
+    def is_speaker_Active(self,Fake_speaker) :
+        csv_path = False ### put the correct path from your computer 
+         # Check if the CSV file exists
+        if os.path.exists(csv_path):
+            Fake_speaker=True
+            return Fake_speaker
+
+    def Time_to_check_voice(team,have_voice,Fake_speaker):
      screen.switch_frame()
      time.sleep(2)
      screen.Alert()
@@ -278,6 +285,7 @@ class Training(threading.Thread):
      print("Waiting for 1 minute before issuing 'what_inter'")
      if s.team == 1 or s.team == 3:
         for _ in range(40):  # Wait for 40 sec in 1-second intervals
+            s.is_speaker_Active(Fake_speaker)
             if s.Fake_speaker:  # Continuously check for port output
                 say('Fix_Hardware_Good')
                 print("how Finished hardware problem")
@@ -287,6 +295,7 @@ class Training(threading.Thread):
         time.sleep(2)
         screen.What_Hardware()
         for _ in range(40):  # Wait for 40 sec in 1-second intervals
+            s.is_speaker_Active(Fake_speaker)
             if  s.Fake_speaker:  # Continuously check for port output
                 say('Fix_Hardware_Good')
                 print("what Finished hardware problem")
@@ -296,6 +305,7 @@ class Training(threading.Thread):
         time.sleep(2)
         screen.Why_Hardware()
         for _ in range(40):  # Wait for 40 sec in 1-second intervals
+            s.is_speaker_Active(Fake_speaker)
             if s.Fake_speaker:  # Continuously check for port output
                 say('Fix_Hardware_Good')
                 print("why Finished hardware problem")
@@ -307,6 +317,7 @@ class Training(threading.Thread):
         return
      else:
         for _ in range(120):  # Wait for 120 sec in 1-second intervals
+            s.is_speaker_Active(Fake_speaker)
             if s.Fake_speaker:  # Continuously check for port output
                 say('Fix_Hardware_Good')
                 print("Finished hardware problem")
