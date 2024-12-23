@@ -26,6 +26,7 @@ def __init__():
     global team #he is team 2,if he started with interaction malfunction first and adaptive explenation he is team 1,if he started with interaction malfunction first he is 2 
     # if he started with hardware malfunction first and adaptive explanation, he is team 3,if he started with hardware malfunction first he is team 4
     global have_voice 
+    global Fake_speaker ### change if it needed
 
     # audio variables
     global audio_path
