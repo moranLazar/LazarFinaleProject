@@ -10,8 +10,8 @@ class Poppy(threading.Thread):
 
     def __init__(self):
         threading.Thread.__init__(self)
-        #self.poppy = PoppyTorso()  # for real robot
-        self.poppy = PoppyTorso(simulator='vrep')  # for simulator
+        self.poppy = PoppyTorso(camera="dummy")  # for real robot
+        #self.poppy = PoppyTorso(simulator='vrep')  # for simulator
         print("ROBOT INITIALIZATION")
         for m in self.poppy.motors:  # motors need to be initialized, False=stiff, True=loose
             m.compliant = False
@@ -352,7 +352,7 @@ class Poppy(threading.Thread):
 
 if __name__ == "__main__":
     s.rep = 3
-    s.robot_count = True
+    s.robot_count = False
     s.success_exercise = False
     s.finish_workout = False
     s.one_hand = 'left'

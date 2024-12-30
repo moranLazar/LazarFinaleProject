@@ -342,7 +342,7 @@ if __name__ == "__main__":
     s.finish_workout = False
     s.rep = 8 #todo change to 8
     s.req_exercise = ""
-    s.robot_count = True
+    s.robot_count = False
 
     # Adaptation variables
     s.adaptive = True
