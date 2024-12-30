@@ -27,7 +27,7 @@ class Training(threading.Thread):
                 time.sleep(0.00000001)
                 continue
         time.sleep(3)
-        self.explaining_Exit_Movment()
+        self.explaining_Exit_Movment("check_hello_wave")
         time.sleep(2.5)
         print("Training: finish waving")
         self.warm_up()
@@ -59,17 +59,14 @@ class Training(threading.Thread):
                 time.sleep(1)
         say('end_warm_up')
 
-    def explaining_Exit_Movment(self):
+    def explaining_Exit_Movment(self,name, hand=''):
         say('how_inter')
         time.sleep(6) ######## we need to find out what is the right time with this specific Audio
+        say('wave_for_me')
+        time.sleep(3) 
         print("explaining how to make the robot go next")
-        self.run_exercise("hello_check_hello_wave") 
+        self.run_exercise("check_hello_wave") 
         print("showing the right motion")
-        while not s.waved:
-            time.sleep(0.00000001)  # Prevents the MP to stuck
-            continue
-        s.waved = False # set as False again for future
-        time.sleep(3)
         say('very good') ###### change the command or record the right one 
         time.sleep(2.5)
         print("finished the explanation")
@@ -342,7 +339,7 @@ if __name__ == "__main__":
     s.finish_workout = False
     s.rep = 8 #todo change to 8
     s.req_exercise = ""
-    s.robot_count = False
+    s.robot_count = True
 
     # Adaptation variables
     s.adaptive = True

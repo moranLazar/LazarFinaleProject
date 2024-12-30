@@ -7,7 +7,6 @@ import pandas as pd
 import numpy as np
 from statistics import mean, stdev
 import datetime
-
 # internal imports
 from MP import MP
 from Joint import Joint
@@ -398,7 +397,7 @@ if __name__ == '__main__':
         s.corrective_feedback = False
         s.one_hand = 'right'
         s.req_exercise = "raise_arms_bend_elbows_one_hand"
-        s.robot_count = False
+        s.robot_count = True
         Excel.create_workbook()
         s.ex_list = []
         s.adaptive = True
