@@ -62,8 +62,10 @@ class Training(threading.Thread):
     def explaining_Exit_Movment(self,name, hand=''):
         say('how_inter')
         time.sleep(6) ######## we need to find out what is the right time with this specific Audio
+        say('wave_for_me')
+        time.sleep(6) 
         print("explaining how to make the robot go next")
-        self.run_exercise("hello_check_hello_wave") 
+        self.run_exercise("check_hello_wave") 
         print("showing the right motion")
         while not s.waved:
             time.sleep(0.00000001)  # Prevents the MP to stuck

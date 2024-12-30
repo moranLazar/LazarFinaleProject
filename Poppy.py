@@ -44,12 +44,24 @@ class Poppy(threading.Thread):
     def exercise_demo(self, ex):
         if ex == "hello_waving":
             self.hello_waving()
+        if ex=="check_hello_wave":
+            self.check_hello_wave()
         else:
             for i in range(s.rep):
                 s.robot_rep = i
                 getattr(self, ex)(i)
                 if s.success_exercise:
                     break
+    
+    def check_hello_wave(self):
+        self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)
+        self.poppy.r_elbow_y.goto_position(-20, 1.5, wait=False)
+        self.poppy.r_arm_z.goto_position(-80, 1.5, wait=False)
+        for i in range(3):
+             self.poppy.r_arm[3].goto_position(-35, 0.6, wait=True)
+             self.poppy.r_arm[3].goto_position(35, 0.6, wait=True)
+        self.finish_waving()
+
     def hello_waving(self):
         self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)
         self.poppy.r_elbow_y.goto_position(-20, 1.5, wait=False)
