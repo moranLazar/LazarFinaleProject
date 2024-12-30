@@ -344,7 +344,7 @@ class Training(threading.Thread):
         time.sleep(2)
         screen.Continue()
         return 
-     
+        
 if __name__ == "__main__":
     # Create all components
     from Camera import Camera

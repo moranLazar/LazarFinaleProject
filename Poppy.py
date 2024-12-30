@@ -30,24 +30,28 @@ class Poppy(threading.Thread):
         while True:
             if s.req_exercise != "":
                 print(f"Poppy received exercise request: {s.req_exercise}")  # Debug print
-                if s.req_exercise == "open_and_close_arms_90":
-                    print("Executing open_and_close_arms_90...")  # Debug print
-                    self.open_and_close_arms_90()
-                # ... other exercise conditions ...
+                print("Starting exercise demo...")  # Debug print
+                self.exercise_demo(s.req_exercise)  # This will handle the counter properly
+                print("Exercise demo completed")  # Debug print
                 s.req_exercise = ""
+                s.poppy_done = True  # Signal that the robot has completed the exercise
             time.sleep(0.001)
 
     def exercise_demo(self, ex):
+        print(f"Starting exercise demo for: {ex}")  # Debug print
         if ex == "hello_waving":
             self.hello_waving()
-        if ex=="check_hello_wave":
+        elif ex == "check_hello_wave":
             self.check_hello_wave()
         else:
+            print(f"Starting repetitions for {ex}")  # Debug print
             for i in range(s.rep):
+                print(f"Repetition {i+1} of {s.rep}")  # Debug print
                 s.robot_rep = i
                 getattr(self, ex)(i)
                 if s.success_exercise:
                     break
+            print(f"Finished repetitions for {ex}")  # Debug print
     
     def check_hello_wave(self):
         self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)
