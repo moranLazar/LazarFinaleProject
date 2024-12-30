@@ -26,32 +26,32 @@ class Poppy(threading.Thread):
         self.poppy.l_elbow_y.goto_position(90, 1, wait=True)
 
     def run(self):
-        print("ROBOT START")
-        while not s.finish_workout:
-            time.sleep(0.00000001)  # Prevents the MP to stuck
-            if s.req_exercise != "" and not (s.req_exercise=="hello_waving" and s.try_again): # if there is exercise, or hello waving
-                time.sleep(1)
-                print("ROBOT: Exercise ", s.req_exercise, " start")
-                self.exercise_demo(s.req_exercise)
-                print("ROBOT: Exercise ", s.req_exercise, " done")
-                if not s.calibration: #meaning it's the first hello
-                    while not s.waved:
-                        time.sleep(0.01)  # for hello_waiting exercise, wait until user wave
+        print("POPPY START")
+        while True:
+            if s.req_exercise != "":
+                print(f"Poppy received exercise request: {s.req_exercise}")  # Debug print
+                print("Starting exercise demo...")  # Debug print
+                self.exercise_demo(s.req_exercise)  # This will handle the counter properly
+                print("Exercise demo completed")  # Debug print
                 s.req_exercise = ""
-                s.poppy_done = True
-        print("Robot Done")
+                s.poppy_done = True  # Signal that the robot has completed the exercise
+            time.sleep(0.001)
 
     def exercise_demo(self, ex):
+        print(f"Starting exercise demo for: {ex}")  # Debug print
         if ex == "hello_waving":
             self.hello_waving()
-        if ex=="check_hello_wave":
+        elif ex == "check_hello_wave":
             self.check_hello_wave()
         else:
+            print(f"Starting repetitions for {ex}")  # Debug print
             for i in range(s.rep):
+                print(f"Repetition {i+1} of {s.rep}")  # Debug print
                 s.robot_rep = i
                 getattr(self, ex)(i)
                 if s.success_exercise:
                     break
+            print(f"Finished repetitions for {ex}")  # Debug print
     
     def check_hello_wave(self):
         self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)
@@ -296,36 +296,6 @@ class Poppy(threading.Thread):
             self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
             self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False)
             self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)
-
-    # EX5 - open and close arms 90 - one hand
-    def open_and_close_arms_90_one_hand(self, counter):
-        if counter == 0:
-            if s.one_hand == 'right':  # mirror demo
-                self.poppy.l_shoulder_y.goto_position(-90, 1.5, wait=False)
-                self.poppy.l_elbow_y.goto_position(0, 1.5, wait=False)
-            else:
-                self.poppy.r_shoulder_y.goto_position(-90, 1.5, wait=True)
-                self.poppy.r_elbow_y.goto_position(0, 1.5, wait=True)
-        if s.one_hand == 'right':  # mirror demo
-            self.poppy.l_shoulder_x.goto_position(90, 1, wait=False)
-            time.sleep(1.8)
-            self.poppy.l_shoulder_x.goto_position(0, 1, wait=False)
-        else:
-            self.poppy.r_shoulder_x.goto_position(-90, 1, wait=True)
-            time.sleep(1.8)
-            self.poppy.r_shoulder_x.goto_position(0, 1, wait=True)
-        if s.robot_count:
-            say(str(counter + 1))
-        time.sleep(1)
-        if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
-            if s.one_hand == 'right':  # mirror demo
-                self.poppy.l_elbow_y.goto_position(90, 1.5, wait=True)
-                self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
-                self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False)
-            else:
-                self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
-                self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
-                self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)
 
     # EX 6 raise_arms_forward
     def raise_arms_forward(self, counter):

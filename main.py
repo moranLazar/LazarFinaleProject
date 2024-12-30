@@ -53,6 +53,7 @@ if __name__ == '__main__':
     s.camera = Camera()
     s.training = Training()
     s.robot = Poppy()
+    s.robot.start()
     s.Fake_speaker= False ## it will still be false, but its need to get output from port
 
     # Adaptation variables
