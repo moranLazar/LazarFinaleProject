@@ -116,6 +116,13 @@ class EyesPage(tk.Frame):
         self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
         tk.Label(self, image=self.photo_image).pack()
 
+    def __very_good__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//very_good.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+
+
     
 
 class FullScreenApp(object):

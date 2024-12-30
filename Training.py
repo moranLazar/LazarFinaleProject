@@ -247,9 +247,12 @@ class Training(threading.Thread):
         while s.req_exercise == name:
             time.sleep(0.001)  # Prevents the MP to stuck
         print(f"Robot completed exercise: {name}")  # Debug print
-        
-        if s.success_exercise:
+        if s.success_exercise and s.have_voice==True:
             say(self.random_encouragement())
+        if s.success_exercise and s.have_voice!=True:
+            screen.switch_frame()
+            time.sleep(2)
+            screen.very_good()
         print("TRAINING: Exercise ", name, " done")
         time.sleep(1)
 
@@ -257,16 +260,26 @@ class Training(threading.Thread):
         enco = ["well done", "very good", "excellent"]
         return random.choice(enco)
     
-    def What_To_wirte (name):
+    def What_To_wirte (self,name):
         if (name=='bend_elbows'):
+            screen.switch_frame()
+            time.sleep(2)
             s.bend_elbows()
         if(name=='raise_arms_bend_elbows'):
+            screen.switch_frame()
+            time.sleep(2)
             s.raise_arms_bend_elbows()
         if(name=='impossible_EX' or name=='impossible_EX_Adaptive'):
+            screen.switch_frame()
+            time.sleep(2)
             s.impossible_EX()
         if(name=='open_and_close_arms'):
+            screen.switch_frame()
+            time.sleep(2)
             s.open_and_close_arms()
         if(name=='raise_arms_forward'):
+            screen.switch_frame()
+            time.sleep(2)
             s.raise_arms_forward()
             
     def is_speaker_Active(path):
