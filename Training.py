@@ -265,15 +265,11 @@ class Training(threading.Thread):
             s.open_and_close_arms()
         if(name=='raise_arms_forward'):
             s.raise_arms_forward()
-
-    def is_speaker_Active(self,Fake_speaker) :
-        csv_path =True  #r"D:\פרוייקט גמר\project_bullshit_on_its_way.xlsx" ### put the correct path from your computer 
-         # Check if the CSV file exists
-        if os.path.exists(csv_path):
-            Fake_speaker=True
-            return Fake_speaker
-
+    def is_speaker_Active(path):
+     return os.path.exists(path)
+    
     def Time_to_check_voice(team,have_voice,Fake_speaker):
+     csv_path = r"D:\פרוייקט גמר\project_bullshit_on_its_way.xlsx"  # Update with the correct path
      screen.switch_frame()
      time.sleep(2)
      screen.Alert()
