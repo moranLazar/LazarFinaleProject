@@ -265,15 +265,12 @@ class Training(threading.Thread):
             s.open_and_close_arms()
         if(name=='raise_arms_forward'):
             s.raise_arms_forward()
-
-    def is_speaker_Active(self,Fake_speaker) :
-        csv_path =True  #r"D:\פרוייקט גמר\project_bullshit_on_its_way.xlsx" ### put the correct path from your computer 
-         # Check if the CSV file exists
-        if os.path.exists(csv_path):
-            Fake_speaker=True
-            return Fake_speaker
-
+            
+    def is_speaker_Active(path):
+     return os.path.exists(path)
+    
     def Time_to_check_voice(team,have_voice,Fake_speaker):
+     csv_path = r"D:\פרוייקט גמר\project_bullshit_on_its_way.xlsx"  # Update with the correct path
      screen.switch_frame()
      time.sleep(2)
      screen.Alert()
@@ -286,6 +283,7 @@ class Training(threading.Thread):
      if s.team == 1 or s.team == 3:
         for _ in range(40):  # Wait for 40 sec in 1-second intervals
             s.Fake_speaker=s.is_speaker_Active(Fake_speaker)
+            time.sleep(2)
             if s.Fake_speaker:  # Continuously check for port output
                 say('Fix_Hardware_Good')
                 print("how Finished hardware problem")
@@ -296,6 +294,7 @@ class Training(threading.Thread):
         screen.What_Hardware()
         for _ in range(40):  # Wait for 40 sec in 1-second intervals
             s.Fake_speaker=s.is_speaker_Active(Fake_speaker)
+            time.sleep(2)
             if  s.Fake_speaker:  # Continuously check for port output
                 say('Fix_Hardware_Good')
                 print("what Finished hardware problem")
@@ -306,6 +305,7 @@ class Training(threading.Thread):
         screen.Why_Hardware()
         for _ in range(40):  # Wait for 40 sec in 1-second intervals
             s.Fake_speaker=s.is_speaker_Active(Fake_speaker)
+            time.sleep(2)
             if s.Fake_speaker:  # Continuously check for port output
                 say('Fix_Hardware_Good')
                 print("why Finished hardware problem")
@@ -318,6 +318,7 @@ class Training(threading.Thread):
      else:
         for _ in range(120):  # Wait for 120 sec in 1-second intervals
             s.Fake_speaker=s.is_speaker_Active(Fake_speaker)
+            time.sleep(2)
             if s.Fake_speaker:  # Continuously check for port output
                 say('Fix_Hardware_Good')
                 print("Finished hardware problem")
@@ -341,7 +342,7 @@ if __name__ == "__main__":
     s.finish_workout = False
     s.rep = 8 #todo change to 8
     s.req_exercise = ""
-    s.robot_count = True
+    s.robot_count = False
 
     # Adaptation variables
     s.adaptive = True
