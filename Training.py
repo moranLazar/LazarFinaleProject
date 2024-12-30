@@ -27,7 +27,7 @@ class Training(threading.Thread):
                 time.sleep(0.00000001)
                 continue
         time.sleep(3)
-        self.explaining_Exit_Movment()
+        self.explaining_Exit_Movment("check_hello_wave")
         time.sleep(2.5)
         print("Training: finish waving")
         self.warm_up()
@@ -342,7 +342,7 @@ if __name__ == "__main__":
     s.finish_workout = False
     s.rep = 8 #todo change to 8
     s.req_exercise = ""
-    s.robot_count = False
+    s.robot_count = True
 
     # Adaptation variables
     s.adaptive = True

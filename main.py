@@ -42,7 +42,7 @@ if __name__ == '__main__':
     s.training_done = False
     s.poppy_done = False
     s.camera_done = False
-    s.robot_count = False
+    s.robot_count = True
     s.try_again = False
     s.team = 1
     s.have_voice = True

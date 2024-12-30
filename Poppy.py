@@ -352,7 +352,7 @@ class Poppy(threading.Thread):
 
 if __name__ == "__main__":
     s.rep = 3
-    s.robot_count = False
+    s.robot_count = True
     s.success_exercise = False
     s.finish_workout = False
     s.one_hand = 'left'
