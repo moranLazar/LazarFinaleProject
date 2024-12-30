@@ -59,7 +59,7 @@ class Training(threading.Thread):
                 time.sleep(1)
         say('end_warm_up')
 
-    def explaining_Exit_Movment(self):
+    def explaining_Exit_Movment(self,name, hand=''):
         say('how_inter')
         time.sleep(6) ######## we need to find out what is the right time with this specific Audio
         print("explaining how to make the robot go next")
