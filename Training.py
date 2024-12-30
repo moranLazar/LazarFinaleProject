@@ -67,6 +67,7 @@ class Training(threading.Thread):
         print("explaining how to make the robot go next")
         self.run_exercise("check_hello_wave") 
         print("showing the right motion")
+        time.sleep(3)
         say('very good') ###### change the command or record the right one 
         time.sleep(2.5)
         print("finished the explanation")
@@ -234,14 +235,19 @@ class Training(threading.Thread):
             time.sleep(3)  # Delay the robot movement after the audio is played
         elif(s.have_voice==True and name!="bend_elbows" and name !="impossible_EX" and name !="impossible_EX_Adaptive"):
             say(name+hand)
+            print(name + " we reach here")
             time.sleep(3)  # Delay the robot movement after the audio is played
         elif(s.have_voice!=True and name!="bend_elbows" and name !="impossible_EX" and name !="impossible_EX_Adaptive"):
-            s.switch_frame()
+            screen.switch_frame()
             time.sleep(2)
-            s.What_To_wirte (name)
+            screen.What_To_wirte (name)
+        print(f"Setting req_exercise to: {name}")  # Debug print
         s.req_exercise = name
+        print("Waiting for robot to complete exercise...")  # Debug print
         while s.req_exercise == name:
             time.sleep(0.001)  # Prevents the MP to stuck
+        print(f"Robot completed exercise: {name}")  # Debug print
+        
         if s.success_exercise:
             say(self.random_encouragement())
         print("TRAINING: Exercise ", name, " done")

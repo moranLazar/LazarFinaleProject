@@ -26,20 +26,16 @@ class Poppy(threading.Thread):
         self.poppy.l_elbow_y.goto_position(90, 1, wait=True)
 
     def run(self):
-        print("ROBOT START")
-        while not s.finish_workout:
-            time.sleep(0.00000001)  # Prevents the MP to stuck
-            if s.req_exercise != "" and not (s.req_exercise=="hello_waving" and s.try_again): # if there is exercise, or hello waving
-                time.sleep(1)
-                print("ROBOT: Exercise ", s.req_exercise, " start")
-                self.exercise_demo(s.req_exercise)
-                print("ROBOT: Exercise ", s.req_exercise, " done")
-                if not s.calibration: #meaning it's the first hello
-                    while not s.waved:
-                        time.sleep(0.01)  # for hello_waiting exercise, wait until user wave
+        print("POPPY START")
+        while True:
+            if s.req_exercise != "":
+                print(f"Poppy received exercise request: {s.req_exercise}")  # Debug print
+                if s.req_exercise == "open_and_close_arms_90":
+                    print("Executing open_and_close_arms_90...")  # Debug print
+                    self.open_and_close_arms_90()
+                # ... other exercise conditions ...
                 s.req_exercise = ""
-                s.poppy_done = True
-        print("Robot Done")
+            time.sleep(0.001)
 
     def exercise_demo(self, ex):
         if ex == "hello_waving":
@@ -360,6 +356,12 @@ class Poppy(threading.Thread):
         if s.robot_count:
             say(str(counter + 1))
         time.sleep(1)
+
+    def open_and_close_arms_90(self):
+        print("Starting open_and_close_arms_90 movement")  # Debug print
+        # Your movement code here
+        s.req_exercise = ""
+        print("Completed open_and_close_arms_90 movement")  # Debug print
 
 
 if __name__ == "__main__":
