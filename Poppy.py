@@ -293,36 +293,6 @@ class Poppy(threading.Thread):
             self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False)
             self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)
 
-    # EX5 - open and close arms 90 - one hand
-    def open_and_close_arms_90_one_hand(self, counter):
-        if counter == 0:
-            if s.one_hand == 'right':  # mirror demo
-                self.poppy.l_shoulder_y.goto_position(-90, 1.5, wait=False)
-                self.poppy.l_elbow_y.goto_position(0, 1.5, wait=False)
-            else:
-                self.poppy.r_shoulder_y.goto_position(-90, 1.5, wait=True)
-                self.poppy.r_elbow_y.goto_position(0, 1.5, wait=True)
-        if s.one_hand == 'right':  # mirror demo
-            self.poppy.l_shoulder_x.goto_position(90, 1, wait=False)
-            time.sleep(1.8)
-            self.poppy.l_shoulder_x.goto_position(0, 1, wait=False)
-        else:
-            self.poppy.r_shoulder_x.goto_position(-90, 1, wait=True)
-            time.sleep(1.8)
-            self.poppy.r_shoulder_x.goto_position(0, 1, wait=True)
-        if s.robot_count:
-            say(str(counter + 1))
-        time.sleep(1)
-        if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
-            if s.one_hand == 'right':  # mirror demo
-                self.poppy.l_elbow_y.goto_position(90, 1.5, wait=True)
-                self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
-                self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False)
-            else:
-                self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
-                self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
-                self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)
-
     # EX 6 raise_arms_forward
     def raise_arms_forward(self, counter):
         self.poppy.l_shoulder_y.goto_position(-90, 1.5, wait=False)
@@ -356,12 +326,6 @@ class Poppy(threading.Thread):
         if s.robot_count:
             say(str(counter + 1))
         time.sleep(1)
-
-    def open_and_close_arms_90(self):
-        print("Starting open_and_close_arms_90 movement")  # Debug print
-        # Your movement code here
-        s.req_exercise = ""
-        print("Completed open_and_close_arms_90 movement")  # Debug print
 
 
 if __name__ == "__main__":
