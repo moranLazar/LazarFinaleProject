@@ -277,7 +277,7 @@ class Poppy(threading.Thread):
         if s.robot_count:
             say(str(counter + 1))
         time.sleep(1)
-        if counter == 4 or s.success_exercise:  # need to change it to constant
+        if counter >= s.rep-1 or s.success_exercise:  # need to change it to constant
             self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
             self.poppy.l_elbow_y.goto_position(90, 1.5, wait=True)
             self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
@@ -326,7 +326,7 @@ class Poppy(threading.Thread):
         self.poppy.r_arm_z.goto_position(0, 1.5, wait=False)
         self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
         self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
-        if s.robot_count==4:
+        if s.robot_count:
             say(str(counter + 1))
         time.sleep(1)
         return
