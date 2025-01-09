@@ -7,7 +7,7 @@ from Audio import say
 import Screen as screen
 import Camera as cam
 import os
-
+######### this is the correct one lazars
 class Training(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
@@ -138,7 +138,8 @@ class Training(threading.Thread):
         print("Waiting for 2 minutes before exiting")
         for _ in range(120):  # Wait for 2 minutes in 1-second intervals
               if(s.have_voice==True):
-                if cam.check_hello_wave():  # Continuously check for hello_wave this is the situation when he does have voice and the user manage to solve it
+                cam.Waiving()
+                if s.wave==True :  # Continuously check for hello_wave this is the situation when he does have voice and the user manage to solve it
                  say('finished_impossible_ex_good')
                  time.sleep(3)
                  print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
@@ -148,7 +149,8 @@ class Training(threading.Thread):
                  print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
                  return
               else: # the user faild the hardware problem 
-                if (cam.check_hello_wave()):  # Continuously check for hello_wave
+                cam.Waiving()
+                if s.wave==True :  # Continuously check for hello_wave
                     screen.switch_frame()
                     time.sleep(2)
                     screen.finished_impossible_ex_good()
@@ -172,7 +174,8 @@ class Training(threading.Thread):
             if(s.have_voice==True):
                 say('what_inter')
                 time.sleep(3)
-                if cam.check_hello_wave():  # Continuously check for hello_wave
+                cam.Waiving()
+                if s.wave==True :  # Continuously check for hello_wave
                  say('finished_impossible_ex_good')
                  print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
                  return
@@ -181,7 +184,8 @@ class Training(threading.Thread):
                 screen.switch_frame()
                 time.sleep(2)
                 screen.what_inter()
-                if cam.check_hello_wave():  # Continuously check for hello_wave
+                cam.Waiving()
+                if s.wave==True :  # Continuously check for hello_wave
                     time.sleep(2)
                     screen.switch_frame()
                     time.sleep(2)
@@ -192,7 +196,8 @@ class Training(threading.Thread):
             if(s.have_voice==True):
                 say('why_inter')
                 time.sleep(3)
-                if cam.check_hello_wave():  # Continuously check for hello_wave
+                cam.Waiving()
+                if s.wave==True :  # Continuously check for hello_wave
                   say('finished_impossible_ex_good')
                   print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
                   return
@@ -206,7 +211,8 @@ class Training(threading.Thread):
                 screen.switch_frame()
                 time.sleep(2)
                 screen.why_inter()
-                if cam.check_hello_wave():  # Continuously check for hello_wave
+                cam.Waiving()
+                if s.wave==True :  # Continuously check for hello_wave
                     screen.switch_frame()
                     screen.finished_impossible_ex_good()
                     return

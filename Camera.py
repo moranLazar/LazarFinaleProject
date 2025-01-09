@@ -276,18 +276,35 @@ class Camera(threading.Thread):
     def raise_arms_forward_one_hand(self):
         self.exercise_two_angles_3d("raise_arms_forward_one_hand", "Wrist", "Shoulder", "Hip", 85, 135, 10, 50,
                                    "Shoulder", "Shoulder", "Wrist", 80, 115, 80, 115, "first", True)
-    def check_hello_wave(self):
-        print("Checking for hello_wave motion...")
-        joints = self.get_skeleton_data()  # Fetch skeleton data
+    def Waiving(self):
+        joints = self.get_skeleton_data()
         if joints is not None:
-         right_shoulder = joints.get("R_Shoulder")
-         right_wrist = joints.get("R_Wrist")
+                right_shoulder = joints[str("R_Shoulder")]
+                right_wrist = joints[str("R_Wrist")]
+                if right_shoulder.y < right_wrist.y != 0:
+                    print("Hello_wave detected! Exiting function-changed by roy.")
+                    # print(right_shoulder.y)
+                    # print(right_wrist.y)
+                    s.waved = True
 
-        # Check if the wrist is above the shoulder, indicating a wave
-        if right_shoulder and right_wrist and right_wrist.y > right_shoulder.y:
-            print("Hello_wave detected! Exiting function.")
-            return True  # Indicate that waving was detected
-        return False  # Indicate that no waving was detected
+    def check_hello_wave(self):
+        if s.try_again:
+            print("Camera: check_Wave for trying again")
+            say('try again')
+        else:
+            time.sleep(4)
+            print("Camera: check_Wave for start")
+        while s.req_exercise == "check_hello_wave":
+            joints = self.get_skeleton_data()
+            if joints is not None:
+                right_shoulder = joints[str("R_Shoulder")]
+                right_wrist = joints[str("R_Wrist")]
+                if right_shoulder.y < right_wrist.y != 0:
+                    print("Hello_wave detected! Exiting function-changed by roy.")
+                    # print(right_shoulder.y)
+                    # print(right_wrist.y)
+                    s.waved = True
+                    s.req_exercise = ""
 
     def hello_waving(self):  # check if the participant waved
         if s.try_again:
