@@ -303,6 +303,7 @@ class Camera(threading.Thread):
                 right_shoulder = joints[str("R_Shoulder")]
                 right_wrist = joints[str("R_Wrist")]
                 if right_shoulder.y < right_wrist.y != 0:
+                    print("Hello_wave detected! Exiting function-changed by roy.")
                     # print(right_shoulder.y)
                     # print(right_wrist.y)
                     s.waved = True
