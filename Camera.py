@@ -276,7 +276,8 @@ class Camera(threading.Thread):
     def raise_arms_forward_one_hand(self):
         self.exercise_two_angles_3d("raise_arms_forward_one_hand", "Wrist", "Shoulder", "Hip", 85, 135, 10, 50,
                                    "Shoulder", "Shoulder", "Wrist", 80, 115, 80, 115, "first", True)
-    def Waiving(self):
+    
+    def waiving(self):
         joints = self.get_skeleton_data()
         if joints is not None:
                 right_shoulder = joints[str("R_Shoulder")]

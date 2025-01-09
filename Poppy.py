@@ -46,6 +46,10 @@ class Poppy(threading.Thread):
             self.hello_waving()
         elif ex=="check_hello_wave":
             self.check_hello_wave()
+        elif ex=='impossible_EX':
+            self.impossible_EX
+        elif ex=='impossible_EX_Adaptive':
+            self.impossible_EX_Adaptive
         else:
             for i in range(s.rep):
                 s.robot_rep = i
