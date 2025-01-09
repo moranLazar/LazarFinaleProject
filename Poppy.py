@@ -56,7 +56,6 @@ class Poppy(threading.Thread):
                 getattr(self, ex)(i)
                 if s.success_exercise:
                     break
-    
     def check_hello_wave(self):
         self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)
         self.poppy.r_elbow_y.goto_position(-20, 1.5, wait=False)

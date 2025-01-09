@@ -65,11 +65,6 @@ class Training(threading.Thread):
         print("explaining how to make the robot go next")
         self.run_exercise("check_hello_wave") 
         print("showing the right motion")
-        while not s.waved:
-            time.sleep(0.00000001)  # Prevents the MP to stuck
-            print(s.waved)
-            continue
-        s.waved = False # set as False again for future
         time.sleep(3)
         say('very good') ###### change the command or record the right one 
         time.sleep(2.5)
