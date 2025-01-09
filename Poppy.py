@@ -44,7 +44,7 @@ class Poppy(threading.Thread):
     def exercise_demo(self, ex):
         if ex == "hello_waving":
             self.hello_waving()
-        if ex=="check_hello_wave":
+        elif ex=="check_hello_wave":
             self.check_hello_wave()
         else:
             for i in range(s.rep):
