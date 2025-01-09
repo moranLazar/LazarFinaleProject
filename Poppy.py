@@ -29,7 +29,7 @@ class Poppy(threading.Thread):
         print("ROBOT START")
         while not s.finish_workout:
             time.sleep(0.00000001)  # Prevents the MP to stuck
-            if s.req_exercise != "" and not ((s.req_exercise=="hello_waving" and s.try_again) or (s.req_exercise=="check_hello_wave" and s.try_again)): # if there is exercise, or hello waving
+            if s.req_exercise != "" and not ((s.req_exercise=="hello_waving" and s.try_again) or (s.req_exercise=="hello_waving" and s.try_again)): # if there is exercise, or hello waving
                 time.sleep(1)
                 print("ROBOT: Exercise ", s.req_exercise, " start")
                 self.exercise_demo(s.req_exercise)
@@ -44,7 +44,7 @@ class Poppy(threading.Thread):
     def exercise_demo(self, ex):
         if ex == "hello_waving":
             self.hello_waving()
-        if ex=="check_hello_wave":
+        elif ex=="check_hello_wave":
             self.check_hello_wave()
         else:
             for i in range(s.rep):
