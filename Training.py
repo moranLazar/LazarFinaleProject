@@ -5,7 +5,6 @@ import Excel
 import random
 from Audio import say
 import Screen as screen
-import Camera as cam
 import os
 ######### this is the correct one lazars 2
 class Training(threading.Thread):
@@ -133,7 +132,7 @@ class Training(threading.Thread):
         print("Waiting for 2 minutes before exiting")
         for _ in range(120):  # Wait for 2 minutes in 1-second intervals
               if(s.have_voice==True):
-                cam.waiving()
+                s.camera.waiving()
                 if s.waved==True :  # Continuously check for hello_wave this is the situation when he does have voice and the user manage to solve it
                  say('finished_impossible_ex_good')
                  time.sleep(3)
@@ -144,7 +143,7 @@ class Training(threading.Thread):
                  print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
                  return
               else: # the user faild the hardware problem 
-                cam.waiving()
+                s.camera.waiving()
                 if s.waved==True :  # Continuously check for hello_wave
                     screen.switch_frame()
                     time.sleep(2)
@@ -169,7 +168,7 @@ class Training(threading.Thread):
             if(s.have_voice==True):
                 say('what_inter')
                 time.sleep(3)
-                ##cam.waiving()
+                ##s.camera.waiving()
                 if s.waved==True :  # Continuously check for hello_wave
                  say('finished_impossible_ex_good')
                  print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
@@ -179,7 +178,7 @@ class Training(threading.Thread):
                 screen.switch_frame()
                 time.sleep(2)
                 screen.what_inter()
-                ##cam.waiving()
+                ##s.camera.waiving()
                 if s.waved==True :  # Continuously check for hello_wave
                     time.sleep(2)
                     screen.switch_frame()
@@ -191,7 +190,7 @@ class Training(threading.Thread):
             if(s.have_voice==True):
                 say('why_inter')
                 time.sleep(3)
-                cam.waiving()
+                s.camera.waiving()
                 if s.waved==True :  # Continuously check for hello_wave
                   say('finished_impossible_ex_good')
                   print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
@@ -206,7 +205,7 @@ class Training(threading.Thread):
                 screen.switch_frame()
                 time.sleep(2)
                 screen.why_inter()
-                cam.waiving()
+                s.camera.waiving()
                 if s.waved==True :  # Continuously check for hello_wave
                     screen.switch_frame()
                     screen.finished_impossible_ex_good()
