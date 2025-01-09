@@ -131,92 +131,87 @@ class Training(threading.Thread):
     def impossible_EX_func(self):
         print("Waiting for 2 minutes before exiting")
         for _ in range(120):  # Wait for 2 minutes in 1-second intervals
-              if(s.have_voice==True):
-                s.camera.waiving()
-                if s.waved==True :  # Continuously check for hello_wave this is the situation when he does have voice and the user manage to solve it
+              s.camera.waiving()
+              if s.waved==True :  # Continuously check for hello_wave this is the situation when he does have voice and the user manage to solve it
+                if(s.have_voice==True):
                  say('finished_impossible_ex_good')
                  time.sleep(3)
                  print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
                  return
-                else:  #this situation is when he does have voice and the user didnt manage to solve the  inter problem
+                else:
+                 screen.switch_frame()
+                 time.sleep(2)
+                 screen.finished_impossible_ex_good()
+                 time.sleep(2)
+                 print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
+                 return  #this situation is when he does have voice and the user didnt manage to solve the  inter problem
+        if(s.have_voice==True):
                  say('continue_inter')
                  print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
                  return
-              else: # the user faild the hardware problem 
-                s.camera.waiving()
-                if s.waved==True :  # Continuously check for hello_wave
-                    screen.switch_frame()
-                    time.sleep(2)
-                    screen.finished_impossible_ex_good()
-                    time.sleep(2)
-                    print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
-                    return
-                else:
-                    time.sleep(2)
-                    screen.switch_frame()
-                    time.sleep(2)
-                    screen.continue_inter()
-                    print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
-                    return
-        time.sleep(1)  # Sleep for 1 second between checks
-    # Exit after the final waiting period
-        print("Exiting impossible_EX after 2 minutes.")
-        
+        else: # the user faild the hardware problem 
+                time.sleep(2)
+                screen.switch_frame()
+                time.sleep(2)
+                screen.continue_inter()
+                print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
+                return
+
     def impossible_EX_Adaptive_func(self):
         print("Waiting for 1 minute before issuing 'what_inter'")
-        for _ in range(60):  # Wait for 1 minute in 1-second intervals
-            if(s.have_voice==True):
+        if(s.have_voice==True):
                 say('what_inter')
                 time.sleep(3)
-                ##s.camera.waiving()
-                if s.waved==True :  # Continuously check for hello_wave
-                 say('finished_impossible_ex_good')
-                 print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
-                 return
-            else:
+        else:
                 time.sleep(23)
                 screen.switch_frame()
                 time.sleep(2)
                 screen.what_inter()
-                ##s.camera.waiving()
-                if s.waved==True :  # Continuously check for hello_wave
+        for _ in range(60):  # Wait for 1 minute in 1-second intervals
+                s.camera.waiving()
+                if s.waved==True and s.have_voice==True :  # Continuously check for hello_wave
+                 say('finished_impossible_ex_good')
+                 print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
+                 return
+                if s.waved==True and s.have_voice!=True :  # Continuously check for hello_wave
                     time.sleep(2)
                     screen.switch_frame()
                     time.sleep(2)
                     screen.finished_impossible_ex_good()
                     return
         print("Waiting for another 1 minute before issuing 'why_inter'")
-        for _ in range(60):  # Wait for another 1 minute in 1-second intervals
-            if(s.have_voice==True):
+        if(s.have_voice==True):
                 say('why_inter')
                 time.sleep(3)
+        else:
+                time.sleep(23)
+                screen.switch_frame()
+                time.sleep(2)
+                screen.why_inter()
+        for _ in range(60):  # Wait for another 1 minute in 1-second intervals
                 s.camera.waiving()
-                if s.waved==True :  # Continuously check for hello_wave
+                if s.waved==True and s.have_voice==True:  # Continuously check for hello_wave
                   say('finished_impossible_ex_good')
                   print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
                   return
-                else:
+                if s.waved==True and s.have_voice!=True:
+                  if s.waved==True :  # Continuously check for hello_wave
+                    screen.switch_frame()
+                    screen.finished_impossible_ex_good()
+                    return
+        if      s.waved!=True and s.have_voice==True:
                   say('continue_inter')
                   time.sleep(3)
                   print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
                   return
-            else:
-                time.sleep(2)
-                screen.switch_frame()
-                time.sleep(2)
-                screen.why_inter()
-                s.camera.waiving()
-                if s.waved==True :  # Continuously check for hello_wave
-                    screen.switch_frame()
-                    screen.finished_impossible_ex_good()
-                    return
-                else:
+        else:
                     screen.switch_frame()
                     screen.continue_inter()
                     print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
                     return
-        print("Exiting impossible_EX_adaptive after 2 minutes.")
-        return
+                
+                
+        
     
     def run_exercise(self, name, hand=''):
         s.success_exercise = False
