@@ -67,6 +67,7 @@ class Training(threading.Thread):
         print("showing the right motion")
         while not s.waved:
             time.sleep(0.00000001)  # Prevents the MP to stuck
+            print(s.waved)
             continue
         s.waved = False # set as False again for future
         time.sleep(3)
