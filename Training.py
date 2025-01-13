@@ -220,7 +220,7 @@ class Training(threading.Thread):
             return False
         except Exception as e:
          print(f"Error while trying to import the file: {e}")
-        return False            
+        return True            
     def run_exercise(self, name, hand=''):
         s.success_exercise = False
         print("TRAINING: Exercise ", name, " start")
