@@ -28,26 +28,31 @@ class Poppy(threading.Thread):
     def run(self):
         print("ROBOT START")
 
+
+
+
+
+
         # Step 1: Raise arms to a 90-degree angle from the armpit
         print("Step 1: Lifting arms to 90 degrees")
         self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False)  # Left shoulder to 90 degrees
-        self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)  # Right shoulder to -90 degrees
-        time.sleep(1.5)
+        self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=True)  # Right shoulder to -90 degrees
+        time.sleep(0.5)
 
         # Step 2: Bend elbows to a 90-degree angle
         print("Step 2: Bending elbows to 90 degrees")
         self.poppy.l_elbow_y.goto_position(-90, 1.5, wait=False)  # Left elbow to -90 degrees
-        self.poppy.r_elbow_y.goto_position(-90, 1.5, wait=False)  # Right elbow to -90 degrees
-        time.sleep(1.5)
+        self.poppy.r_elbow_y.goto_position(-90, 1.5, wait=True)  # Right elbow to -90 degrees
+        time.sleep(0.5)
 
         # Step 3: Rotate elbows to simulate a 360-degree motion
         print("Step 3: Rotating elbows 360 degrees")
         for _ in range(2):  # Two full rotations
             self.poppy.l_elbow_y.goto_position(90, 1.0, wait=False)  # Rotate left elbow forward
-            self.poppy.r_elbow_y.goto_position(90, 1.0, wait=False)  # Rotate right elbow forward
+            self.poppy.r_elbow_y.goto_position(90, 1.0, wait=True)  # Rotate right elbow forward
             time.sleep(1.0)
             self.poppy.l_elbow_y.goto_position(-90, 1.0, wait=False)  # Rotate left elbow back
-            self.poppy.r_elbow_y.goto_position(-90, 1.0, wait=False)  # Rotate right elbow back
+            self.poppy.r_elbow_y.goto_position(-90, 1.0, wait=True)  # Rotate right elbow back
             time.sleep(1.0)
         # while not s.finish_workout:
         #     time.sleep(0.00000001)  # Prevents the MP to stuck
