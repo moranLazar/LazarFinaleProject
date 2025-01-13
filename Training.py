@@ -5,8 +5,7 @@ import Excel
 import random
 from Audio import say
 import Screen as screen
-import os
-import pandas as pd
+
 from Screen import Screen,goodbye,Alert,continue_inter,finished_impossible_ex_good,raise_arms_bend_elbows,open_and_close_arms,raise_arms_forward,bend_elbows,impossible_EX,Continue,Why_inter,What_inter,Why_Hardware,What_Hardware,How_Hardware
 ######### this is the correct one lazars 2
 class Training(threading.Thread):
@@ -226,7 +225,7 @@ class Training(threading.Thread):
             say(name+hand)
             time.sleep(3)  # Delay the robot movement after the audio is played
         elif(s.have_voice!=True and name!="bend_elbows" and name !="impossible_EX" and name !="impossible_EX_Adaptive"):
-            s.What_To_wirte (name)
+            self.What_To_wirte (name)
             time.sleep(2)
         s.req_exercise = name
         while s.req_exercise == name:
@@ -240,7 +239,7 @@ class Training(threading.Thread):
         enco = ["well done", "very good", "excellent"]
         return random.choice(enco)
     
-    def What_To_wirte (name):
+    def What_To_wirte (self,name):
         if(name=='raise_arms_bend_elbows'):
             s.screen.switch_frame(raise_arms_bend_elbows)
             s.raise_arms_bend_elbows()
@@ -254,19 +253,7 @@ class Training(threading.Thread):
             s.screen.switch_frame(raise_arms_forward)
             s.raise_arms_forward()
             
-    def is_speaker_Active(path):
-        try:
-        # Check if the file exists
-         if os.path.exists(path):
-            pd.read_excel(path)  # Attempt to import the file
-            print("File imported successfully!")
-            return True
-         else:
-            print(f"File does not exist at: {path}")
-            return False
-        except Exception as e:
-         print(f"Error while trying to import the file: {e}")
-        return False
+    
     
     def Time_to_check_voice(team,have_voice,Fake_speaker):
      csv_path = r"D:\פרוייקט גמר\project_bullshit_on_its_way.xlsx"  # Update with the correct path
