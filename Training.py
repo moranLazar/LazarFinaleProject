@@ -208,7 +208,7 @@ class Training(threading.Thread):
                     s.screen.switch_frame(continue_inter)
                     print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
                     return
-    def is_speaker_Active(path):
+    def is_speaker_Active(self, path):
         try:
         # Check if the file exists
          if os.path.exists(path):
@@ -272,7 +272,7 @@ class Training(threading.Thread):
         if(name=='raise_arms_forward'):
             s.screen.switch_frame(raise_arms_forward)
     
-    def Time_to_check_voice(team,have_voice,Fake_speaker):
+    def Time_to_check_voice(self,team,have_voice,Fake_speaker):
      csv_path = r"D:\פרוייקט גמר\project_bullshit_on_its_way.xlsx"  # Update with the correct path
      s.screen.switch_frame(Alert)
      time.sleep(15)
@@ -281,7 +281,7 @@ class Training(threading.Thread):
      print("Waiting for 1 minute before issuing 'what_inter'")
      if s.team == 1 or s.team == 3:
         for _ in range(40):  # Wait for 40 sec in 1-second intervals
-            s.Fake_speaker=s.training.is_speaker_Active(csv_path)
+            s.Fake_speaker=self.is_speaker_Active(csv_path)
             time.sleep(2)
             if s.Fake_speaker:  # Continuously check for port output
                 say('Fix_Hardware_Good')
@@ -291,7 +291,7 @@ class Training(threading.Thread):
         s.screen.switch_frame(What_Hardware)
         time.sleep(2)
         for _ in range(40):  # Wait for 40 sec in 1-second intervals
-            s.Fake_speaker=s.training.is_speaker_Active(csv_path)
+            s.Fake_speaker=self.is_speaker_Active(csv_path)
             time.sleep(2)
             if  s.Fake_speaker:  # Continuously check for port output
                 say('Fix_Hardware_Good')
@@ -301,7 +301,7 @@ class Training(threading.Thread):
         s.screen.switch_frame(Why_Hardware)
         time.sleep(2)
         for _ in range(40):  # Wait for 40 sec in 1-second intervals
-            s.Fake_speaker=s.training.is_speaker_Active(csv_path)
+            s.Fake_speaker=self.is_speaker_Active(csv_path)
             time.sleep(2)
             if s.Fake_speaker:  # Continuously check for port output
                 say('Fix_Hardware_Good')
@@ -314,7 +314,7 @@ class Training(threading.Thread):
         return
      else:
         for _ in range(120):  # Wait for 120 sec in 1-second intervals
-            s.Fake_speaker=s.training.is_speaker_Active(csv_path)
+            s.Fake_speaker=self.is_speaker_Active(csv_path)
             time.sleep(2)
             if s.Fake_speaker:  # Continuously check for port output
                 say('Fix_Hardware_Good')
