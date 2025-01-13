@@ -7,8 +7,8 @@ from Audio import say
 import Screen as screen
 import os
 import pandas as pd
-from Screen import goodbye,Alert,continue_inter,finished_impossible_ex_good,raise_arms_bend_elbows,open_and_close_arms,raise_arms_forward,bend_elbows,impossible_EX,Continue,Why_inter,What_inter,Why_Hardware,What_Hardware,How_Hardware
-
+from Screen import Screen,goodbye,Alert,continue_inter,finished_impossible_ex_good,raise_arms_bend_elbows,open_and_close_arms,raise_arms_forward,bend_elbows,impossible_EX,Continue,Why_inter,What_inter,Why_Hardware,What_Hardware,How_Hardware
+screen = Screen()
 ######### this is the correct one lazars 2
 class Training(threading.Thread):
     def __init__(self):
