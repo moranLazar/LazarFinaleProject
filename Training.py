@@ -213,7 +213,7 @@ class Training(threading.Thread):
         if name=="impossible_EX_Adaptive":
             self.impossible_EX_Adaptive_func()
         if(name=="bend_elbows"):
-            screen = Screen()
+            
             s.Have_voice=False
             self.Time_to_check_voice(s.team,s.have_voice)
             if s.Have_voice==True:
@@ -268,7 +268,7 @@ class Training(threading.Thread):
         except Exception as e:
          print(f"Error while trying to import the file: {e}")
         return False
-    
+    screen = Screen()
     def Time_to_check_voice(team,have_voice,Fake_speaker):
      csv_path = r"D:\פרוייקט גמר\project_bullshit_on_its_way.xlsx"  # Update with the correct path
      screen.after(0,screen.switch_frame,Alert)
