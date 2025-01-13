@@ -272,14 +272,12 @@ class Training(threading.Thread):
         if(name=='raise_arms_forward'):
             s.screen.switch_frame(raise_arms_forward)
     
-def Time_to_check_voice(self, team, have_voice, Fake_speaker):
-    csv_path = r"D:\פרוייקט גמר\project_bullshit_on_its_way.xlsx"  # Path to check speaker
-
-    # Start with the Alert frame
-    s.screen.switch_frame(Alert)
-    time.sleep(15)
-
-    if team in [1, 3]:  # Groups with multi-stage hardware checks
+    def Time_to_check_voice(self, team, have_voice, Fake_speaker):
+     csv_path = r"D:\פרוייקט גמר\project_bullshit_on_its_way.xlsx"  # Path to check speaker
+     # Start with the Alert frame
+     s.screen.switch_frame(Alert)
+     time.sleep(15)
+     if team in [1, 3]:  # Groups with multi-stage hardware checks
         hardware_stages = [
             (How_Hardware, "how Finished hardware problem"),
             (What_Hardware, "what Finished hardware problem"),
@@ -309,7 +307,7 @@ def Time_to_check_voice(self, team, have_voice, Fake_speaker):
         s.have_voice = False
         return have_voice
 
-    elif team in [2, 4]:  # Groups with single-stage (120s) hardware checks
+     elif team in [2, 4]:  # Groups with single-stage (120s) hardware checks
         s.screen.switch_frame(How_Hardware)
         print("Team 2 or 4: Checking hardware for 120 seconds in 'How_Hardware'")
         for _ in range(120):  # Check for 120 seconds in 2-second intervals
@@ -329,6 +327,8 @@ def Time_to_check_voice(self, team, have_voice, Fake_speaker):
         s.have_voice = False
         return have_voice
      
+    
+
 if __name__ == "__main__":
     # Create all components
     from Camera import Camera
