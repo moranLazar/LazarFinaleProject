@@ -224,7 +224,7 @@ class Training(threading.Thread):
             self.impossible_EX_Adaptive_func()
         if(name=="bend_elbows"):
             s.Have_voice=False
-            s.have_voice=self.Time_to_check_voice(s.team,s.have_voice)
+            self.Time_to_check_voice(s.team,s.have_voice)
             if s.Have_voice==True:
                  say(name+hand)
                  time.sleep(3)  # Delay the robot movement after the audio is played
