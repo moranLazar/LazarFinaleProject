@@ -7,7 +7,7 @@ from Audio import say
 import Screen as screen
 import os
 import pandas as pd
-from Screen import Screen,goodbye,Alert,continue_inter,finished_impossible_ex_good,raise_arms_bend_elbows,open_and_close_arms,raise_arms_forward,bend_elbows,impossible_EX,Continue,Why_inter,What_inter,Why_Hardware,What_Hardware,How_Hardware
+from Screen import EyesPage,goodbye,Alert,continue_inter,finished_impossible_ex_good,raise_arms_bend_elbows,open_and_close_arms,raise_arms_forward,bend_elbows,impossible_EX,Continue,Why_inter,What_inter,Why_Hardware,What_Hardware,How_Hardware
 ######### this is the correct one lazars 2
 
 
@@ -284,31 +284,37 @@ class Training(threading.Thread):
             s.Fake_speaker=self.is_speaker_Active(csv_path)
             time.sleep(2)
             if s.Fake_speaker:  # Continuously check for port output
+                s.screen.switch_frame(EyesPage)
                 say('Fix_Hardware_Good')
                 print("how Finished hardware problem")
                 s.have_voice=True
                 return have_voice
-        s.screen.switch_frame(What_Hardware)
+        if s.have_voice!=True:
+         s.screen.switch_frame(What_Hardware)
         time.sleep(2)
         for _ in range(40):  # Wait for 40 sec in 1-second intervals
             s.Fake_speaker=self.is_speaker_Active(csv_path)
             time.sleep(2)
             if  s.Fake_speaker:  # Continuously check for port output
+                s.screen.switch_frame(EyesPage)
                 say('Fix_Hardware_Good')
                 print("what Finished hardware problem")
                 s.have_voice=True
                 return  have_voice
-        s.screen.switch_frame(Why_Hardware)
+        if s.have_voice!=True:
+         s.screen.switch_frame(Why_Hardware)
         time.sleep(2)
         for _ in range(40):  # Wait for 40 sec in 1-second intervals
             s.Fake_speaker=self.is_speaker_Active(csv_path)
             time.sleep(2)
             if s.Fake_speaker:  # Continuously check for port output
+                s.screen.switch_frame(EyesPage)
                 say('Fix_Hardware_Good')
                 print("why Finished hardware problem")
                 s.have_voice=True
                 return have_voice
-        s.screen.switch_frame(Continue)
+        if s.have_voice!=True:
+         s.screen.switch_frame(Continue)
         time.sleep(2)
         
         return
@@ -317,11 +323,13 @@ class Training(threading.Thread):
             s.Fake_speaker=self.is_speaker_Active(csv_path)
             time.sleep(2)
             if s.Fake_speaker:  # Continuously check for port output
+                s.screen.switch_frame(EyesPage)
                 say('Fix_Hardware_Good')
                 print("Finished hardware problem")
                 s.have_voice=True
                 return s.have_voice
-        s.screen.switch_frame(Continue)
+        if s.Fake_speaker!=True:
+         s.screen.switch_frame(Continue)
         time.sleep(2)
         return 
      
