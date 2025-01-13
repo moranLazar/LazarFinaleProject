@@ -9,19 +9,7 @@ import os
 import pandas as pd
 from Screen import Screen,goodbye,Alert,continue_inter,finished_impossible_ex_good,raise_arms_bend_elbows,open_and_close_arms,raise_arms_forward,bend_elbows,impossible_EX,Continue,Why_inter,What_inter,Why_Hardware,What_Hardware,How_Hardware
 ######### this is the correct one lazars 2
-def is_speaker_Active(path):
-        try:
-        # Check if the file exists
-         if os.path.exists(path):
-            pd.read_excel(path)  # Attempt to import the file
-            print("File imported successfully!")
-            return True
-         else:
-            print(f"File does not exist at: {path}")
-            return False
-        except Exception as e:
-         print(f"Error while trying to import the file: {e}")
-        return False
+
 
 class Training(threading.Thread):
     def __init__(self):
@@ -220,7 +208,19 @@ class Training(threading.Thread):
                     s.screen.switch_frame(continue_inter)
                     print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
                     return
-                
+    def is_speaker_Active(path):
+        try:
+        # Check if the file exists
+         if os.path.exists(path):
+            pd.read_excel(path)  # Attempt to import the file
+            print("File imported successfully!")
+            return True
+         else:
+            print(f"File does not exist at: {path}")
+            return False
+        except Exception as e:
+         print(f"Error while trying to import the file: {e}")
+        return False            
     def run_exercise(self, name, hand=''):
         s.success_exercise = False
         print("TRAINING: Exercise ", name, " start")
@@ -247,10 +247,16 @@ class Training(threading.Thread):
         s.req_exercise = name
         while s.req_exercise == name:
             time.sleep(0.001)  # Prevents the MP to stuck
-        if s.success_exercise:
+        if s.success_exercise and  s.have_voice==True:
             say(self.random_encouragement())
         print("TRAINING: Exercise ", name, " done")
+        if s.success_exercise and  s.have_voice!=True:
+           s.screen.switch_frame(self.random_encouragement_write())
         time.sleep(1)
+    
+    def random_encouragement_write(self):
+        enco = ["well_done", "very_good", "excellent"]
+        return random.choice(enco)
 
     def random_encouragement(self):
         enco = ["well done", "very good", "excellent"]

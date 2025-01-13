@@ -121,8 +121,24 @@ class goodbye(tk.Frame):
         image = Image.open('pictures//goodbye.png')
         self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
         tk.Label(self, image=self.photo_image).pack()
-
-
+class excellent(tk.Frame): 
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//excellent.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+class very_good(tk.Frame): 
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//very_good.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+class well_done(tk.Frame): 
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//well_done.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
     
 
 class FullScreenApp(object):
