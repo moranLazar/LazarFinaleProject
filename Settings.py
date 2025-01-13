@@ -1,5 +1,4 @@
-import os
-import pandas as pd
+
 def __init__():
 
     # classes pointers
@@ -47,16 +46,4 @@ def __init__():
     global corrective_feedback
     global one_hand
 
-    def is_speaker_Active(self,path):
-        try:
-        # Check if the file exists
-         if os.path.exists(path):
-            pd.read_excel(path)  # Attempt to import the file
-            print("File imported successfully!")
-            return True
-         else:
-            print(f"File does not exist at: {path}")
-            return False
-        except Exception as e:
-         print(f"Error while trying to import the file: {e}")
-        return False
+    
