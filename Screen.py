@@ -139,7 +139,54 @@ class well_done(tk.Frame):
         image = Image.open('pictures//well_done.png')
         self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
         tk.Label(self, image=self.photo_image).pack()
-    
+class one(tk.Frame): 
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//one.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+class two(tk.Frame): 
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//two.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+class three(tk.Frame): 
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//three.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+class four(tk.Frame): 
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//four.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+class five(tk.Frame): 
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//five.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+class six(tk.Frame): 
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//six.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+class seven(tk.Frame): 
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//seven.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
+class eight(tk.Frame): 
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        image = Image.open('pictures//eight.png')
+        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
+        tk.Label(self, image=self.photo_image).pack()
 
 class FullScreenApp(object):
     def __init__(self, master, **kwargs):

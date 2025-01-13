@@ -14,9 +14,21 @@ import Settings as s
 import Excel
 from Audio import say
 from performance_classification import feature_extraction, predict_performance, plot_data
-
+from Screen import one,two,three,four,five,six,seven,eight
 
 class Camera(threading.Thread):
+    def get_item_by_number(number):
+     counter_to_write = {
+    "1": one,
+    "2": two,
+    "3": three,
+    "4": four,
+    "5": five,
+    "6": six,
+    "7": seven,
+    "8": eight,
+}
+     return counter_to_write.get(number, None)
 
     def __init__(self):
         threading.Thread.__init__(self)
@@ -157,8 +169,10 @@ class Camera(threading.Thread):
                         flag = True
                         counter += 1
                         print(counter)
-                        if not s.robot_count:
+                        if not s.robot_count and s.have_voice ==True:
                             say(str(counter))
+                        if not s.robot_count and s.have_voice !=True:
+                            s.screen.switch_frame(self.get_item_by_number(str(counter)))
                     if (down_lb < right_angle < down_ub) & (down_lb < left_angle < down_ub) & \
                             (down_lb2 < right_angle2 < down_ub2) & (down_lb2 < left_angle2 < down_ub2) & (flag):
                         flag = False
@@ -166,8 +180,15 @@ class Camera(threading.Thread):
                 s.req_exercise = ""
                 s.success_exercise = True
                 break
-            if s.corrective_feedback and (s.robot_rep >= s.rep/2) and counter <=2 and not said_instructions:
+            if s.corrective_feedback and (s.robot_rep >= s.rep/2) and counter <=2 and not said_instructions and s.have_voice==True:
                 say(exercise_name + "_" + str(flag))
+                said_instructions = True
+                if flag:
+                    print("Corrective feedback true - Try to raise your hands more")
+                if not flag:
+                    print("Corrective feedback false - Try to close your hands more")
+            if s.corrective_feedback and (s.robot_rep >= s.rep/2) and counter <=2 and not said_instructions and s.have_voice!=True:
+                s.screen.switch_frame(self.get_item_by_number(str(counter)))
                 said_instructions = True
                 if flag:
                     print("Corrective feedback true - Try to raise your hands more")
@@ -217,17 +238,25 @@ class Camera(threading.Thread):
                         flag = True
                         counter += 1
                         print(counter)
-                        if not s.robot_count:
+                        if not s.robot_count and s.have_voice==True:
                             say(str(counter))
+                        if not s.robot_count and s.have_voice!=True:
+                            s.screen.switch_frame(self.get_item_by_number(str(counter)))
                     if (down_lb < right_angle < down_ub) & (down_lb < left_angle < down_ub) & (flag):
                         flag = False
             if (not s.robot_count) and (counter == s.rep):
                 s.req_exercise = ""
                 s.success_exercise = True
                 break
-            if s.corrective_feedback and (s.robot_rep >= s.rep/2) and counter <=2 and not said_instructions:
+            if s.corrective_feedback and (s.robot_rep >= s.rep/2) and counter <=2 and not said_instructions and s.have_voice==True:
                 say(exercise_name + "_" + str(flag))
                 said_instructions = True
+                if flag:
+                    print("Try to raise your hands more")
+                if not flag:
+                    print("Try to close your hands more")
+            if s.corrective_feedback and (s.robot_rep >= s.rep/2) and counter <=2 and not said_instructions and s.have_voice!=True:
+                s.screen.switch_frame(self.get_item_by_number(str(counter)))
                 if flag:
                     print("Try to raise your hands more")
                 if not flag:

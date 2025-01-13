@@ -125,6 +125,7 @@ class Training(threading.Thread):
          say('goodbye')
         else:
          s.screen.switch_frame(goodbye) #screen goodbye
+         time.sleep(5)
         s.finish_workout = True
         Excel.success_worksheet()
         Excel.close_workbook()
@@ -231,6 +232,7 @@ class Training(threading.Thread):
         if(name=="bend_elbows"):
             s.Have_voice=False
             self.Time_to_check_voice(s.team,s.have_voice,s.Fake_speaker)
+            print(s.Have_voice)
             if s.Have_voice==True:
                  say(name+hand)
                  time.sleep(3)  # Delay the robot movement after the audio is played
