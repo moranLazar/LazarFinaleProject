@@ -27,18 +27,40 @@ class Poppy(threading.Thread):
 
     def run(self):
         print("ROBOT START")
-        while not s.finish_workout:
-            time.sleep(0.00000001)  # Prevents the MP to stuck
-            if s.req_exercise != "" and not ((s.req_exercise=="hello_waving" and s.try_again) or (s.req_exercise=="hello_waving" and s.try_again)): # if there is exercise, or hello waving
-                time.sleep(1)
-                print("ROBOT: Exercise ", s.req_exercise, " start")
-                self.exercise_demo(s.req_exercise)
-                print("ROBOT: Exercise ", s.req_exercise, " done")
-                if not s.calibration: #meaning it's the first hello
-                    while not s.waved:
-                        time.sleep(0.01)  # for hello_waiting exercise, wait until user wave
-                s.req_exercise = ""
-                s.poppy_done = True
+
+        # Step 1: Raise arms to a 90-degree angle from the armpit
+        print("Step 1: Lifting arms to 90 degrees")
+        self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False)  # Left shoulder to 90 degrees
+        self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)  # Right shoulder to -90 degrees
+        time.sleep(1.5)
+
+        # Step 2: Bend elbows to a 90-degree angle
+        print("Step 2: Bending elbows to 90 degrees")
+        self.poppy.l_elbow_y.goto_position(-90, 1.5, wait=False)  # Left elbow to -90 degrees
+        self.poppy.r_elbow_y.goto_position(-90, 1.5, wait=False)  # Right elbow to -90 degrees
+        time.sleep(1.5)
+
+        # Step 3: Rotate elbows to simulate a 360-degree motion
+        print("Step 3: Rotating elbows 360 degrees")
+        for _ in range(2):  # Two full rotations
+            self.poppy.l_elbow_y.goto_position(90, 1.0, wait=False)  # Rotate left elbow forward
+            self.poppy.r_elbow_y.goto_position(90, 1.0, wait=False)  # Rotate right elbow forward
+            time.sleep(1.0)
+            self.poppy.l_elbow_y.goto_position(-90, 1.0, wait=False)  # Rotate left elbow back
+            self.poppy.r_elbow_y.goto_position(-90, 1.0, wait=False)  # Rotate right elbow back
+            time.sleep(1.0)
+        # while not s.finish_workout:
+        #     time.sleep(0.00000001)  # Prevents the MP to stuck
+        #     if s.req_exercise != "" and not ((s.req_exercise=="hello_waving" and s.try_again) or (s.req_exercise=="hello_waving" and s.try_again)): # if there is exercise, or hello waving
+        #         time.sleep(1)
+        #         print("ROBOT: Exercise ", s.req_exercise, " start")
+        #         self.exercise_demo(s.req_exercise)
+        #         print("ROBOT: Exercise ", s.req_exercise, " done")
+        #         if not s.calibration: #meaning it's the first hello
+        #             while not s.waved:
+        #                 time.sleep(0.01)  # for hello_waiting exercise, wait until user wave
+        #         s.req_exercise = ""
+        #         s.poppy_done = True
         print("Robot Done")
 
     def exercise_demo(self, ex):
@@ -365,8 +387,8 @@ class Poppy(threading.Thread):
         time.sleep(1)
 
 
-if __name__ == "__main__":
-    s.rep = 3
+if __name__ == "__main__":#happenned only when the run button is pressed when this class is open
+    s.rep = 3 #num of Rehearsals
     s.robot_count = True
     s.success_exercise = False
     s.finish_workout = False

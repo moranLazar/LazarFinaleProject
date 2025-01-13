@@ -65,8 +65,8 @@ if __name__ == '__main__':
         # s.adaptation_model = pickle.load(open(f'{adaptation_model_name}.sav', 'rb'))
 
     # Start all threads
-    s.camera.start()
-    s.training.start()
+    # s.camera.start()
+    # s.training.start()
     s.robot.start()
     s.screen = Screen()
     image1 = Image.open('Pictures//icon.jpg')

@@ -67,7 +67,10 @@ class Training(threading.Thread):
         print("explaining how to make the robot go next")
         self.run_exercise("check_hello_wave") 
         print("showing the right motion")
-        time.sleep(3)
+        while s.waved == False:
+            print("waiting for waving")
+            continue
+        # time.sleep(3)
         say('very good') ###### change the command or record the right one 
         time.sleep(2.5)
         print("finished the explanation")
@@ -176,6 +179,7 @@ class Training(threading.Thread):
                     time.sleep(2)
                     screen.switch_frame(finished_impossible_ex_good)
                     time.sleep(2)
+
                     return
         print("Waiting for another 1 minute before issuing 'why_inter'")
         if(s.have_voice==True):
@@ -230,6 +234,7 @@ class Training(threading.Thread):
             s.What_To_wirte (name)
             time.sleep(2)
         s.req_exercise = name
+        print(f"in Training- req_exercize= {s.req_exercise}")
         while s.req_exercise == name:
             time.sleep(0.001)  # Prevents the MP to stuck
         if s.success_exercise:
