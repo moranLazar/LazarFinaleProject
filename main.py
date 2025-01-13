@@ -44,7 +44,7 @@ if __name__ == '__main__':
     s.camera_done = False
     s.robot_count = True
     s.try_again = False
-    s.team = 1
+    s.team = 3
     s.have_voice = True
     # Excel variable
     Excel.create_workbook()
