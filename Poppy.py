@@ -41,8 +41,8 @@ class Poppy(threading.Thread):
 
         # Step 2: Bend elbows to a 90-degree angle
         print("Step 2: Bending elbows to 90 degrees")
-        self.poppy.l_elbow_y.goto_position(-90, 1.5, wait=False)  # Left elbow to -90 degrees
-        self.poppy.r_elbow_y.goto_position(-90, 1.5, wait=True)  # Right elbow to -90 degrees
+        self.poppy.l_arm_y.goto_position(-90, 1.5, wait=False)  # Left elbow to -90 degrees
+        self.poppy.r_arm_y.goto_position(-90, 1.5, wait=True)  # Right elbow to -90 degrees
         time.sleep(0.5)
 
         # Step 3: Rotate elbows to simulate a 360-degree motion
