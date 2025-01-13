@@ -272,66 +272,62 @@ class Training(threading.Thread):
         if(name=='raise_arms_forward'):
             s.screen.switch_frame(raise_arms_forward)
     
-    def Time_to_check_voice(self,team,have_voice,Fake_speaker):
-     csv_path = r"D:\פרוייקט גמר\project_bullshit_on_its_way.xlsx"  # Update with the correct path
-     s.screen.switch_frame(Alert)
-     time.sleep(15)
-     s.screen.switch_frame(How_Hardware)
-     time.sleep(2)
-     print("Waiting for 1 minute before issuing 'what_inter'")
-     if s.team == 1 or s.team == 3:
-        for _ in range(40):  # Wait for 40 sec in 1-second intervals
-            s.Fake_speaker=self.is_speaker_Active(csv_path)
+def Time_to_check_voice(self, team, have_voice, Fake_speaker):
+    csv_path = r"D:\פרוייקט גמר\project_bullshit_on_its_way.xlsx"  # Path to check speaker
+
+    # Start with the Alert frame
+    s.screen.switch_frame(Alert)
+    time.sleep(15)
+
+    if team in [1, 3]:  # Groups with multi-stage hardware checks
+        hardware_stages = [
+            (How_Hardware, "how Finished hardware problem"),
+            (What_Hardware, "what Finished hardware problem"),
+            (Why_Hardware, "why Finished hardware problem"),
+            (Continue, "Finished hardware check, no solution found"),
+        ]
+
+        for frame, message in hardware_stages[:-1]:
+            s.screen.switch_frame(frame)
             time.sleep(2)
-            if s.Fake_speaker:  # Continuously check for port output
-                s.screen.switch_frame(EyesPage)
-                say('Fix_Hardware_Good')
-                print("how Finished hardware problem")
-                s.have_voice=True
-                return have_voice
-        if s.have_voice!=True:
-         s.screen.switch_frame(What_Hardware)
+
+            print(f"Checking for speaker activity during '{frame.__name__}'")
+            for _ in range(40):  # Check for 40 seconds in 1-second intervals
+                s.Fake_speaker = self.is_speaker_Active(csv_path)
+                time.sleep(1)
+                if s.Fake_speaker:  # Speaker detected
+                    s.have_voice = True
+                    print(message)
+                    say("Fix_Hardware_Good")
+                    s.screen.switch_frame(EyesPage)
+                    return have_voice  # Exit early if resolved
+
+        # If no speaker detected after all stages
+        s.screen.switch_frame(hardware_stages[-1][0])  # Continue frame
+        print(hardware_stages[-1][1])
         time.sleep(2)
-        for _ in range(40):  # Wait for 40 sec in 1-second intervals
-            s.Fake_speaker=self.is_speaker_Active(csv_path)
+        s.have_voice = False
+        return have_voice
+
+    elif team in [2, 4]:  # Groups with single-stage (120s) hardware checks
+        s.screen.switch_frame(How_Hardware)
+        print("Team 2 or 4: Checking hardware for 120 seconds in 'How_Hardware'")
+        for _ in range(120):  # Check for 120 seconds in 2-second intervals
+            s.Fake_speaker = self.is_speaker_Active(csv_path)
             time.sleep(2)
-            if  s.Fake_speaker:  # Continuously check for port output
-                s.screen.switch_frame(EyesPage)
-                say('Fix_Hardware_Good')
-                print("what Finished hardware problem")
-                s.have_voice=True
-                return  have_voice
-        if s.have_voice!=True:
-         s.screen.switch_frame(Why_Hardware)
-        time.sleep(2)
-        for _ in range(40):  # Wait for 40 sec in 1-second intervals
-            s.Fake_speaker=self.is_speaker_Active(csv_path)
-            time.sleep(2)
-            if s.Fake_speaker:  # Continuously check for port output
-                s.screen.switch_frame(EyesPage)
-                say('Fix_Hardware_Good')
-                print("why Finished hardware problem")
-                s.have_voice=True
-                return have_voice
-        if s.have_voice!=True:
-         s.screen.switch_frame(Continue)
-        time.sleep(2)
-        
-        return
-     else:
-        for _ in range(120):  # Wait for 120 sec in 1-second intervals
-            s.Fake_speaker=self.is_speaker_Active(csv_path)
-            time.sleep(2)
-            if s.Fake_speaker:  # Continuously check for port output
-                s.screen.switch_frame(EyesPage)
-                say('Fix_Hardware_Good')
+            if s.Fake_speaker:  # Speaker detected
+                s.have_voice = True
+                say("Fix_Hardware_Good")
                 print("Finished hardware problem")
-                s.have_voice=True
+                s.screen.switch_frame(EyesPage)
                 return s.have_voice
-        if s.Fake_speaker!=True:
-         s.screen.switch_frame(Continue)
+
+        # If no speaker detected after 120 seconds
+        s.screen.switch_frame(Continue)
+        print("No hardware solution found after 120 seconds. Showing 'Continue'.")
         time.sleep(2)
-        return 
+        s.have_voice = False
+        return have_voice
      
 if __name__ == "__main__":
     # Create all components
