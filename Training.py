@@ -7,6 +7,7 @@ from Audio import say
 import Screen as screen
 import os
 import pandas as pd
+from Screen import goodbye,Alert,continue_inter,finished_impossible_ex_good,raise_arms_bend_elbows,open_and_close_arms,raise_arms_forward,bend_elbows,impossible_EX,Continue,Why_inter,What_inter,Why_Hardware,What_Hardware,How_Hardware
 
 ######### this is the correct one lazars 2
 class Training(threading.Thread):
@@ -122,7 +123,7 @@ class Training(threading.Thread):
         if s.have_voice:
          say('goodbye')
         else:
-         screen.How_Hardware() #screen goodbye
+         screen.switch_frame(goodbye) #screen goodbye
         s.finish_workout = True
         Excel.success_worksheet()
         Excel.close_workbook()
@@ -141,7 +142,7 @@ class Training(threading.Thread):
                  print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
                  return
                 else:
-                 screen.switch_frame(screen.finished_impossible_ex_good)
+                 screen.switch_frame(finished_impossible_ex_good)
                  time.sleep(2)
                  print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
                  return  #this situation is when he does have voice and the user didnt manage to solve the  inter problem
@@ -151,7 +152,7 @@ class Training(threading.Thread):
                  return
         else: # the user faild the hardware problem 
                 time.sleep(2)
-                screen.switch_frame(screen.continue_inter)
+                screen.switch_frame(continue_inter)
                 time.sleep(2)
                 print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
                 return
@@ -163,7 +164,7 @@ class Training(threading.Thread):
                 time.sleep(3)
         else:
                 time.sleep(23)
-                screen.switch_frame(screen.What_inter)
+                screen.switch_frame(What_inter)
                 time.sleep(2)
         for _ in range(60):  # Wait for 1 minute in 1-second intervals
                 s.camera.waiving()
@@ -173,7 +174,7 @@ class Training(threading.Thread):
                  return
                 if s.waved==True and s.have_voice!=True :  # Continuously check for hello_wave
                     time.sleep(2)
-                    screen.switch_frame(screen.finished_impossible_ex_good)
+                    screen.switch_frame(finished_impossible_ex_good)
                     time.sleep(2)
                     return
         print("Waiting for another 1 minute before issuing 'why_inter'")
@@ -182,7 +183,7 @@ class Training(threading.Thread):
                 time.sleep(3)
         else:
                 time.sleep(23)
-                screen.switch_frame(screen.Why_inter)
+                screen.switch_frame(Why_inter)
                 time.sleep(2)
         for _ in range(60):  # Wait for another 1 minute in 1-second intervals
                 s.camera.waiving()
@@ -192,7 +193,7 @@ class Training(threading.Thread):
                   return
                 if s.waved==True and s.have_voice!=True:
                   if s.waved==True :  # Continuously check for hello_wave
-                    screen.switch_frame(screen.finished_impossible_ex_good)
+                    screen.switch_frame(finished_impossible_ex_good)
                     
                     return
         if      s.waved!=True and s.have_voice==True:
@@ -201,7 +202,7 @@ class Training(threading.Thread):
                   print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
                   return
         else:
-                    screen.switch_frame(screen.continue_inter)
+                    screen.switch_frame(continue_inter)
                     print("Hello_wave motion was not detected during final waiting period. Ending impossible_EX.")
                     return
                 
@@ -219,14 +220,14 @@ class Training(threading.Thread):
                  say(name+hand)
                  time.sleep(3)  # Delay the robot movement after the audio is played
             else :
-                screen.switch_frame(screen.s.What_To_wirte (name))
+                screen.switch_frame(bend_elbows)
                 time.sleep(2)
             time.sleep(3)  # Delay the robot movement after the audio is played
         elif(s.have_voice==True and name!="bend_elbows" and name !="impossible_EX" and name !="impossible_EX_Adaptive"):
             say(name+hand)
             time.sleep(3)  # Delay the robot movement after the audio is played
         elif(s.have_voice!=True and name!="bend_elbows" and name !="impossible_EX" and name !="impossible_EX_Adaptive"):
-            s.switch_frame(screen.s.What_To_wirte (name))
+            s.What_To_wirte (name)
             time.sleep(2)
         s.req_exercise = name
         while s.req_exercise == name:
@@ -241,15 +242,17 @@ class Training(threading.Thread):
         return random.choice(enco)
     
     def What_To_wirte (name):
-        if (name=='bend_elbows'):
-            s.bend_elbows()
         if(name=='raise_arms_bend_elbows'):
+            screen.switch_frame(raise_arms_bend_elbows)
             s.raise_arms_bend_elbows()
         if(name=='impossible_EX' or name=='impossible_EX_Adaptive'):
+            screen.switch_frame(impossible_EX)
             s.impossible_EX()
         if(name=='open_and_close_arms'):
+            screen.switch_frame(open_and_close_arms)
             s.open_and_close_arms()
         if(name=='raise_arms_forward'):
+            screen.switch_frame(raise_arms_forward)
             s.raise_arms_forward()
             
     def is_speaker_Active(path):
@@ -268,9 +271,9 @@ class Training(threading.Thread):
     
     def Time_to_check_voice(team,have_voice,Fake_speaker):
      csv_path = r"D:\פרוייקט גמר\project_bullshit_on_its_way.xlsx"  # Update with the correct path
-     screen.switch_frame(screen.Alert)
+     screen.switch_frame(Alert)
      time.sleep(15)
-     screen.switch_frame(screen.How_Hardware)
+     screen.switch_frame(How_Hardware)
      time.sleep(2)
      print("Waiting for 1 minute before issuing 'what_inter'")
      if s.team == 1 or s.team == 3:
@@ -282,7 +285,7 @@ class Training(threading.Thread):
                 print("how Finished hardware problem")
                 s.have_voice=True
                 return have_voice
-        screen.switch_frame(screen.What_Hardware)
+        screen.switch_frame(What_Hardware)
         time.sleep(2)
         for _ in range(40):  # Wait for 40 sec in 1-second intervals
             s.Fake_speaker=s.is_speaker_Active(csv_path)
@@ -292,7 +295,7 @@ class Training(threading.Thread):
                 print("what Finished hardware problem")
                 s.have_voice=True
                 return  have_voice
-        screen.switch_frame(screen.Why_Hardware)
+        screen.switch_frame(Why_Hardware)
         time.sleep(2)
         for _ in range(40):  # Wait for 40 sec in 1-second intervals
             s.Fake_speaker=s.is_speaker_Active(csv_path)
@@ -302,7 +305,7 @@ class Training(threading.Thread):
                 print("why Finished hardware problem")
                 s.have_voice=True
                 return have_voice
-        screen.switch_frame(screen.Continue)
+        screen.switch_frame(Continue)
         time.sleep(2)
         
         return
@@ -315,7 +318,7 @@ class Training(threading.Thread):
                 print("Finished hardware problem")
                 s.have_voice=True
                 return s.have_voice
-        screen.switch_frame( screen.Continue)
+        screen.switch_frame(Continue)
         time.sleep(2)
         return 
      
