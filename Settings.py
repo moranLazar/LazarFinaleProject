@@ -15,6 +15,10 @@ def __init__():
     global exercise_amount
     global rep
     global req_exercise
+    global req_exercise_inter
+    global req_exercise_not_adaptive
+    global req_exercise_adaptive1
+    global req_exercise_adaptive2
     global finish_workout
     global waved
     global success_exercise

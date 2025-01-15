@@ -35,6 +35,10 @@ if __name__ == '__main__':
     s.exercise_amount = 5
     s.rep = 3
     s.req_exercise = ""
+    s.req_exercise_inter=1
+    s.req_exercise_not_adaptive=6
+    s.req_exercise_adaptive1=3
+    s.req_exercise_adaptive2=3
     s.finish_workout = False
     s.waved = False
     s.success_exercise = False

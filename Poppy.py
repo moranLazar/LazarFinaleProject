@@ -3,10 +3,22 @@ from pypot.creatures import PoppyTorso
 import time
 import Settings as s
 from Audio import say
-import Screen as screen
+from Screen import one,two,three,four,five,six,seven,eight
 
 
 class Poppy(threading.Thread):
+    def get_item_by_number(number):
+     counter_to_write = {
+    "1": one,
+    "2": two,
+    "3": three,
+    "4": four,
+    "5": five,
+    "6": six,
+    "7": seven,
+    "8": eight,
+}
+     return counter_to_write.get(number, None)
 
     def __init__(self):
         threading.Thread.__init__(self)
@@ -48,14 +60,18 @@ class Poppy(threading.Thread):
             self.check_hello_wave()
         elif ex=='impossible_EX':
             self.impossible_EX
-        elif ex=='impossible_EX_Adaptive':
-            self.impossible_EX_Adaptive
+            for i in range(s.rep):
+                s.robot_rep = 1
+                getattr(self, ex)(i)
+                if s.success_exercise:
+                    break
         else:
             for i in range(s.rep):
                 s.robot_rep = i
                 getattr(self, ex)(i)
                 if s.success_exercise:
                     break
+
     def check_hello_wave(self):
         self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)
         self.poppy.r_elbow_y.goto_position(-20, 1.5, wait=False)
@@ -111,38 +127,6 @@ class Poppy(threading.Thread):
         self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)  # Right elbow to 90 degrees
         time.sleep(3)
 
-
-    #impossible EX ADAPTIVE 
-    def impossible_EX_Adaptive(self):
-    # Step 1: Raise arms to a 90-degree angle from the armpit
-        print("Step 1: Lifting arms to 90 degrees")
-        self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False)  # Left shoulder to 90 degrees
-        self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)  # Right shoulder to -90 degrees
-        time.sleep(1.5)
-
-    # Step 2: Bend elbows to a 90-degree angle
-        print("Step 2: Bending elbows to 90 degrees")
-        self.poppy.l_elbow_y.goto_position(-90, 1.5, wait=False)  # Left elbow to -90 degrees
-        self.poppy.r_elbow_y.goto_position(-90, 1.5, wait=False)  # Right elbow to -90 degrees
-        time.sleep(1.5)
-
-    # Step 3: Rotate elbows to simulate a 360-degree motion
-        print("Step 3: Rotating elbows 360 degrees")
-        for _ in range(2):  # Two full rotations
-            self.poppy.l_elbow_y.goto_position(90, 1.0, wait=False)  # Rotate left elbow forward
-            self.poppy.r_elbow_y.goto_position(90, 1.0, wait=False)  # Rotate right elbow forward
-            time.sleep(1.0)
-            self.poppy.l_elbow_y.goto_position(-90, 1.0, wait=False)  # Rotate left elbow back
-            self.poppy.r_elbow_y.goto_position(-90, 1.0, wait=False)  # Rotate right elbow back
-            time.sleep(1.0)
-
-    # Return to the initial position
-        print("Returning to initial position")
-        self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False)  # Left shoulder to neutral
-        self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)  # Right shoulder to neutral
-        self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False)  # Left elbow to 90 degrees
-        self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)  # Right elbow to 90 degrees
-        time.sleep(1.5)
         
     # EX1 - Raise arms horizontally
     def raise_arms_horizontally(self, counter):
@@ -166,9 +150,12 @@ class Poppy(threading.Thread):
         time.sleep(1.5)
         self.poppy.r_arm[3].goto_position(85, 1.5, wait=False)
         self.poppy.l_arm[3].goto_position(85, 1.5, wait=True)
-        if s.robot_count:
+        if s.robot_count and s.have_voice==True:
             say(str(counter + 1))
         time.sleep(1.4)
+        if s.robot_count and s.have_voice!=True:
+            s.screen.switch_frame(self.get_item_by_number(str(counter + 1)))
+    
 
     # EX3 - Raise Arms Bend Elbows
     def raise_arms_bend_elbows(self, counter):
@@ -185,9 +172,11 @@ class Poppy(threading.Thread):
         self.poppy.l_shoulder_x.goto_position(95, 1.5, wait=False)
         self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
         self.poppy.l_elbow_y.goto_position(90, 1.5, wait=True)
-        if s.robot_count:
+        if s.robot_count and s.have_voice==True:
             say(str(counter + 1))
         time.sleep(1)
+        if s.robot_count and s.have_voice!=True:
+            s.screen.switch_frame(self.get_item_by_number(str(counter + 1)))
         if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
             # return to init position
             self.poppy.l_arm_z.goto_position(0, 1.5, wait=False)
@@ -241,9 +230,11 @@ class Poppy(threading.Thread):
         time.sleep(1.8)
         self.poppy.l_shoulder_x.goto_position(0, 2, wait=False)
         self.poppy.r_shoulder_x.goto_position(0, 2, wait=True)
-        if s.robot_count:
+        if s.robot_count and s.have_voice ==True:
             say(str(counter + 1))
         time.sleep(1)
+        if s.robot_count and s.have_voice!=True:
+            s.screen.switch_frame(self.get_item_by_number(str(counter + 1)))
         if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
             self.poppy.l_shoulder_y.goto_position(0, 2, wait=False)
             self.poppy.r_shoulder_y.goto_position(0, 2, wait=False)
@@ -289,9 +280,11 @@ class Poppy(threading.Thread):
         time.sleep(1.8)
         self.poppy.l_shoulder_x.goto_position(0, 1, wait=False)
         self.poppy.r_shoulder_x.goto_position(0, 1, wait=True)
-        if s.robot_count:
+        if s.robot_count and s.have_voice==True:
             say(str(counter + 1))
         time.sleep(1)
+        if s.robot_count and s.have_voice!=True:
+            s.screen.switch_frame(self.get_item_by_number(str(counter + 1)))
         if counter >= s.rep-1 or s.success_exercise:  # need to change it to constant
             self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
             self.poppy.l_elbow_y.goto_position(90, 1.5, wait=True)
@@ -341,9 +334,11 @@ class Poppy(threading.Thread):
         self.poppy.r_arm_z.goto_position(0, 1.5, wait=False)
         self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
         self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
-        if s.robot_count:
+        if s.robot_count and s.have_voice==True:
             say(str(counter + 1))
         time.sleep(1)
+        if s.robot_count and s.have_voice!=True:
+            s.screen.switch_frame(self.get_item_by_number(str(counter + 1)))
         return
 
     # EX 6 raise_arms_forward - one hand
