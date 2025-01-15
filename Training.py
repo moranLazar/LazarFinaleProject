@@ -106,7 +106,7 @@ class Training(threading.Thread):
         print("TRAINING DONE")
 
     def interaction_mal(self):
-     for _ in range(10):  # Wait for 30 seconds, doing 3 repetitions, and checking for a wave gesture.
+     for _ in range(10):  # Wait for 10 seconds, doing 3 repetitions, and checking for a wave gesture.
         s.camera.waiving()
         if s.waved:
             if s.have_voice:
@@ -176,7 +176,7 @@ class Training(threading.Thread):
             say('how_inter')
             time.sleep(2)
          else:
-            s.screen.switch_frame(How_Hardware)
+            s.screen.switch_frame(How_inter)
             time.sleep(2)
          for _ in range(6):  # Wait for 30 sec and doing 3 reps and checking if he waved
             self.run_exercise(impossible_EX)
@@ -184,7 +184,12 @@ class Training(threading.Thread):
             self.interaction_mal()
             time.sleep(2)
          return
-        
+     if s.have_voice:
+            say('continue_inter')
+            time.sleep(2)
+     else:
+            s.screen.switch_frame(continue_inter)
+            
     def is_speaker_Active(self, path):
         try:
         # Check if the file exists
