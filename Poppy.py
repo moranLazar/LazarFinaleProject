@@ -7,7 +7,7 @@ from Screen import one,two,three,four,five,six,seven,eight
 
 
 class Poppy(threading.Thread):
-    def get_item_by_number(self,number):
+    def what_to_say(self,number):
      counter_to_write = {
     "1": one,
     "2": two,
@@ -54,23 +54,32 @@ class Poppy(threading.Thread):
         print("Robot Done")
 
     def exercise_demo(self, ex):
-        if ex == "hello_waving":
-            self.hello_waving()
-        elif ex=="check_hello_wave":
-            self.check_hello_wave()
-        elif ex=='impossible_EX':
-            self.impossible_EX
-            for i in range(s.rep):
-                s.robot_rep = 1
-                getattr(self, ex)(i)
-                if s.success_exercise:
-                    break
+     if ex == "hello_waving":
+        self.hello_waving()
+     elif ex == "check_hello_wave":
+        self.check_hello_wave()
+     elif ex == "impossible_EX":
+        self.impossible_EX
+        if s.have_voice:
+            is_saying = self.what_to_say(s.counter_writen)
+            say(is_saying)
+            s.counter_writen += 1
         else:
-            for i in range(s.rep):
-                s.robot_rep = i
-                getattr(self, ex)(i)
-                if s.success_exercise:
-                    break
+            is_saying = self.what_to_say(s.counter_writen)
+            s.screen.switch_frame(is_saying)
+            s.counter_writen += 1
+        getattr(self, ex)(1)
+        if s.success_exercise :
+            if (s.counter_writen ==8):
+             s.counter_writen =1
+             return
+            return  # Exit the function early if exercise succeeds
+     else:
+        for i in range(s.rep):
+            s.robot_rep = i
+            getattr(self, ex)(i)
+            if s.success_exercise:
+                break
 
     def check_hello_wave(self):
         self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)
@@ -139,9 +148,11 @@ class Poppy(threading.Thread):
                       self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False),
                       self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False),
                       self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)]
-        if s.robot_count:
-            say(str(counter + 1))
-        time.sleep(1.8)
+        if s.robot_count and s.have_voice==True:
+              say(str(counter + 1))
+              time.sleep(1)
+        if s.robot_count and s.have_voice!=True:
+              s.screen.switch_frame(self.what_to_say(str(counter + 1)))
 
     # EX2 - Bend Elbows
     def bend_elbows(self, counter):
@@ -154,7 +165,7 @@ class Poppy(threading.Thread):
             say(str(counter + 1))
         time.sleep(1.4)
         if s.robot_count and s.have_voice!=True:
-            s.screen.switch_frame(self.get_item_by_number(str(counter + 1)))
+            s.screen.switch_frame(self.what_to_say(str(counter + 1)))
     
 
     # EX3 - Raise Arms Bend Elbows
@@ -176,7 +187,7 @@ class Poppy(threading.Thread):
             say(str(counter + 1))
         time.sleep(1)
         if s.robot_count and s.have_voice!=True:
-            s.screen.switch_frame(self.get_item_by_number(str(counter + 1)))
+            s.screen.switch_frame(self.what_to_say(str(counter + 1)))
         if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
             # return to init position
             self.poppy.l_arm_z.goto_position(0, 1.5, wait=False)
@@ -234,7 +245,7 @@ class Poppy(threading.Thread):
             say(str(counter + 1))
         time.sleep(1)
         if s.robot_count and s.have_voice!=True:
-            s.screen.switch_frame(self.get_item_by_number(str(counter + 1)))
+            s.screen.switch_frame(self.what_to_say(str(counter + 1)))
         if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
             self.poppy.l_shoulder_y.goto_position(0, 2, wait=False)
             self.poppy.r_shoulder_y.goto_position(0, 2, wait=False)
@@ -284,7 +295,7 @@ class Poppy(threading.Thread):
             say(str(counter + 1))
         time.sleep(1)
         if s.robot_count and s.have_voice!=True:
-            s.screen.switch_frame(self.get_item_by_number(str(counter + 1)))
+            s.screen.switch_frame(self.what_to_say(str(counter + 1)))
         if counter >= s.rep-1 or s.success_exercise:  # need to change it to constant
             self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
             self.poppy.l_elbow_y.goto_position(90, 1.5, wait=True)
@@ -338,7 +349,7 @@ class Poppy(threading.Thread):
             say(str(counter + 1))
         time.sleep(1)
         if s.robot_count and s.have_voice!=True:
-            s.screen.switch_frame(self.get_item_by_number(str(counter + 1)))
+            s.screen.switch_frame(self.what_to_say(str(counter + 1)))
         return
 
     # EX 6 raise_arms_forward - one hand

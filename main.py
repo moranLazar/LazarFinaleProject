@@ -49,6 +49,7 @@ if __name__ == '__main__':
     s.robot_count = True
     s.try_again = False
     s.team = 3
+    s.counter_writen =1 
     s.have_voice = True
     # Excel variable
     Excel.create_workbook()

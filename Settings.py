@@ -12,6 +12,7 @@ def __init__():
     global ex_list
 
     # training variables
+    global counter_writen
     global exercise_amount
     global rep
     global req_exercise
