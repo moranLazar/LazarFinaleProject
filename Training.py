@@ -131,10 +131,8 @@ class Training(threading.Thread):
      else:
         if s.have_voice:
             say('continue_inter')
-            s.voice_inter_once=False
         else:
             s.screen.switch_frame(continue_inter)
-            s.voice_inter_once=False
         time.sleep(2)
 
     def check_wave_and_exit(self):
