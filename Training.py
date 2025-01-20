@@ -164,7 +164,7 @@ class Training(threading.Thread):
         if self.check_wave_and_exit():
             return
         for _ in range(reps):
-            self.run_exercise(impossible_EX)
+            self.run_exercise('impossible_EX')
             s.waved=self.interaction_mal()
             if self.check_wave_and_exit():
                 return
@@ -192,7 +192,7 @@ class Training(threading.Thread):
      if self.check_wave_and_exit():
         return
      for _ in range(6):  # Wait for 30 seconds, doing reps, and checking for a wave
-        self.run_exercise(impossible_EX)
+        self.run_exercise('impossible_EX')
         s.waved=self.interaction_mal()
         if self.check_wave_and_exit():
             return
