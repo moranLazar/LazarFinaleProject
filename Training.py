@@ -151,7 +151,7 @@ class Training(threading.Thread):
      return False
     
     def handle_team_1_or_3(self):
-     prompts = [('what_inter', 3), ('why_inter', 3), ('how_inter', 3)]
+     prompts = [('what_inter', 3), ('why_inter', 3)]
      for prompt, reps in prompts:
         if s.have_voice:
             say(prompt)
@@ -168,13 +168,13 @@ class Training(threading.Thread):
                 return
             if s.waved==True:
                 return
-        if s.have_voice:
+     if s.have_voice:
             say("how_inter")
             time.sleep(1)
-        else:
+     else:
             s.screen.switch_frame(How_inter)
-        time.sleep(1)
-        for _ in range(2):
+     time.sleep(1)
+     for _ in range(2):
             s.waved=self.interaction_mal()
             if self.check_wave_and_exit():
                 return
@@ -278,16 +278,14 @@ class Training(threading.Thread):
      time.sleep(15)
      if team in [1, 3]:  # Groups with multi-stage hardware checks
         hardware_stages = [
-            (How_Hardware, "how Finished hardware problem"),
             (What_Hardware, "what Finished hardware problem"),
             (Why_Hardware, "why Finished hardware problem"),
+            (How_Hardware, "how Finished hardware problem"),
             (Continue, "Finished hardware check, no solution found"),
         ]
-
         for frame, message in hardware_stages[:-1]:
             s.screen.switch_frame(frame)
             time.sleep(2)
-
             print(f"Checking for speaker activity during '{frame.__name__}'")
             for _ in range(40):  # Check for 40 seconds in 1-second intervals
                 s.Fake_speaker = self.is_speaker_Active(csv_path)
@@ -298,7 +296,6 @@ class Training(threading.Thread):
                     say("Fix_Hardware_Good")
                     s.screen.switch_frame(EyesPage)
                     return have_voice  # Exit early if resolved
-
         # If no speaker detected after all stages
         s.screen.switch_frame(hardware_stages[-1][0])  # Continue frame
         print(hardware_stages[-1][1])
