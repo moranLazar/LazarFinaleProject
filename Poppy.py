@@ -61,7 +61,7 @@ class Poppy(threading.Thread):
      elif ex == "impossible_EX":
         self.impossible_EX()
         if s.success_exercise :
-            if (s.counter_writen >=8):
+            if (s.counter_writen >=7):
              s.counter_writen =1
              return
             return  # Exit the function early if exercise succeeds

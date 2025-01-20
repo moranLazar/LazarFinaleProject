@@ -165,21 +165,21 @@ class Training(threading.Thread):
             self.run_exercise('impossible_EX')
             s.waved=self.interaction_mal()
             if self.check_wave_and_exit():
-                return
+             return
             if s.waved==True:
-                return
+             return
      if s.have_voice:
             say("how_inter")
             time.sleep(1)
      else:
             s.screen.switch_frame(How_inter)
-     time.sleep(1)
+            time.sleep(1)
      for _ in range(2):
             s.waved=self.interaction_mal()
             if self.check_wave_and_exit():
-                return
+             return
             if s.waved==True:
-                return
+             return
            
     def handle_team_2_or_4(self):
      if s.have_voice:
