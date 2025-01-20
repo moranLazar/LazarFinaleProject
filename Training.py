@@ -129,64 +129,66 @@ class Training(threading.Thread):
      print("Waiting for 2 reps before starting")
      for i in range(2):
          self.run_exercise(impossible_EX)
+         s.camera.waiving()
+         time.sleep(2)
          for _ in range(20):  # Wait for 20 sec and doing 2 reps and checking if he waved
             s.camera.waiving()
             if s.waved:  # Continuously check for hello_wave
                 if s.have_voice:
                     say('finished_impossible_ex_good')
-                    time.sleep(3)
+                    time.sleep(1)
                     print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
                     return
                 else:
                     s.screen.switch_frame(finished_impossible_ex_good)
-                    time.sleep(2)
+                    time.sleep(1)
                     print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
                     return
 
      if s.team == 1 or s.team == 3:
          if s.have_voice:
             say('what_inter')
-            time.sleep(2)
+            time.sleep(1)
          else:
             s.screen.switch_frame(What_inter)
-            time.sleep(2)
+            time.sleep(1)
          for _ in range(3):
             self.run_exercise(impossible_EX)
-            time.sleep(2)
+            time.sleep(1)
             self.interaction_mal()
-            time.sleep(2)
+            time.sleep(1)
          if s.have_voice:
             say('why_inter')
-            time.sleep(2)
+            time.sleep(1)
          else:
             s.screen.switch_frame(Why_inter)
-            time.sleep(2)
+            time.sleep(1)
          for _ in range(3):
             self.run_exercise(impossible_EX)
-            time.sleep(2)
+            time.sleep(1)
             self.interaction_mal()
-            time.sleep(2)
+            time.sleep(1)
          if s.have_voice:
             say('how_inter')
-            time.sleep(2)
+            time.sleep(1)
          else:
             s.screen.switch_frame(How_inter)
-            time.sleep(2)
+            time.sleep(12)
          for _ in range(3):
             self.interaction_mal()
-            time.sleep(2)
+            time.sleep(1)
      if s.team == 2 or s.team == 4:
          if s.have_voice:
             say('how_inter')
-            time.sleep(2)
+            time.sleep(1)
          else:
             s.screen.switch_frame(How_inter)
-            time.sleep(2)
+            time.sleep(1)
          for _ in range(6):  # Wait for 30 sec and doing 3 reps and checking if he waved
             self.run_exercise(impossible_EX)
-            time.sleep(2)
+            time.sleep(1)
             self.interaction_mal()
-            time.sleep(2)
+            time.sleep(1)
          return
      if s.have_voice:
             say('continue_inter')

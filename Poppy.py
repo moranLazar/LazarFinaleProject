@@ -105,15 +105,33 @@ class Poppy(threading.Thread):
 
     #impossible EX  
     def impossible_EX(self):
-     hands_up = [self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False),
-                    self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False),
-                    self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False),
-                    self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)]
-     time.sleep(2)
+        print("Step 1: Lifting arms to 90 degrees")
+        self.poppy.l_shoulder_y.goto_position(-90, 1.5, wait=False)  # Left shoulder to 90 degrees
+        self.poppy.r_shoulder_y.goto_position(-90, 1.5, wait=True)  # Right shoulder to -90 degrees
+        time.sleep(0.5)
+        # Step 2: Bend elbows to a 90-degree angle
+        print("Step 2: rotating arms to 90 degrees")
+        self.poppy.l_arm_z.goto_position(90, 1.5, wait=False)
+        self.poppy.r_arm_z.goto_position(-90, 1.5, wait=True)
+        time.sleep(0.5)
+        print("bending elbows")
+        self.poppy.l_elbow_y.goto_position(0, 1.5, wait=False)
+        self.poppy.r_elbow_y.goto_position(0, 1.5, wait=True)
+        time.sleep(0.5)
+        print("returning to initial position")
+        self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False)
+        self.poppy.r_elbow_y.goto_position(90, 1.5, wait=True)
+        time.sleep(0.5)
+        print("Step 2: rotating arms to 0 degrees")
+        self.poppy.l_arm_z.goto_position(0, 1.5, wait=False)
+        self.poppy.r_arm_z.goto_position(0, 1.5, wait=True)
+        time.sleep(0.5)
 
+        print("last step: Lifting arms to 0 degrees")
+        self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)  # Left shoulder to 90 degrees
+        self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)  # Right shoulder to -90 degrees
+        time.sleep(0.5)
 
-
-        
     # EX1 - Raise arms horizontally
     def raise_arms_horizontally(self, counter):
         hands_up = [self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False),
