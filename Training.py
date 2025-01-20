@@ -6,12 +6,25 @@ import random
 from Audio import say
 import os
 import pandas as pd
+from Screen import one,two,three,four,five,six,seven,eight
 from Screen import How_inter,EyesPage,goodbye,Alert,continue_inter,finished_impossible_ex_good,raise_arms_bend_elbows,open_and_close_arms,raise_arms_forward,bend_elbows,impossible_EX,Continue,Why_inter,What_inter,Why_Hardware,What_Hardware,How_Hardware
 ######### this is the correct one lazars !!
 class Training(threading.Thread):
+    
     def __init__(self):
         threading.Thread.__init__(self)
-        
+
+    def what_to_say(self,number):
+     counter_to_write = {
+     "1": one,
+     "2": two,
+     "3": three,
+     "4": four,
+     "5": five,
+     "6": six,
+     "7": seven,
+     "8": eight,
+}
     def run(self):
         print("TRAINING START")
         self.run_exercise("hello_waving")
@@ -117,6 +130,10 @@ class Training(threading.Thread):
      s.saying_inter=True
      for i in range(2):
         self.run_exercise('impossible_EX')
+        if s.have_voice :
+           say (s.req_exercise_inter-1)
+        else:
+           s.screen.switch_frame(self.what_to_say(s.req_exercise_inter-1))
         if self.check_wave_and_exit():
             return
         time.sleep(2)
@@ -133,8 +150,10 @@ class Training(threading.Thread):
      else:
         if s.have_voice:
             say('continue_inter')
+            s.voice_inter_once=False
         else:
             s.screen.switch_frame(continue_inter)
+            s.voice_inter_once=False
         time.sleep(2)
 
     def check_wave_and_exit(self):
@@ -165,7 +184,11 @@ class Training(threading.Thread):
             return
         for _ in range(reps):
             self.run_exercise('impossible_EX')
-            s.waved=self.interaction_mal()
+            if s.have_voice :
+             say (s.req_exercise_inter-1)
+            else:
+             s.screen.switch_frame(self.what_to_say(s.req_exercise_inter-1))
+             s.waved=self.interaction_mal()
             if self.check_wave_and_exit():
              return
             if s.waved==True:
@@ -193,6 +216,10 @@ class Training(threading.Thread):
         return
      for _ in range(6):  # Wait for 60 seconds, doing reps, and checking for a wave
         self.run_exercise('impossible_EX')
+        if s.have_voice :
+           say (s.req_exercise_inter-1)
+        else:
+           s.screen.switch_frame(self.what_to_say(s.req_exercise_inter-1))
         s.waved=self.interaction_mal()
         if self.check_wave_and_exit():
             time.sleep(1.5)
