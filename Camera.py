@@ -356,6 +356,17 @@ class Camera(threading.Thread):
                     s.waved = True
                     s.req_exercise = ""
 
+    def impossibe_EX (self):
+        while s.req_exercise == "impossibe_EX":
+            joints = self.get_skeleton_data()
+            if joints is not None:
+                right_shoulder = joints[str("R_Shoulder")]
+                right_wrist = joints[str("R_Wrist")]
+                if right_shoulder.y < right_wrist.y != 0:
+                    print("finishing impossible ex.")
+                    s.waved = True
+                    s.req_exercise = ""
+
     def check_angle_range(self, joint1, joint2, joint3, use_alternate_angles=False):
         # just for coding and understanding angle boundaries
         list_joints = []
@@ -418,7 +429,14 @@ class Camera(threading.Thread):
         while not s.finish_workout:
             time.sleep(0.00000001)  # Prevents the MP to stuck
             jd = self.get_skeleton_data()  # clear data TODO check if it help
-            if s.req_exercise != "":
+            if s.req_exercise != "" and s.req_exercise !="impossible_EX":
+                print("CAMERA: Exercise ", s.req_exercise, " start")
+                time.sleep(1)
+                getattr(self, s.req_exercise)()
+                print("CAMERA: Exercise ", s.req_exercise, " done")
+                s.req_exercise = ""
+                s.camera_done = True
+            if s.req_exercise != "" and s.req_exercise =="impossible_EX":
                 print("CAMERA: Exercise ", s.req_exercise, " start")
                 time.sleep(1)
                 getattr(self, s.req_exercise)()

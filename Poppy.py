@@ -4,7 +4,7 @@ import time
 import Settings as s
 from Audio import say
 from Screen import one,two,three,four,five,six,seven,eight
-
+import Settings as s
 
 class Poppy(threading.Thread):
     def what_to_say(self,number):
@@ -59,7 +59,7 @@ class Poppy(threading.Thread):
      elif ex == "check_hello_wave":
         self.check_hello_wave()
      elif ex == "impossible_EX":
-        self.impossible_EX
+        self.impossible_EX()
         if s.have_voice:
             say(s.counter_writen)
             s.counter_writen += 1
@@ -104,7 +104,7 @@ class Poppy(threading.Thread):
         self.poppy.r_arm_z.goto_position(0, 1.5, wait=False)
 
     #impossible EX  
-    def impossible_EX(self):
+    def impossible_EX(self,counter):
         print("Step 1: Lifting arms to 90 degrees")
         self.poppy.l_shoulder_y.goto_position(-90, 1.5, wait=False)  # Left shoulder to 90 degrees
         self.poppy.r_shoulder_y.goto_position(-90, 1.5, wait=True)  # Right shoulder to -90 degrees
@@ -126,11 +126,16 @@ class Poppy(threading.Thread):
         self.poppy.l_arm_z.goto_position(0, 1.5, wait=False)
         self.poppy.r_arm_z.goto_position(0, 1.5, wait=True)
         time.sleep(0.5)
-
         print("last step: Lifting arms to 0 degrees")
         self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)  # Left shoulder to 90 degrees
         self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)  # Right shoulder to -90 degrees
         time.sleep(0.5)
+        if s.have_voice==True:
+            say(s.req_exercise_inter)
+            s.req_exercise_inter=+1
+        else:
+            s.screen.switch_frame(self.what_to_say(str(s.req_exercise_inter)))
+            s.req_exercise_inter=+1
 
     # EX1 - Raise arms horizontally
     def raise_arms_horizontally(self, counter):
