@@ -114,7 +114,6 @@ class Training(threading.Thread):
      print("impossible ex start")
      for i in range(2):
         self.run_exercise('impossible_EX')
-        s.saying_inter=True
         if self.check_wave_and_exit():
             return
         time.sleep(2)
@@ -226,6 +225,7 @@ class Training(threading.Thread):
         print("TRAINING: Exercise ", name, " start")
         if name=="impossible_EX" and s.saying_inter==False:
             self.impossible_EX()
+            s.saying_inter=True
         if(name=="bend_elbows"):
             s.Have_voice=False
             self.Time_to_check_voice(s.team,s.have_voice,s.Fake_speaker)
