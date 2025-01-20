@@ -31,6 +31,7 @@ class Training(threading.Thread):
         self.explaining_Exit_Movment("check_hello_wave")
         while not s.waved:
             time.sleep(0.00000001)  # Prevents the MP to stuck
+            s.camera.waiving()
             continue
         say('very good') ###### change the command or record the right one 
         s.waved = False # set as False again for future
