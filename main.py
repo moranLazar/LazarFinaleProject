@@ -57,6 +57,7 @@ if __name__ == '__main__':
     s.training = Training()
     s.robot = Poppy()
     s.Fake_speaker= False ## it will still be false, but its need to get output from port
+    s.voice_inter_once=False
 
     # Adaptation variables
     s.adaptive = True

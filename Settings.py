@@ -26,6 +26,7 @@ def __init__():
     global calibration
     global poppy_done
     global camera_done
+    global voice_inter_once
     global robot_count
     global try_again # Adaptive scenario - successful performance
     global robot_rep # number of repetition of the robot
