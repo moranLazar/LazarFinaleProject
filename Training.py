@@ -151,7 +151,7 @@ class Training(threading.Thread):
      return False
     
     def handle_team_1_or_3(self):
-     prompts = [('what_inter', 3), ('why_inter', 2)]
+     prompts = [('what_inter', 3), ('why_inter', 3)]
      for prompt, reps in prompts:
         if s.have_voice:
             say(prompt)
