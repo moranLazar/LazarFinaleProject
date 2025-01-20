@@ -32,6 +32,7 @@ class Training(threading.Thread):
         while not s.waved:
             time.sleep(0.00000001)  # Prevents the MP to stuck
             continue
+        say('very good') ###### change the command or record the right one 
         s.waved = False # set as False again for future
         time.sleep(2.5)
         print("Training: finish waving")
@@ -67,11 +68,9 @@ class Training(threading.Thread):
         self.run_exercise("check_hello_wave") 
         print("showing the right motion")
         time.sleep(3)
-        say('very good') ###### change the command or record the right one 
-        time.sleep(2.5)
         print("finished the explanation")
-        s.poppy_done = False  # AFTER HELLO
-        s.camera_done = False  # AFTER HELLO
+        #s.poppy_done = False  # AFTER HELLO
+        #s.camera_done = False  # AFTER HELLO
 
     #people between 0-20
     def training_session_interaction_first(self):
@@ -110,7 +109,11 @@ class Training(threading.Thread):
         print("TRAINING DONE")
 
     def impossible_EX(self):
-     print("Waiting for 2 reps before starting")
+     print("impossible ex start")
+     if s.have_voice:
+        say('goodbye')
+     else :
+        s.screen.switch_frame(impossible_EX)
      for i in range(2):
         self.run_exercise(impossible_EX)
         if self.check_wave_and_exit():
