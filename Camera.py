@@ -256,6 +256,7 @@ class Camera(threading.Thread):
                 if s.voice_inter_once!=True and s.have_voice==True:
                  say(exercise_name + "_" + str(flag))
                  said_instructions = True
+                 s.voice_inter_once=True
                 else :
                     said_instructions = True
                 if flag:
