@@ -112,6 +112,8 @@ class Training(threading.Thread):
 
     def impossible_EX(self):
      print("impossible ex start")
+     if s.saying_inter!=True:
+        say('impossible_EX')
      s.saying_inter=True
      for i in range(2):
         self.run_exercise('impossible_EX')
