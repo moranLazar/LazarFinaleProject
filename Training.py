@@ -125,8 +125,10 @@ class Training(threading.Thread):
 
     def impossible_EX(self):
      print("impossible ex start")
-     if s.saying_inter!=True:
+     if s.saying_inter!=True and s.have_voice:
         say('impossible_EX')
+     else:
+         s.screen.switch_frame(impossible_EX)
      s.saying_inter=True
      for i in range(2):
         self.run_exercise('impossible_EX')
@@ -172,7 +174,7 @@ class Training(threading.Thread):
      return False
     
     def handle_team_1_or_3(self):
-     prompts = [('what_inter', 3), ('why_inter', 3)]
+     prompts = [('what_inter', 3), ('why_inter', 2)]
      for prompt, reps in prompts:
         if s.have_voice:
             say(prompt)
