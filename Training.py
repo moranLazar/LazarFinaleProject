@@ -145,10 +145,12 @@ class Training(threading.Thread):
         if s.have_voice:
             say('finished_impossible_ex_good')
             print("Hello_wave motion was detected. Exiting function.")
+            time.sleep(1.5)
         else:
             time.sleep(2)
             s.screen.switch_frame(finished_impossible_ex_good)
             print("Hello_wave motion was detected. Exiting function.")
+            time.sleep(1.5)
         return True
      return False
     
@@ -195,8 +197,10 @@ class Training(threading.Thread):
         self.run_exercise('impossible_EX')
         s.waved=self.interaction_mal()
         if self.check_wave_and_exit():
+            time.sleep(1.5)
             return
         if s.waved==True:
+            time.sleep(1.5)
             return
         
     def interaction_mal(self):
