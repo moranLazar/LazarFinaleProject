@@ -33,7 +33,7 @@ class Training(threading.Thread):
             time.sleep(0.00000001)  # Prevents the MP to stuck
             s.camera.waiving()
             if s.camera.waiving():
-               time.sleep(1)
+               time.sleep(1.5)
             continue
         say('very good') ###### change the command or record the right one 
         s.waved = False # set as False again for future
@@ -118,7 +118,7 @@ class Training(threading.Thread):
      else :
         s.screen.switch_frame(impossible_EX)
      for i in range(2):
-        self.run_exercise(impossible_EX)
+        self.run_exercise('impossible_EX')
         if self.check_wave_and_exit():
             return
         time.sleep(2)
