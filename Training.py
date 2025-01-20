@@ -151,7 +151,7 @@ class Training(threading.Thread):
      return False
     
     def handle_team_1_or_3(self):
-     prompts = [('what_inter', 3), ('why_inter', 3)]
+     prompts = [('what_inter', 3), ('why_inter', 2)]
      for prompt, reps in prompts:
         if s.have_voice:
             say(prompt)
@@ -189,7 +189,7 @@ class Training(threading.Thread):
      time.sleep(1)
      if self.check_wave_and_exit():
         return
-     for _ in range(6):  # Wait for 30 seconds, doing reps, and checking for a wave
+     for _ in range(6):  # Wait for 60 seconds, doing reps, and checking for a wave
         self.run_exercise('impossible_EX')
         s.waved=self.interaction_mal()
         if self.check_wave_and_exit():
