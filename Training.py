@@ -109,93 +109,75 @@ class Training(threading.Thread):
         s.screen.quit()
         print("TRAINING DONE")
 
-    def interaction_mal(self):
-     for _ in range(10):  # Wait for 10 seconds, doing 3 repetitions, and checking for a wave gesture.
-        s.camera.waiving()
-        if s.waved:
-            if s.have_voice:
-                say('finished_impossible_ex_good')
-                print("Hello_wave motion was detected. Ending impossible_EX.")
-                return
-            else:  # The user failed due to a hardware problem.
-                time.sleep(2)
-                s.screen.switch_frame(finished_impossible_ex_good)
-                time.sleep(2)
-                print("Hello_wave motion was detected. Ending impossible_EX.")
-                return
-
-    
     def impossible_EX(self):
      print("Waiting for 2 reps before starting")
      for i in range(2):
-         self.run_exercise(impossible_EX)
-         s.camera.waiving()
-         time.sleep(2)
-         for _ in range(20):  # Wait for 20 sec and doing 2 reps and checking if he waved
-            s.camera.waiving()
-            if s.waved:  # Continuously check for hello_wave
-                if s.have_voice:
-                    say('finished_impossible_ex_good')
-                    time.sleep(1)
-                    print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
-                    return
-                else:
-                    s.screen.switch_frame(finished_impossible_ex_good)
-                    time.sleep(1)
-                    print("Hello_wave motion detected during final waiting period. Ending impossible_EX.")
-                    return
-
-     if s.team == 1 or s.team == 3:
-         if s.have_voice:
-            say('what_inter')
-            time.sleep(1)
-         else:
-            s.screen.switch_frame(What_inter)
-            time.sleep(1)
-         for _ in range(3):
-            self.run_exercise(impossible_EX)
-            time.sleep(1)
-            self.interaction_mal()
-            time.sleep(1)
-         if s.have_voice:
-            say('why_inter')
-            time.sleep(1)
-         else:
-            s.screen.switch_frame(Why_inter)
-            time.sleep(1)
-         for _ in range(3):
-            self.run_exercise(impossible_EX)
-            time.sleep(1)
-            self.interaction_mal()
-            time.sleep(1)
-         if s.have_voice:
-            say('how_inter')
-            time.sleep(1)
-         else:
-            s.screen.switch_frame(How_inter)
-            time.sleep(12)
-         for _ in range(3):
-            self.interaction_mal()
-            time.sleep(1)
-     if s.team == 2 or s.team == 4:
-         if s.have_voice:
-            say('how_inter')
-            time.sleep(1)
-         else:
-            s.screen.switch_frame(How_inter)
-            time.sleep(1)
-         for _ in range(6):  # Wait for 30 sec and doing 3 reps and checking if he waved
-            self.run_exercise(impossible_EX)
-            time.sleep(1)
-            self.interaction_mal()
-            time.sleep(1)
-         return
-     if s.have_voice:
-            say('continue_inter')
-            time.sleep(2)
+        self.run_exercise(impossible_EX)
+        if self.check_wave_and_exit():
+            return
+        time.sleep(2)
+     for _ in range(20):  # Wait for 20 seconds, checking for a wave
+        if self.check_wave_and_exit():
+            return
+        time.sleep(1)
+     if s.team in [1, 3]:
+        self.handle_team_1_or_3()
+     elif s.team in [2, 4]:
+        self.handle_team_2_or_4()
      else:
+        if s.have_voice:
+            say('continue_inter')
+        else:
             s.screen.switch_frame(continue_inter)
-            
+        time.sleep(2)
+
+    def check_wave_and_exit(self):
+     s.camera.waiving()
+     if s.waved:
+        if s.have_voice:
+            say('finished_impossible_ex_good')
+            print("Hello_wave motion was detected. Exiting function.")
+        else:
+            time.sleep(2)
+            s.screen.switch_frame(finished_impossible_ex_good)
+            print("Hello_wave motion was detected. Exiting function.")
+        return True
+     return False
+    
+    def handle_team_1_or_3(self):
+     prompts = [('what_inter', 3), ('why_inter', 3), ('how_inter', 3)]
+     for prompt, reps in prompts:
+        if s.have_voice:
+            say(prompt)
+        else:
+            s.screen.switch_frame(globals()[prompt.capitalize()])
+        time.sleep(1)
+        if self.check_wave_and_exit():
+            return
+        for _ in range(reps):
+            self.run_exercise(impossible_EX)
+            self.interaction_mal()
+            if self.check_wave_and_exit():
+                return
+    def handle_team_2_or_4(self):
+     if s.have_voice:
+        say('how_inter')
+     else:
+        s.screen.switch_frame(How_inter)
+     time.sleep(1)
+     if self.check_wave_and_exit():
+        return
+     for _ in range(6):  # Wait for 30 seconds, doing reps, and checking for a wave
+        self.run_exercise(impossible_EX)
+        self.interaction_mal()
+        if self.check_wave_and_exit():
+            return
+        
+    def interaction_mal(self):
+     for _ in range(10):
+        if self.check_wave_and_exit():
+            return
+     print("No wave detected during interaction_mal.")
     def is_speaker_Active(self, path):
         try:
         # Check if the file exists
