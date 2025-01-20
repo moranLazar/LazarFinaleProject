@@ -158,7 +158,7 @@ class Training(threading.Thread):
             time.sleep(1)
         else:
             s.screen.switch_frame(globals()[prompt.capitalize()])
-        time.sleep(1)
+            time.sleep(1)
         if self.check_wave_and_exit():
             return
         for _ in range(reps):
