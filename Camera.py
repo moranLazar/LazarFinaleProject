@@ -334,7 +334,7 @@ class Camera(threading.Thread):
                     # print(right_shoulder.y)
                     # print(right_wrist.y)
                     s.waved = True
-                    s.req_exercise = ""
+                    #s.req_exercise = ""
 
     def hello_waving(self):  # check if the participant waved
         if s.try_again:
