@@ -17,7 +17,7 @@ from performance_classification import feature_extraction, predict_performance, 
 from Screen import one,two,three,four,five,six,seven,eight
 
 class Camera(threading.Thread):
-    def get_item_by_number(number):
+    def get_item_by_number(self,number):
      counter_to_write = {
     "1": one,
     "2": two,
