@@ -29,6 +29,10 @@ class Training(threading.Thread):
                 continue
         time.sleep(3)
         self.explaining_Exit_Movment("check_hello_wave")
+        while not s.waved:
+            time.sleep(0.00000001)  # Prevents the MP to stuck
+            continue
+        s.waved = False # set as False again for future
         time.sleep(2.5)
         print("Training: finish waving")
         self.warm_up()
