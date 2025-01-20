@@ -114,7 +114,6 @@ class Training(threading.Thread):
     def impossible_EX(self):
      print("impossible ex start")
      if s.have_voice:
-        say('impossible_EX')
         s.saying_inter=True
      else :
         s.screen.switch_frame(impossible_EX)
