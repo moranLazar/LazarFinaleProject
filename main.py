@@ -36,9 +36,6 @@ if __name__ == '__main__':
     s.rep = 3
     s.req_exercise = ""
     s.req_exercise_inter=1
-    s.req_exercise_not_adaptive=6
-    s.req_exercise_adaptive1=3
-    s.req_exercise_adaptive2=3
     s.finish_workout = False
     s.waved = False
     s.success_exercise = False
@@ -48,7 +45,7 @@ if __name__ == '__main__':
     s.camera_done = False
     s.robot_count = True
     s.try_again = False
-    s.team = 3
+    s.team = 1
     s.counter_writen =1 
     s.have_voice = True
     # Excel variable

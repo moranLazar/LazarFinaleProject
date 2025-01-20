@@ -27,19 +27,21 @@ class Training(threading.Thread):
             while not s.calibration:
                 time.sleep(0.00000001)
                 continue
-        time.sleep(3)
+        time.sleep(1)
         self.explaining_Exit_Movment("check_hello_wave")
         while not s.waved:
             time.sleep(0.00000001)  # Prevents the MP to stuck
             s.camera.waiving()
+            if s.camera.waiving():
+               time.sleep(1)
             continue
         say('very good') ###### change the command or record the right one 
         s.waved = False # set as False again for future
-        time.sleep(2.5)
+        time.sleep(1)
         print("Training: finish waving")
-        self.warm_up()
         say('lets start')
-        time.sleep(2.5)
+        time.sleep(1)
+        self.warm_up()
         print("Training: finish warmup")
         s.poppy_done = False  # AFTER HELLO
         s.camera_done = False  # AFTER HELLO
@@ -55,7 +57,7 @@ class Training(threading.Thread):
         # TODO - adding random choice of exercises.
         exercise_names = ["open_and_close_arms_90","raise_arms_forward"]
         for e in exercise_names:
-            time.sleep(2) # wait between exercises
+            time.sleep(1) # wait between exercises
             self.run_exercise(e)
             while (not s.poppy_done) or (not s.camera_done):
                 print("not done")
@@ -68,7 +70,7 @@ class Training(threading.Thread):
         print("explaining how to make the robot go next")
         self.run_exercise("check_hello_wave") 
         print("showing the right motion")
-        time.sleep(3)
+        time.sleep(1)
         print("finished the explanation")
         #s.poppy_done = False  # AFTER HELLO
         #s.camera_done = False  # AFTER HELLO
@@ -112,7 +114,7 @@ class Training(threading.Thread):
     def impossible_EX(self):
      print("impossible ex start")
      if s.have_voice:
-        say('goodbye')
+        say('impossible_EX')
      else :
         s.screen.switch_frame(impossible_EX)
      for i in range(2):
@@ -122,6 +124,8 @@ class Training(threading.Thread):
         time.sleep(2)
      for _ in range(20):  # Wait for 20 seconds, checking for a wave
         if self.check_wave_and_exit():
+            time.sleep(1)
+            print("didnt waved")
             return
         time.sleep(1)
      if s.team in [1, 3]:
@@ -153,6 +157,7 @@ class Training(threading.Thread):
      for prompt, reps in prompts:
         if s.have_voice:
             say(prompt)
+            time.sleep(1)
         else:
             s.screen.switch_frame(globals()[prompt.capitalize()])
         time.sleep(1)
@@ -160,9 +165,24 @@ class Training(threading.Thread):
             return
         for _ in range(reps):
             self.run_exercise(impossible_EX)
-            self.interaction_mal()
+            s.waved=self.interaction_mal()
             if self.check_wave_and_exit():
                 return
+            if s.waved==True:
+                return
+        if s.have_voice:
+            say("how_inter")
+            time.sleep(1)
+        else:
+            s.screen.switch_frame(How_inter)
+        time.sleep(1)
+        for _ in range(2):
+            s.waved=self.interaction_mal()
+            if self.check_wave_and_exit():
+                return
+            if s.waved==True:
+                return
+           
     def handle_team_2_or_4(self):
      if s.have_voice:
         say('how_inter')
@@ -173,15 +193,20 @@ class Training(threading.Thread):
         return
      for _ in range(6):  # Wait for 30 seconds, doing reps, and checking for a wave
         self.run_exercise(impossible_EX)
-        self.interaction_mal()
+        s.waved=self.interaction_mal()
         if self.check_wave_and_exit():
+            return
+        if s.waved==True:
             return
         
     def interaction_mal(self):
      for _ in range(10):
         if self.check_wave_and_exit():
-            return
+            time.sleep(1)
+            return True
+     return False
      print("No wave detected during interaction_mal.")
+
     def is_speaker_Active(self, path):
         try:
         # Check if the file exists
