@@ -115,6 +115,7 @@ class Training(threading.Thread):
      print("impossible ex start")
      if s.have_voice:
         say('impossible_EX')
+        s.saying_inter=True
      else :
         s.screen.switch_frame(impossible_EX)
      for i in range(2):
@@ -219,11 +220,12 @@ class Training(threading.Thread):
             return False
         except Exception as e:
          print(f"Error while trying to import the file: {e}")
-        return True            
+        return True      
+          
     def run_exercise(self, name, hand=''):
         s.success_exercise = False
         print("TRAINING: Exercise ", name, " start")
-        if name=="impossible_EX":
+        if name=="impossible_EX" and s.saying_inter==False:
             self.impossible_EX()
         if(name=="bend_elbows"):
             s.Have_voice=False
@@ -236,19 +238,19 @@ class Training(threading.Thread):
                 s.screen.switch_frame(bend_elbows)
                 time.sleep(2)
             time.sleep(3)  # Delay the robot movement after the audio is played
-        elif(s.have_voice==True and name!="bend_elbows" and name !="impossible_EX" ):
+        elif(s.have_voice==True and name!="bend_elbows" or (s.have_voice!=True and name !="impossible_EX") ):
             say(name+hand)
             time.sleep(3)  # Delay the robot movement after the audio is played
-        elif(s.have_voice!=True and name!="bend_elbows" and name !="impossible_EX" ):
+        elif((s.have_voice!=True and name!="bend_elbows") or (s.have_voice!=True and name !="impossible_EX") ):
             self.What_To_wirte (name)
             time.sleep(2)
         s.req_exercise = name
         while s.req_exercise == name:
             time.sleep(0.001)  # Prevents the MP to stuck
-        if s.success_exercise and  s.have_voice==True:
+        if s.success_exercise and  s.have_voice==True and name !="impossible_EX":
             say(self.random_encouragement())
         print("TRAINING: Exercise ", name, " done")
-        if s.success_exercise and  s.have_voice!=True:
+        if s.success_exercise and  s.have_voice!=True and name !="impossible_EX":
            s.screen.switch_frame(self.random_encouragement_write())
         time.sleep(1)
     

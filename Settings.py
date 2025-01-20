@@ -35,6 +35,7 @@ def __init__():
                                           #  if he started with hardware malfunction first he is team 4
     global have_voice 
     global Fake_speaker ### change if it needed
+    global saying_inter
 
     # audio variables
     global audio_path
