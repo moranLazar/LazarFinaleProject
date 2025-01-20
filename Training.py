@@ -239,12 +239,16 @@ class Training(threading.Thread):
                 s.screen.switch_frame(bend_elbows)
                 time.sleep(2)
             time.sleep(3)  # Delay the robot movement after the audio is played
-        elif(s.have_voice==True and name!="bend_elbows" or (s.have_voice!=True and name !="impossible_EX") ):
-            say(name+hand)
+        elif(s.have_voice==True and name!="bend_elbows"):
+            if s.voice_inter_once==False:
+             say(name+hand)
+             s.voice_inter_once=True
             time.sleep(3)  # Delay the robot movement after the audio is played
-        elif((s.have_voice!=True and name!="bend_elbows") or (s.have_voice!=True and name !="impossible_EX") ):
-            self.What_To_wirte (name)
-            time.sleep(2)
+        elif((s.have_voice!=True and name!="bend_elbows") ):
+            if s.voice_inter_once==False:
+             self.What_To_wirte (name)
+             time.sleep(2)
+             s.voice_inter_once=True
         s.req_exercise = name
         while s.req_exercise == name:
             time.sleep(0.001)  # Prevents the MP to stuck
