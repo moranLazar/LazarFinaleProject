@@ -253,8 +253,11 @@ class Camera(threading.Thread):
                 s.success_exercise = True
                 break
             if s.corrective_feedback and (s.robot_rep >= s.rep/2) and counter <=2 and not said_instructions and s.have_voice==True:
-                say(exercise_name + "_" + str(flag))
-                said_instructions = True
+                if s.voice_inter_once!=True and s.have_voice==True:
+                 say(exercise_name + "_" + str(flag))
+                 said_instructions = True
+                else :
+                    said_instructions = True
                 if flag:
                     print("Try to raise your hands more")
                 if not flag:
