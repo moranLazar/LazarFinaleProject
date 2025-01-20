@@ -67,7 +67,6 @@ class Poppy(threading.Thread):
             is_saying = self.what_to_say(s.counter_writen)
             s.screen.switch_frame(is_saying)
             s.counter_writen += 1
-        getattr(self, ex)(1)
         if s.success_exercise :
             if (s.counter_writen ==8):
              s.counter_writen =1
