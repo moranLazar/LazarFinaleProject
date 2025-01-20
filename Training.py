@@ -112,12 +112,9 @@ class Training(threading.Thread):
 
     def impossible_EX(self):
      print("impossible ex start")
-     if s.have_voice:
-        s.saying_inter=True
-     else :
-        s.screen.switch_frame(impossible_EX)
      for i in range(2):
         self.run_exercise('impossible_EX')
+        s.saying_inter=True
         if self.check_wave_and_exit():
             return
         time.sleep(2)
@@ -227,7 +224,7 @@ class Training(threading.Thread):
     def run_exercise(self, name, hand=''):
         s.success_exercise = False
         print("TRAINING: Exercise ", name, " start")
-        if name=="impossible_EX":
+        if name=="impossible_EX" and s.saying_inter==False:
             self.impossible_EX()
         if(name=="bend_elbows"):
             s.Have_voice=False
