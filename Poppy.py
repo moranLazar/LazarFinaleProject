@@ -33,7 +33,7 @@ class Poppy(threading.Thread):
         for m in self.poppy.motors:
             if not m.name == 'r_elbow_y' and not m.name == 'l_elbow_y' and not m.name == 'head_y':
                 m.goto_position(0, 1, wait=True)
-        self.poppy.head_y.goto_position(-20, 1, wait=True)
+        self.poppy.head_y.goto_position(0, 1, wait=True)
         self.poppy.r_elbow_y.goto_position(90, 1, wait=True)
         self.poppy.l_elbow_y.goto_position(90, 1, wait=True)
 
