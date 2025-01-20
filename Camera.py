@@ -359,20 +359,7 @@ class Camera(threading.Thread):
     def impossible_EX (self):
         while s.req_exercise == "impossible_EX":
             joints = self.get_skeleton_data()
-            if joints is not None:
-                right_shoulder = joints[str("R_Shoulder")]
-                right_wrist = joints[str("R_Wrist")]
-                if right_shoulder.y < right_wrist.y != 0:
-                 if start_time is None:  # Start the timer when the condition is first true
-                  start_time = time.time()
-                 elif time.time() - start_time >= 2:  # Check if 2 seconds have passed
-                  print("Condition met for 2 seconds. Finishing impossible_EX.")
-                  s.waved = True
-                  s.req_exercise = ""
-                  break  # Exit the loop if needed
-                else:
-                 start_time = None  # Reset the timer if the condition is not true
-    time.sleep(0.1)  # Adjust sleep duration as needed to reduce CPU usage
+        time.sleep(0.1)  # Adjust sleep duration as needed to reduce CPU usage
 
     def check_angle_range(self, joint1, joint2, joint3, use_alternate_angles=False):
         # just for coding and understanding angle boundaries

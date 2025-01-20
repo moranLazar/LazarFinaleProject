@@ -60,15 +60,8 @@ class Poppy(threading.Thread):
         self.check_hello_wave()
      elif ex == "impossible_EX":
         self.impossible_EX()
-        if s.have_voice:
-            say(s.counter_writen)
-            s.counter_writen += 1
-        else:
-            is_saying = self.what_to_say(s.counter_writen)
-            s.screen.switch_frame(is_saying)
-            s.counter_writen += 1
         if s.success_exercise :
-            if (s.counter_writen ==8):
+            if (s.counter_writen >=8):
              s.counter_writen =1
              return
             return  # Exit the function early if exercise succeeds
@@ -129,12 +122,13 @@ class Poppy(threading.Thread):
         self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)  # Left shoulder to 90 degrees
         self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)  # Right shoulder to -90 degrees
         time.sleep(0.5)
-        if s.have_voice==True:
-            say(s.req_exercise_inter)
-            s.req_exercise_inter=+1
+        if s.have_voice:
+            say(s.counter_writen)
+            s.counter_writen = 1+s.counter_writen
         else:
-            s.screen.switch_frame(self.what_to_say(str(s.req_exercise_inter)))
-            s.req_exercise_inter=+1
+            is_saying = self.what_to_say(s.counter_writen)
+            s.screen.switch_frame(is_saying)
+            s.counter_writen = 1+s.counter_writen
 
     # EX1 - Raise arms horizontally
     def raise_arms_horizontally(self, counter):

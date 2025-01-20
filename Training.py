@@ -4,7 +4,6 @@ import Settings as s
 import Excel
 import random
 from Audio import say
-import Screen as screen
 import os
 import pandas as pd
 from Screen import How_inter,EyesPage,goodbye,Alert,continue_inter,finished_impossible_ex_good,raise_arms_bend_elbows,open_and_close_arms,raise_arms_forward,bend_elbows,impossible_EX,Continue,Why_inter,What_inter,Why_Hardware,What_Hardware,How_Hardware
@@ -228,7 +227,7 @@ class Training(threading.Thread):
     def run_exercise(self, name, hand=''):
         s.success_exercise = False
         print("TRAINING: Exercise ", name, " start")
-        if name=="impossible_EX" and s.saying_inter==False:
+        if name=="impossible_EX":
             self.impossible_EX()
         if(name=="bend_elbows"):
             s.Have_voice=False

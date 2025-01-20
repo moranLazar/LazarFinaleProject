@@ -73,12 +73,6 @@ class Continue(tk.Frame):
         image = Image.open('pictures//Continue.png')
         self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
         tk.Label(self, image=self.photo_image).pack()
-class impossible_EX(tk.Frame): 
-    def __init__(self, master):
-        tk.Frame.__init__(self, master)
-        image = Image.open('pictures//impossible_EX.png')
-        self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
-        tk.Label(self, image=self.photo_image).pack()
 class bend_elbows(tk.Frame): 
     def __init__(self, master): 
         tk.Frame.__init__(self, master)
