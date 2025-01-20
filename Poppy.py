@@ -104,7 +104,7 @@ class Poppy(threading.Thread):
         self.poppy.r_arm_z.goto_position(0, 1.5, wait=False)
 
     #impossible EX  
-    def impossible_EX(self,counter):
+    def impossible_EX(self):
         print("Step 1: Lifting arms to 90 degrees")
         self.poppy.l_shoulder_y.goto_position(-90, 1.5, wait=False)  # Left shoulder to 90 degrees
         self.poppy.r_shoulder_y.goto_position(-90, 1.5, wait=True)  # Right shoulder to -90 degrees

@@ -356,14 +356,14 @@ class Camera(threading.Thread):
                     s.waved = True
                     s.req_exercise = ""
 
-    def impossibe_EX (self):
-        while s.req_exercise == "impossibe_EX":
+    def impossible_EX (self):
+        while s.req_exercise == "impossible_EX":
             joints = self.get_skeleton_data()
             if joints is not None:
                 right_shoulder = joints[str("R_Shoulder")]
                 right_wrist = joints[str("R_Wrist")]
                 if right_shoulder.y < right_wrist.y != 0:
-                    print("finishing impossible ex.")
+                    print("finishing impossible_EX.")
                     s.waved = True
                     s.req_exercise = ""
 
