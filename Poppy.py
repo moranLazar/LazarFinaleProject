@@ -55,6 +55,8 @@ class Poppy(threading.Thread):
     def exercise_demo(self, ex):
      if ex == "hello_waving":
         self.hello_waving()
+     elif ex == "calibration":
+         self.calibration()
      elif ex == "check_hello_wave":
         self.check_hello_wave()
      elif ex == "impossible_EX":
@@ -67,6 +69,16 @@ class Poppy(threading.Thread):
             getattr(self, ex)(i)
             if s.success_exercise:
                 break
+    def calibration(self):
+        hands_up = [self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False),
+                    self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False),
+                    self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False),
+                    self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)]
+        time.sleep(2)
+        hands_down = [self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False),
+                      self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False),
+                      self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False),
+                      self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)]
 
     def check_hello_wave(self):
         self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)

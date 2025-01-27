@@ -146,6 +146,8 @@ class Training(threading.Thread):
         s.screen.quit()
         print("TRAINING DONE")
 
+    
+     
     def impossible_EX(self):
      print("impossible ex start")
      s.saying_inter = True
