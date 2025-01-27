@@ -49,6 +49,7 @@ if __name__ == '__main__':
     s.saying_inter=False
     s.counter_writen =1 
     s.have_voice = True
+    s.j = 3
     # Excel variable
     Excel.create_workbook()
     s.ex_list = []

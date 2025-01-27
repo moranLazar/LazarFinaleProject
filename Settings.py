@@ -37,6 +37,7 @@ def __init__():
     global have_voice 
     global Fake_speaker ### change if it needed
     global saying_inter
+    global j
 
     # audio variables
     global audio_path
