@@ -17,6 +17,7 @@ def __init__():
     global rep
     global for_calibration_motion
     global for_calibration
+    global for_cal
     global req_exercise
     global req_exercise_inter
     global req_exercise_not_adaptive

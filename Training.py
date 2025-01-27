@@ -49,6 +49,7 @@ class Training(threading.Thread):
         if not s.calibration:
             print("Training: Calibration")
             s.camera.init_position()
+            s.for_cal=True
             while not s.calibration:
                 time.sleep(0.00000001)
                 continue

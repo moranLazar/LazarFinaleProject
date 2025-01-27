@@ -63,8 +63,10 @@ class Camera(threading.Thread):
 
     def init_position(self):
         # Check user position - so all joints all visible, and all exercise will be able to be recognized.
-        s.for_calibration_motion=True
-        s.for_calibration=False
+        if s.for_cal==True:
+         s.for_calibration_motion=True
+         s.for_calibration=False
+         s.for_cal=False
         init_pos = False
         say("calibration")
         self.training_instance.run_exercise("calibration")
