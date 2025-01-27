@@ -286,9 +286,9 @@ class Training(threading.Thread):
         s.success_exercise = False
         print("TRAINING: Exercise ", name, " start")
         if name=="impossible_EX" and s.saying_inter==False:
-            self.impossible_EX()
             if s.waved:
                 return
+            self.impossible_EX()
         if(name=="bend_elbows"):
             s.Have_voice=False
             self.Time_to_check_voice(s.team,s.have_voice,s.Fake_speaker)
