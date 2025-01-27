@@ -194,15 +194,15 @@ class Training(threading.Thread):
             print("Wave motion detected. Exiting function.")
             time.sleep(1.5)
         else:
-            time.sleep(2)
+            time.sleep(1)
             s.screen.switch_frame(finished_impossible_ex_good)
             print("Wave motion detected. Exiting function.")
-            time.sleep(1.5)
+            time.sleep(1)
         return True
      return False
 
     def interaction_mal(self):
-     for _ in range(10):
+     for _ in range(5):
         if self.check_wave_and_exit():  # If wave detected, exit immediately
             print("Wave detected during interaction_mal.")
             return True
@@ -291,7 +291,7 @@ class Training(threading.Thread):
                 return
         if(name=="bend_elbows"):
             s.Have_voice=False
-            s.have_voice=self.Time_to_check_voice(s.team)
+            s.Have_voice=self.Time_to_check_voice(s.team)
             print(s.Have_voice)
             if s.Have_voice==True:
                  say(name+hand)
