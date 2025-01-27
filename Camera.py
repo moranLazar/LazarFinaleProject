@@ -11,7 +11,7 @@ import datetime
 from MP import MP
 from Joint import Joint
 import Settings as s
-import Training as t
+from Training import Training
 import Excel
 from Audio import say
 from performance_classification import feature_extraction, predict_performance, plot_data
@@ -64,7 +64,7 @@ class Camera(threading.Thread):
         # Check user position - so all joints all visible, and all exercise will be able to be recognized.
         init_pos = False
         say("calibration")
-        t.run_exercise("calibration")
+        self.training_instance.run_exercise("calibration")
         print("CAMERA: init position - please stand in front of the camera with hands to the sides")
         while not init_pos:
             jd = self.get_skeleton_data()
