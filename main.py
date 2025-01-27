@@ -32,6 +32,7 @@ if __name__ == '__main__':
                          str(current_time.minute) + "." + str(current_time.second)
 
     # Training variables initialization
+    s.for_calibration_motion=False
     s.exercise_amount = 5
     s.rep = 8
     s.req_exercise = ""

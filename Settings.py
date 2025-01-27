@@ -15,6 +15,7 @@ def __init__():
     global counter_writen
     global exercise_amount
     global rep
+    global for_calibration_motion
     global req_exercise
     global req_exercise_inter
     global req_exercise_not_adaptive

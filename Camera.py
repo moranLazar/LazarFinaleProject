@@ -63,6 +63,7 @@ class Camera(threading.Thread):
 
     def init_position(self):
         # Check user position - so all joints all visible, and all exercise will be able to be recognized.
+        s.for_calibration_motion=True
         init_pos = False
         say("calibration")
         self.training_instance.run_exercise("calibration")
@@ -432,6 +433,10 @@ class Camera(threading.Thread):
         while not s.finish_workout:
             time.sleep(0.00000001)  # Prevents the MP to stuck
             jd = self.get_skeleton_data()  # clear data TODO check if it help
+            if s.for_calibration_motion==True:
+                s.req_exercise = ""
+                s.camera_done = True
+                s.for_calibration_motion=False
             if s.req_exercise != "" and s.req_exercise !="impossible_EX":
                 print("CAMERA: Exercise ", s.req_exercise, " start")
                 time.sleep(1)
