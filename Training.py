@@ -95,8 +95,10 @@ class Training(threading.Thread):
         # TODO - adding random choice of exercises.
         exercise_names = ["raise_arms_horizontally","impossible_EX", "raise_arms_bend_elbows", "bend_elbows", "open_and_close_arms"]
         for e in exercise_names:
-            if exercise_names !="impossible_EX":
+            if exercise_names !="impossible_EX" and s.have_voice:
              say(e)
+            if exercise_names !="impossible_EX" and s.have_voice!=True:
+                s.screen.switch_frame(globals()[e])
             time.sleep(2) # wait between exercises
             self.run_exercise(e)
             while (not s.poppy_done) or (not s.camera_done):
@@ -108,8 +110,10 @@ class Training(threading.Thread):
         # TODO - adding random choice of exercises.
         exercise_names = ["raise_arms_horizontally", "bend_elbows", "raise_arms_bend_elbows","impossible_EX", "open_and_close_arms"]
         for e in exercise_names:
-            if exercise_names !="impossible_EX":
-             say(e)
+            if exercise_names !="impossible_EX" and s.have_voice:
+              say(e)
+            if exercise_names !="impossible_EX" and s.have_voice!=True:
+                s.screen.switch_frame(globals()[e])
             time.sleep(2) # wait between exercises
             self.run_exercise(e)
             while (not s.poppy_done) or (not s.camera_done):
@@ -131,11 +135,11 @@ class Training(threading.Thread):
 
     def impossible_EX(self):
      print("impossible ex start")
-     if s.saying_inter!=True and s.have_voice:
-        say('impossible_EX')
-     else:
-         s.screen.switch_frame(impossible_EX)
-     s.saying_inter=True
+    # if s.saying_inter!=True and s.have_voice:
+        #say('impossible_EX')
+     #else:
+         #s.screen.switch_frame(impossible_EX)
+     #s.saying_inter=True
      for i in range(2):
         self.run_exercise('impossible_EX')
         if s.have_voice :
