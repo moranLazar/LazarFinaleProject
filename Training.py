@@ -151,23 +151,28 @@ class Training(threading.Thread):
      s.saying_inter = True
      for i in range(2):
         self.run_exercise('impossible_EX')
-        if self.check_wave_and_exit():
+        if self.check_wave_and_exit():  # Immediately exit if wave detected
             print("Exited because s.waved is True during the exercise loop")
             return
         if s.have_voice:
-            say(str(i+1))
-            print(i+1)
+            say(str(i + 1))
+            print(i + 1)
         time.sleep(2)
-     if s.waved:
+
+     if s.waved:  # Ensure no further execution if s.waved is True
+        print("Wave detected. Exiting after first loop.")
         return
+
      for _ in range(20):  # Wait for 20 seconds, checking for a wave
-        if self.check_wave_and_exit():
-            time.sleep(1)
-            print("didn't wave")
+        if self.check_wave_and_exit():  # Immediately exit if wave detected
+            print("Exited because wave detected during waiting loop")
             return
         time.sleep(1)
-     if s.waved:
+
+     if s.waved:  # Another safeguard
+        print("Wave detected before team handling. Exiting.")
         return
+
      if s.team in [1, 3]:
         self.handle_team_1_or_3()
      elif s.team in [2, 4]:
@@ -186,19 +191,28 @@ class Training(threading.Thread):
      if s.waved:
         if s.have_voice:
             say('finished_impossible_ex_good')
-            print("Hello_wave motion was detected. Exiting function.")
+            print("Wave motion detected. Exiting function.")
             time.sleep(1.5)
         else:
             time.sleep(2)
             s.screen.switch_frame(finished_impossible_ex_good)
-            print("Hello_wave motion was detected. Exiting function.")
+            print("Wave motion detected. Exiting function.")
             time.sleep(1.5)
         return True
      return False
-    
+
+    def interaction_mal(self):
+     for _ in range(10):
+        if self.check_wave_and_exit():  # If wave detected, exit immediately
+            print("Wave detected during interaction_mal.")
+            return True
+        time.sleep(1)
+     print("No wave detected during interaction_mal.")
+     return False
+
     def handle_team_1_or_3(self):
-     s.j=3
-     prompts = [('what_inter', 3), ('why_inter', 2)]  # Adjusted repetitions to 3 and 1
+     s.j = 3
+     prompts = [('what_inter', 3), ('why_inter', 2)]  # Adjusted repetitions to 3 and 2
      for prompt, reps in prompts:
         if s.have_voice:
             say(prompt)
@@ -206,18 +220,18 @@ class Training(threading.Thread):
         else:
             s.screen.switch_frame(globals()[prompt.capitalize()])
             time.sleep(1)
-        if self.check_wave_and_exit():
+        if self.check_wave_and_exit():  # Exit if wave detected
             return
         for _ in range(reps):
             self.run_exercise('impossible_EX')
             if s.have_voice:
                 say(str(s.j))
-                s.j=s.j+1
+                s.j += 1
                 print(s.j)
-            if self.check_wave_and_exit():
+            if self.check_wave_and_exit():  # Exit if wave detected
                 return
             s.waved = self.interaction_mal()
-            if s.waved is True:
+            if s.waved:  # Stop execution if waved
                 return
      if s.have_voice:
         say("how_inter")
@@ -226,41 +240,31 @@ class Training(threading.Thread):
         s.screen.switch_frame(How_inter)
         time.sleep(1)
      for _ in range(2):
-        if self.check_wave_and_exit():
+        if self.check_wave_and_exit():  # Exit if wave detected
             return
         s.waved = self.interaction_mal()
-        if s.waved is True:
+        if s.waved:  # Stop execution if waved
             return
-           
+
     def handle_team_2_or_4(self):
-     s.j=3
+     s.j = 3
      if s.have_voice:
         say('how_inter')
      else:
         s.screen.switch_frame(How_inter)
      time.sleep(1)
-     if self.check_wave_and_exit():
+     if self.check_wave_and_exit():  # Exit if wave detected
         return
      for _ in range(6):  # Wait for 60 seconds, doing reps, and checking for a wave
         self.run_exercise('impossible_EX')
-        if s.have_voice :
-           say(str(s.j))
-           s.j=s.j+1
-        if self.check_wave_and_exit():
-            time.sleep(1.5)
+        if s.have_voice:
+            say(str(s.j))
+            s.j += 1
+        if self.check_wave_and_exit():  # Exit if wave detected
             return
-        s.waved=self.interaction_mal()
-        if s.waved==True:
-            time.sleep(1.5)
+        s.waved = self.interaction_mal()
+        if s.waved:  # Stop execution if waved
             return
-        
-    def interaction_mal(self):
-     for _ in range(10):
-        if self.check_wave_and_exit():
-            time.sleep(1)
-            return True
-     return False
-     print("No wave detected during interaction_mal.")
 
     def is_speaker_Active(self, path):
         try:
@@ -283,6 +287,8 @@ class Training(threading.Thread):
         print("TRAINING: Exercise ", name, " start")
         if name=="impossible_EX" and s.saying_inter==False:
             self.impossible_EX()
+            if s.waved:
+                return
         if(name=="bend_elbows"):
             s.Have_voice=False
             self.Time_to_check_voice(s.team,s.have_voice,s.Fake_speaker)

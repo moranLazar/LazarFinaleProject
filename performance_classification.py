@@ -280,7 +280,7 @@ def plot_data(exercise_name, right_hand_data, left_hand_data):
 
 if __name__ == "__main__":
     abc=str(datetime.datetime.now())
-    path = r'C:\Users\moran\OneDrive\שולחן העבודה\שנה ד\פרוייקט מסכם the lazars\LazarFinaleProject-detached2\output of test subjects\ '+abc+'.csv'
+    path = r'/PycharmProjects/LazarFinaleProject/output/ '+abc+'.csv'
     df = pd.read_csv(path)
     exercise = 'bend_elbows'
     adaptation_model_name = 'model2'
