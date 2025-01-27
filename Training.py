@@ -129,6 +129,8 @@ class Training(threading.Thread):
                 s.screen.switch_frame(globals()[e])
             time.sleep(2) # wait between exercises
             self.run_exercise(e)
+            if s.j==8 and s.have_voice:
+                say(str(s.j))
             while (not s.poppy_done) or (not s.camera_done):
                 print("not done")
                 time.sleep(1)
@@ -154,7 +156,6 @@ class Training(threading.Thread):
         if s.have_voice:
             say(str(i+1))
             print(i+1)
-            return
         time.sleep(2)
      for _ in range(20):  # Wait for 20 seconds, checking for a wave
         if self.check_wave_and_exit():
@@ -262,14 +263,12 @@ class Training(threading.Thread):
          if os.path.exists(path):
             pd.read_excel(path)  # Attempt to import the file
             print("File imported successfully!")
-            s.screen.switch_frame(EyesPage)
             return True
          else:
             print(f"File does not exist at: {path}")
             return False
         except Exception as e:
          print(f"Error while trying to import the file: {e}")
-         s.screen.switch_frame(EyesPage)
         return True      
           
     def run_exercise(self, name, hand=''):
@@ -301,8 +300,6 @@ class Training(threading.Thread):
         s.req_exercise = name
         while s.req_exercise == name:
             time.sleep(0.001)  # Prevents the MP to stuck
-        if s.j == 8 and s.have_voice:
-                say(str(s.j))
         if s.success_exercise and  s.have_voice==True and name !="impossible_EX":
             say(self.random_encouragement())
         print("TRAINING: Exercise ", name, " done")
