@@ -285,11 +285,12 @@ class Training(threading.Thread):
             print(s.Have_voice)
             if s.Have_voice==True:
                  say(name+hand)
-                 time.sleep(3)  # Delay the robot movement after the audio is played
+                 s.screen.switch_frame(EyesPage)
+                 time.sleep(1)  # Delay the robot movement after the audio is played
             else :
                 s.screen.switch_frame(bend_elbows)
-                time.sleep(2)
-            time.sleep(3)  # Delay the robot movement after the audio is played
+                time.sleep(1)
+            time.sleep(1)  # Delay the robot movement after the audio is played
         elif(s.have_voice==True and name!="bend_elbows"):
             if s.voice_inter_once==False:
              say(name+hand)
