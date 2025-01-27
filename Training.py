@@ -166,6 +166,8 @@ class Training(threading.Thread):
             print("didn't wave")
             return
         time.sleep(1)
+     if s.waved:
+        return
      if s.team in [1, 3]:
         self.handle_team_1_or_3()
      elif s.team in [2, 4]:
@@ -177,7 +179,7 @@ class Training(threading.Thread):
         else:
             s.screen.switch_frame(continue_inter)
             s.voice_inter_once = False
-        time.sleep(2)
+        time.sleep(1)
 
     def check_wave_and_exit(self):
      s.camera.waiving()
