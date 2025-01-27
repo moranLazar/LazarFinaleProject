@@ -13,6 +13,19 @@ class Training(threading.Thread):
     
     def __init__(self):
         threading.Thread.__init__(self)
+    def what_to_write(self, number):
+     counter_to_write = {
+        "1": one,
+        "2": two,
+        "3": three,
+        "4": four,
+        "5": five,
+        "6": six,
+        "7": seven,
+        "8": eight,
+    }
+    # Convert the number to a string to use as the dictionary key
+     return counter_to_write.get(str(number), "Unknown")
 
     def what_to_say(self,number):
      counter_to_write = {
@@ -135,25 +148,26 @@ class Training(threading.Thread):
 
     def impossible_EX(self):
      print("impossible ex start")
-    # if s.saying_inter!=True and s.have_voice:
-        #say('impossible_EX')
-     #else:
-         #s.screen.switch_frame(impossible_EX)
-     #s.saying_inter=True
+     s.saying_inter = True
      for i in range(2):
         self.run_exercise('impossible_EX')
-        if s.have_voice :
-           say(self.what_to_say(s.req_exercise_inter-1))
-           print(s.req_exercise_inter-1)
+        if s.have_voice:
+            # Convert the number to string for what_to_say
+            to_say = self.what_to_write(s.req_exercise_inter - 1)
+            if to_say != "Unknown":
+                say(to_say)
+            else:
+                print(f"Error: No sound found for {s.req_exercise_inter - 1}")
+            print(s.req_exercise_inter - 1)
         else:
-           s.screen.switch_frame(self.what_to_say(s.req_exercise_inter-1))
+            s.screen.switch_frame(self.what_to_say(s.req_exercise_inter - 1))
         if self.check_wave_and_exit():
             return
         time.sleep(2)
      for _ in range(20):  # Wait for 20 seconds, checking for a wave
         if self.check_wave_and_exit():
             time.sleep(1)
-            print("didnt waved")
+            print("didn't wave")
             return
         time.sleep(1)
      if s.team in [1, 3]:
@@ -162,11 +176,11 @@ class Training(threading.Thread):
         self.handle_team_2_or_4()
      else:
         if s.have_voice:
-            say('continue_inter')
-            s.voice_inter_once=False
+            say("continue_inter")
+            s.voice_inter_once = False
         else:
             s.screen.switch_frame(continue_inter)
-            s.voice_inter_once=False
+            s.voice_inter_once = False
         time.sleep(2)
 
     def check_wave_and_exit(self):
@@ -185,7 +199,7 @@ class Training(threading.Thread):
      return False
     
     def handle_team_1_or_3(self):
-     prompts = [('what_inter', 3), ('why_inter', 1)]  # Adjusted repetitions to 3 and 1
+     prompts = [('what_inter', 3), ('why_inter', 2)]  # Adjusted repetitions to 3 and 1
      for prompt, reps in prompts:
         if s.have_voice:
             say(prompt)
@@ -198,7 +212,7 @@ class Training(threading.Thread):
         for _ in range(reps):
             self.run_exercise('impossible_EX')
             if s.have_voice:
-                say(self.what_to_say(s.req_exercise_inter-1))
+                say(self.what_to_write(s.req_exercise_inter-1))
                 print(s.req_exercise_inter-1)
             else:
                 s.screen.switch_frame(self.what_to_say(s.req_exercise_inter - 1))
@@ -231,7 +245,7 @@ class Training(threading.Thread):
      for _ in range(6):  # Wait for 60 seconds, doing reps, and checking for a wave
         self.run_exercise('impossible_EX')
         if s.have_voice :
-           say(self.what_to_say(s.req_exercise_inter-1))
+           say(self.what_to_write(s.req_exercise_inter-1))
         else:
            s.screen.switch_frame(self.what_to_say(s.req_exercise_inter-1))
         s.waved=self.interaction_mal()
