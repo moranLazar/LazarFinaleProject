@@ -155,6 +155,8 @@ class Training(threading.Thread):
             say(str(i+1))
             print(i+1)
         time.sleep(2)
+     if s.waved:
+        return
      for _ in range(20):  # Wait for 20 seconds, checking for a wave
         if self.check_wave_and_exit():
             time.sleep(1)
@@ -207,9 +209,9 @@ class Training(threading.Thread):
                 say(str(s.j))
                 s.j=s.j+1
                 print(s.j)
-            s.waved = self.interaction_mal()
             if self.check_wave_and_exit():
                 return
+            s.waved = self.interaction_mal()
             if s.waved is True:
                 return
      if s.have_voice:
@@ -219,9 +221,9 @@ class Training(threading.Thread):
         s.screen.switch_frame(How_inter)
         time.sleep(1)
      for _ in range(2):
-        s.waved = self.interaction_mal()
         if self.check_wave_and_exit():
             return
+        s.waved = self.interaction_mal()
         if s.waved is True:
             return
            
@@ -239,10 +241,10 @@ class Training(threading.Thread):
         if s.have_voice :
            say(str(s.j))
            s.j=s.j+1
-        s.waved=self.interaction_mal()
         if self.check_wave_and_exit():
             time.sleep(1.5)
             return
+        s.waved=self.interaction_mal()
         if s.waved==True:
             time.sleep(1.5)
             return
