@@ -76,6 +76,7 @@ class Training(threading.Thread):
                 print("not done")
                 time.sleep(1)
         say('end_warm_up')
+        time.sleep(1)
 
     def explaining_Exit_Movment(self,name, hand=''):
         say('explaining_Exit_Movment')
@@ -94,7 +95,8 @@ class Training(threading.Thread):
         # TODO - adding random choice of exercises.
         exercise_names = ["raise_arms_horizontally","impossible_EX", "raise_arms_bend_elbows", "bend_elbows", "open_and_close_arms"]
         for e in exercise_names:
-            say(e)
+            if exercise_names !="impossible_EX":
+             say(e)
             time.sleep(2) # wait between exercises
             self.run_exercise(e)
             while (not s.poppy_done) or (not s.camera_done):
@@ -106,7 +108,8 @@ class Training(threading.Thread):
         # TODO - adding random choice of exercises.
         exercise_names = ["raise_arms_horizontally", "bend_elbows", "raise_arms_bend_elbows","impossible_EX", "open_and_close_arms"]
         for e in exercise_names:
-            say(e)
+            if exercise_names !="impossible_EX":
+             say(e)
             time.sleep(2) # wait between exercises
             self.run_exercise(e)
             while (not s.poppy_done) or (not s.camera_done):
