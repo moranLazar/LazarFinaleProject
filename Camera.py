@@ -365,6 +365,10 @@ class Camera(threading.Thread):
                     # print(right_wrist.y)
                     s.waved = True
                     s.req_exercise = ""
+    def calibrate(self):
+        while s.req_exercise == "calibrate":
+            joints = self.get_skeleton_data()
+        time.sleep(0.1)
 
     def impossible_EX (self):
         while s.req_exercise == "impossible_EX":
