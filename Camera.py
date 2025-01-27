@@ -33,7 +33,6 @@ class Camera(threading.Thread):
 
     def __init__(self):
         threading.Thread.__init__(self)
-        self.training_instance = Training()
         # Create socket for client-server communication with Camera.py
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.server_address = ('localhost', 7000)
@@ -63,13 +62,8 @@ class Camera(threading.Thread):
 
     def init_position(self):
         # Check user position - so all joints all visible, and all exercise will be able to be recognized.
-        if s.for_cal==True:
-         s.for_calibration_motion=True
-         s.for_calibration=False
-         s.for_cal=False
         init_pos = False
         say("calibration")
-        self.training_instance.run_exercise("calibration")
         print("CAMERA: init position - please stand in front of the camera with hands to the sides")
         while not init_pos:
             jd = self.get_skeleton_data()
@@ -368,6 +362,7 @@ class Camera(threading.Thread):
                     # print(right_wrist.y)
                     s.waved = True
                     s.req_exercise = ""
+
     def calibration(self):
         while s.req_exercise == "calibration":
             joints = self.get_skeleton_data()
