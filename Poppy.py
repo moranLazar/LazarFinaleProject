@@ -46,10 +46,11 @@ class Poppy(threading.Thread):
                 print("ROBOT: Exercise ", s.req_exercise, " start")
                 self.exercise_demo(s.req_exercise)
                 print("ROBOT: Exercise ", s.req_exercise, " done")
-                if s.req_exercise != "calibration":
+                if s.for_calibration ==False:
                     s.req_exercise = ""
                     s.poppy_done = True
                     print("Robot Done")
+                    s.for_calibration = True
                     return
                 if not s.calibration: #meaning it's the first hello
                     while not s.waved:
