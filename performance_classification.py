@@ -7,7 +7,32 @@ from scipy.signal import butter, filtfilt, argrelextrema
 import matplotlib.pyplot as plt
 import Settings as s
 import datetime
+import os
+# Base path where subject folders will be created
+base_path = r"C:\Users\moran\OneDrive\שולחן העבודה\שנה ד\פרוייקט מסכם the lazars\LazarFinaleProject-detached2\output of test subjects"
 
+def create_experiment_folder(base_path, experiment_timestamp):
+    folder_name = experiment_timestamp
+    folder_path = os.path.join(base_path, folder_name)
+    os.makedirs(folder_path, exist_ok=True)
+    return folder_path
+
+def save_features_to_folder(features, folder_path, file_name):
+    file_path = os.path.join(folder_path, file_name)
+    features.to_csv(file_path, index=False)
+    print(f"Features saved to: {file_path}")
+
+def save_plot_to_folder(right_data, left_data, folder_path, plot_name):
+    plot_file_path = os.path.join(folder_path, plot_name)
+    plt.figure()
+    plt.plot(right_data, label="Right Hand")
+    plt.plot(left_data, label="Left Hand")
+    plt.legend(loc='lower right')
+    plt.xlabel("Frame")
+    plt.ylabel("Angle Degree")
+    plt.savefig(plot_file_path)
+    plt.close()
+    print(f"Plot saved to: {plot_file_path}")
 
 def repetition_features(data, hand, framepersec):
     data_maxmin = max_min(data)
@@ -254,8 +279,8 @@ def plot_data(exercise_name, right_hand_data, left_hand_data):
 
 
 if __name__ == "__main__":
-
-    path = r'C:\Users\mayak\PycharmProjects\DataAnalysis\CSV\Raw Data\maya_bend_elbows.csv'
+    abc=str(datetime.datetime.now())
+    path = r'C:\Users\moran\OneDrive\שולחן העבודה\שנה ד\פרוייקט מסכם the lazars\LazarFinaleProject-detached2\output of test subjects\ '+abc+'.csv'
     df = pd.read_csv(path)
     exercise = 'bend_elbows'
     adaptation_model_name = 'model2'
@@ -280,3 +305,4 @@ if __name__ == "__main__":
     X_test = features[model_features]
     predictions = adaptation_model.predict(X_test)
     print(predictions)
+

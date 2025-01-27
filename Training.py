@@ -151,6 +151,9 @@ class Training(threading.Thread):
      s.saying_inter = True
      for i in range(2):
         self.run_exercise('impossible_EX')
+        if self.check_wave_and_exit():
+            print("Exited because s.waved is True during the exercise loop")
+            return
         if s.have_voice:
             say(str(i+1))
             print(i+1)
