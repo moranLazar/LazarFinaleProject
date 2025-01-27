@@ -152,15 +152,10 @@ class Training(threading.Thread):
      for i in range(2):
         self.run_exercise('impossible_EX')
         if s.have_voice:
-            # Convert the number to string for what_to_say
-            to_say = self.what_to_write(s.req_exercise_inter - 1)
-            if to_say != "Unknown":
-                say(to_say)
-            else:
-                print(f"Error: No sound found for {s.req_exercise_inter - 1}")
-            print(s.req_exercise_inter - 1)
+            say(str(i+1))
+            print(i+1)
         else:
-            s.screen.switch_frame(self.what_to_say(s.req_exercise_inter - 1))
+            s.screen.switch_frame(self.what_to_say(i+1))
         if self.check_wave_and_exit():
             return
         time.sleep(2)
@@ -199,6 +194,7 @@ class Training(threading.Thread):
      return False
     
     def handle_team_1_or_3(self):
+     j=3
      prompts = [('what_inter', 3), ('why_inter', 2)]  # Adjusted repetitions to 3 and 1
      for prompt, reps in prompts:
         if s.have_voice:
@@ -212,10 +208,12 @@ class Training(threading.Thread):
         for _ in range(reps):
             self.run_exercise('impossible_EX')
             if s.have_voice:
-                say(self.what_to_write(s.req_exercise_inter-1))
-                print(s.req_exercise_inter-1)
+                say(str(j))
+                j=j+1
+                print(j)
             else:
-                s.screen.switch_frame(self.what_to_say(s.req_exercise_inter - 1))
+                s.screen.switch_frame(self.what_to_say(j))
+                j=j+1
             s.waved = self.interaction_mal()
             if self.check_wave_and_exit():
                 return
@@ -235,6 +233,7 @@ class Training(threading.Thread):
             return
            
     def handle_team_2_or_4(self):
+     j=3
      if s.have_voice:
         say('how_inter')
      else:
@@ -245,9 +244,11 @@ class Training(threading.Thread):
      for _ in range(6):  # Wait for 60 seconds, doing reps, and checking for a wave
         self.run_exercise('impossible_EX')
         if s.have_voice :
-           say(self.what_to_write(s.req_exercise_inter-1))
+           say(str(j))
+           j=j+1
         else:
-           s.screen.switch_frame(self.what_to_say(s.req_exercise_inter-1))
+           s.screen.switch_frame(self.what_to_say(j))
+           j=j+1
         s.waved=self.interaction_mal()
         if self.check_wave_and_exit():
             time.sleep(1.5)
