@@ -69,6 +69,7 @@ class Training(threading.Thread):
         # TODO - adding random choice of exercises.
         exercise_names = ["open_and_close_arms_90","raise_arms_forward"]
         for e in exercise_names:
+            say(e)
             time.sleep(1) # wait between exercises
             self.run_exercise(e)
             while (not s.poppy_done) or (not s.camera_done):
@@ -93,6 +94,7 @@ class Training(threading.Thread):
         # TODO - adding random choice of exercises.
         exercise_names = ["raise_arms_horizontally","impossible_EX", "raise_arms_bend_elbows", "bend_elbows", "open_and_close_arms"]
         for e in exercise_names:
+            say(e)
             time.sleep(2) # wait between exercises
             self.run_exercise(e)
             while (not s.poppy_done) or (not s.camera_done):
@@ -104,6 +106,7 @@ class Training(threading.Thread):
         # TODO - adding random choice of exercises.
         exercise_names = ["raise_arms_horizontally", "bend_elbows", "raise_arms_bend_elbows","impossible_EX", "open_and_close_arms"]
         for e in exercise_names:
+            say(e)
             time.sleep(2) # wait between exercises
             self.run_exercise(e)
             while (not s.poppy_done) or (not s.camera_done):
@@ -133,7 +136,8 @@ class Training(threading.Thread):
      for i in range(2):
         self.run_exercise('impossible_EX')
         if s.have_voice :
-           say (s.req_exercise_inter-1)
+           say(s.req_exercise_inter-1)
+           print(s.req_exercise_inter-1)
         else:
            s.screen.switch_frame(self.what_to_say(s.req_exercise_inter-1))
         if self.check_wave_and_exit():
@@ -174,7 +178,7 @@ class Training(threading.Thread):
      return False
     
     def handle_team_1_or_3(self):
-     prompts = [('what_inter', 3), ('why_inter', 2)]
+     prompts = [('what_inter', 3), ('why_inter', 1)]  # Adjusted repetitions to 3 and 1
      for prompt, reps in prompts:
         if s.have_voice:
             say(prompt)
@@ -186,27 +190,28 @@ class Training(threading.Thread):
             return
         for _ in range(reps):
             self.run_exercise('impossible_EX')
-            if s.have_voice :
-             say (s.req_exercise_inter-1)
+            if s.have_voice:
+                say(s.req_exercise_inter - 1)
+                print(s.req_exercise_inter-1)
             else:
-             s.screen.switch_frame(self.what_to_say(s.req_exercise_inter-1))
-             s.waved=self.interaction_mal()
+                s.screen.switch_frame(self.what_to_say(s.req_exercise_inter - 1))
+            s.waved = self.interaction_mal()
             if self.check_wave_and_exit():
-             return
-            if s.waved==True:
-             return
+                return
+            if s.waved is True:
+                return
      if s.have_voice:
-            say("how_inter")
-            time.sleep(1)
+        say("how_inter")
+        time.sleep(1)
      else:
-            s.screen.switch_frame(How_inter)
-            time.sleep(1)
+        s.screen.switch_frame(How_inter)
+        time.sleep(1)
      for _ in range(2):
-            s.waved=self.interaction_mal()
-            if self.check_wave_and_exit():
-             return
-            if s.waved==True:
-             return
+        s.waved = self.interaction_mal()
+        if self.check_wave_and_exit():
+            return
+        if s.waved is True:
+            return
            
     def handle_team_2_or_4(self):
      if s.have_voice:
