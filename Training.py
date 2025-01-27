@@ -358,7 +358,7 @@ class Training(threading.Thread):
             time.sleep(2)
             print(f"Checking for speaker activity during '{frame.__name__}'")
             
-            for _ in range(40):  # Check for 40 seconds in 1-second intervals
+            for _ in range(20):  # Check for 40 seconds in 1-second intervals
                 s.Fake_speaker = self.is_speaker_Active(csv_path)
                 time.sleep(1)
                 
@@ -380,10 +380,9 @@ class Training(threading.Thread):
         s.screen.switch_frame(How_Hardware)
         print("Team 2 or 4: Checking hardware for 120 seconds in 'How_Hardware'")
         
-        for _ in range(120):  # Check for 120 seconds in 2-second intervals
+        for _ in range(60):  # Check for 120 seconds in 2-second intervals
             s.Fake_speaker = self.is_speaker_Active(csv_path)
             time.sleep(2)
-            
             if s.Fake_speaker:  # If speaker is active
                 s.have_voice = True
                 say("Fix_Hardware_Good")
@@ -394,7 +393,7 @@ class Training(threading.Thread):
         # If no speaker is detected after 120 seconds
         s.screen.switch_frame(Continue)
         print("No hardware solution found after 120 seconds. Showing 'Continue'.")
-        time.sleep(2)
+        time.sleep(1)
         s.have_voice = False
         return  s.have_voice
      
