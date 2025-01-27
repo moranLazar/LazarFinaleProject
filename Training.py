@@ -152,12 +152,9 @@ class Training(threading.Thread):
      for i in range(2):
         self.run_exercise('impossible_EX')
         if s.have_voice:
-            # Convert the number to string for what_to_say
-            to_say = self.what_to_write(s.req_exercise_inter - 1)
-            if to_say != "Unknown":
-                say(to_say)
-            else:
-                print(f"Error: No sound found for {s.req_exercise_inter - 1}")
+            # Ensure the value returned by what_to_say is converted to a string
+            to_say = self.what_to_say(s.req_exercise_inter - 1)
+            say(str(to_say))  # Convert to string before passing to say
             print(s.req_exercise_inter - 1)
         else:
             s.screen.switch_frame(self.what_to_say(s.req_exercise_inter - 1))
@@ -182,7 +179,6 @@ class Training(threading.Thread):
             s.screen.switch_frame(continue_inter)
             s.voice_inter_once = False
         time.sleep(2)
-
     def check_wave_and_exit(self):
      s.camera.waiving()
      if s.waved:
@@ -212,7 +208,7 @@ class Training(threading.Thread):
         for _ in range(reps):
             self.run_exercise('impossible_EX')
             if s.have_voice:
-                say(self.what_to_write(s.req_exercise_inter-1))
+                say(str(self.what_to_write(s.req_exercise_inter-1)))
                 print(s.req_exercise_inter-1)
             else:
                 s.screen.switch_frame(self.what_to_say(s.req_exercise_inter - 1))
@@ -245,7 +241,7 @@ class Training(threading.Thread):
      for _ in range(6):  # Wait for 60 seconds, doing reps, and checking for a wave
         self.run_exercise('impossible_EX')
         if s.have_voice :
-           say(self.what_to_write(s.req_exercise_inter-1))
+           say(str(self.what_to_write(s.req_exercise_inter-1)))
         else:
            s.screen.switch_frame(self.what_to_say(s.req_exercise_inter-1))
         s.waved=self.interaction_mal()
