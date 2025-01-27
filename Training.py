@@ -286,9 +286,9 @@ class Training(threading.Thread):
         s.success_exercise = False
         print("TRAINING: Exercise ", name, " start")
         if name=="impossible_EX" and s.saying_inter==False:
+            self.impossible_EX()
             if s.waved:
                 return
-            self.impossible_EX()
         if(name=="bend_elbows"):
             s.Have_voice=False
             self.Time_to_check_voice(s.team,s.have_voice,s.Fake_speaker)
@@ -362,13 +362,13 @@ class Training(threading.Thread):
                     print(message)
                     say("Fix_Hardware_Good")
                     s.screen.switch_frame(EyesPage)
-                    return have_voice  # Exit early if resolved
+                    return s.have_voice  # Exit early if resolved
         # If no speaker detected after all stages
         s.screen.switch_frame(hardware_stages[-1][0])  # Continue frame
         print(hardware_stages[-1][1])
         time.sleep(2)
         s.have_voice = False
-        return have_voice
+        return s.have_voice
 
      elif team in [2, 4]:  # Groups with single-stage (120s) hardware checks
         s.screen.switch_frame(How_Hardware)
@@ -388,7 +388,7 @@ class Training(threading.Thread):
         print("No hardware solution found after 120 seconds. Showing 'Continue'.")
         time.sleep(2)
         s.have_voice = False
-        return have_voice
+        return s.have_voice
      
 if __name__ == "__main__":
     # Create all components
