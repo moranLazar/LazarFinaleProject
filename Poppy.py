@@ -69,13 +69,13 @@ class Poppy(threading.Thread):
                 break
 
     def check_hello_wave(self):
-        say('please wave')
         self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False)
         self.poppy.r_elbow_y.goto_position(-20, 1.5, wait=False)
         self.poppy.r_arm_z.goto_position(-80, 1.5, wait=False)
         for i in range(3):
              self.poppy.r_arm[3].goto_position(-35, 0.6, wait=True)
              self.poppy.r_arm[3].goto_position(35, 0.6, wait=True)
+        say('please wave')
         self.finish_waving()
 
     def hello_waving(self):
