@@ -95,7 +95,6 @@ class Training(threading.Thread):
         say('explaining_Exit_Movment')
         time.sleep(1) ######## we need to find out what is the right time with this specific Audio
         print("explaining how to make the robot go next")
-        say('please wave')
         self.run_exercise("check_hello_wave") 
         print("showing the right motion")
         time.sleep(1)
