@@ -41,10 +41,16 @@ class Poppy(threading.Thread):
         while not s.finish_workout:
             time.sleep(0.00000001)  # Prevents the MP to stuck
             if s.req_exercise != "" and not ((s.req_exercise=="hello_waving" and s.try_again) or (s.req_exercise=="hello_waving" and s.try_again)): # if there is exercise, or hello waving
+             
                 time.sleep(1)
                 print("ROBOT: Exercise ", s.req_exercise, " start")
                 self.exercise_demo(s.req_exercise)
                 print("ROBOT: Exercise ", s.req_exercise, " done")
+                if s.req_exercise != "calibration":
+                    s.req_exercise = ""
+                    s.poppy_done = True
+                    print("Robot Done")
+                    return
                 if not s.calibration: #meaning it's the first hello
                     while not s.waved:
                         time.sleep(0.01)  # for hello_waiting exercise, wait until user wave
