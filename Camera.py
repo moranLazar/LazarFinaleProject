@@ -33,6 +33,7 @@ class Camera(threading.Thread):
 
     def __init__(self):
         threading.Thread.__init__(self)
+        self.training_instance = Training()
         # Create socket for client-server communication with Camera.py
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.server_address = ('localhost', 7000)
