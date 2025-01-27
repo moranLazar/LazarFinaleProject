@@ -48,8 +48,8 @@ class Training(threading.Thread):
         s.waved = False # set as False again for future
         if not s.calibration:
             print("Training: Calibration")
-            s.camera.init_position()
             s.for_cal=True
+            s.camera.init_position()
             while not s.calibration:
                 time.sleep(0.00000001)
                 continue
