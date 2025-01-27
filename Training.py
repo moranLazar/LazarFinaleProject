@@ -266,12 +266,14 @@ class Training(threading.Thread):
          if os.path.exists(path):
             pd.read_excel(path)  # Attempt to import the file
             print("File imported successfully!")
+            s.screen.switch_frame(EyesPage)
             return True
          else:
             print(f"File does not exist at: {path}")
             return False
         except Exception as e:
          print(f"Error while trying to import the file: {e}")
+         s.screen.switch_frame(EyesPage)
         return True      
           
     def run_exercise(self, name, hand=''):
@@ -285,7 +287,6 @@ class Training(threading.Thread):
             print(s.Have_voice)
             if s.Have_voice==True:
                  say(name+hand)
-                 s.screen.switch_frame(EyesPage)
                  time.sleep(1)  # Delay the robot movement after the audio is played
             else :
                 s.screen.switch_frame(bend_elbows)
