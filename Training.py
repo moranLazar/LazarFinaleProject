@@ -129,8 +129,6 @@ class Training(threading.Thread):
                 s.screen.switch_frame(globals()[e])
             time.sleep(2) # wait between exercises
             self.run_exercise(e)
-            if s.j==8 and s.have_voice:
-                say(str(s.j))
             while (not s.poppy_done) or (not s.camera_done):
                 print("not done")
                 time.sleep(1)
@@ -377,8 +375,6 @@ class Training(threading.Thread):
         s.have_voice = False
         return have_voice
      
-    
-
 if __name__ == "__main__":
     # Create all components
     from Camera import Camera
