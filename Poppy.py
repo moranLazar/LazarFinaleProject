@@ -20,16 +20,17 @@ class Poppy(threading.Thread):
      return counter_to_write.get(number, None)
     def what_to_say2(self, number):
      counter_to_write = {
-        "1": "one",
-        "2": "two",
-        "3": "three",
-        "4": "four",
-        "5": "five",
-        "6": "six",
-        "7": "seven",
-        "8": "eight",
+        "1": one,
+        "2": two,
+        "3": three,
+        "4": four,
+        "5": five,
+        "6": six,
+        "7": seven,
+        "8": eight,
     }
-     return counter_to_write.get(str(number), None)
+     func = counter_to_write.get(str(number))
+     return func() if func else None
     def __init__(self):
         threading.Thread.__init__(self)
         self.poppy = PoppyTorso(camera="dummy")  # for real robot
