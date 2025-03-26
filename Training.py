@@ -70,9 +70,9 @@ class Training(threading.Thread):
         print("Training: finish warmup")
         s.poppy_done = False  # AFTER HELLO
         s.camera_done = False  # AFTER HELLO
-        if s.team==1 or s.team ==2 or s.team==6:
+        if s.team==1 or s.team ==2 or s.team==5:
             self.training_session_interaction_first()
-        if s.team==3 or s.team ==4 or s.team==5:
+        if s.team==3 or s.team ==4 or s.team==6:
             self.training_session_hardware_first()  
         self.finish_workout()
 
