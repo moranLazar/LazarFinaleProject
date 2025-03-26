@@ -6,7 +6,19 @@ from Audio import say
 from Screen import one,two,three,four,five,six,seven,eight
 
 class Poppy(threading.Thread):
-    def what_to_say(self, number):
+    def what_to_say(self,number):
+     counter_to_write = {
+    "1": one,
+    "2": two,
+    "3": three,
+    "4": four,
+    "5": five,
+    "6": six,
+    "7": seven,
+    "8": eight,
+}
+     return counter_to_write.get(number, None)
+    def what_to_say2(self, number):
      counter_to_write = {
         "1": "one",
         "2": "two",
@@ -18,7 +30,6 @@ class Poppy(threading.Thread):
         "8": "eight",
     }
      return counter_to_write.get(str(number), None)
-
     def __init__(self):
         threading.Thread.__init__(self)
         self.poppy = PoppyTorso(camera="dummy")  # for real robot
@@ -178,7 +189,7 @@ class Poppy(threading.Thread):
             s.counter_writen = counter
             s.req_exercise_inter=s.req_exercise_inter+1
         if  s.have_voice !=True :
-            is_saying = self.what_to_say(s.counter_writen)
+            is_saying = self.what_to_say2(s.counter_writen)
             s.screen.switch_frame(is_saying)
             counter = 1+counter
             s.counter_writen=counter
