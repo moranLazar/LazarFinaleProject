@@ -190,8 +190,8 @@ class Poppy(threading.Thread):
             s.counter_writen = counter
             s.req_exercise_inter=s.req_exercise_inter+1
         if  s.have_voice !=True :
-            is_saying = self.what_to_say2(s.counter_writen)
-            s.screen.switch_frame(is_saying)
+            #is_saying = self.what_to_say2(s.counter_writen)
+            #s.screen.switch_frame(is_saying)
             counter = 1+counter
             s.counter_writen=counter
             s.req_exercise_inter=s.req_exercise_inter+1
