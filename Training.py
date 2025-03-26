@@ -6,7 +6,7 @@ import random
 from Audio import say
 import os
 import pandas as pd
-from Screen import one,two,three,four,five,six,seven,eight
+from Screen import error, one,two,three,four,five,six,seven,eight
 from Screen import How_inter,EyesPage,goodbye,Alert,continue_inter,finished_impossible_ex_good,raise_arms_bend_elbows,open_and_close_arms,raise_arms_forward,bend_elbows,impossible_EX,Continue,Why_inter,What_inter,Why_Hardware,What_Hardware,How_Hardware
 ######### this is the correct one lazars !!
 class Training(threading.Thread):
@@ -70,9 +70,9 @@ class Training(threading.Thread):
         print("Training: finish warmup")
         s.poppy_done = False  # AFTER HELLO
         s.camera_done = False  # AFTER HELLO
-        if s.team==1 or s.team ==2:
+        if s.team==1 or s.team ==2 or s.team==6:
             self.training_session_interaction_first()
-        if s.team==3 or s.team ==4:
+        if s.team==3 or s.team ==4 or s.team==5:
             self.training_session_hardware_first()  
         self.finish_workout()
 
@@ -177,6 +177,8 @@ class Training(threading.Thread):
 
      if s.team in [1, 3]:
         self.handle_team_1_or_3()
+     if s.team in [5, 6]:
+        self.handle_team_5_or_6()
      elif s.team in [2, 4]:
         self.handle_team_2_or_4()
      else:
@@ -247,13 +249,36 @@ class Training(threading.Thread):
         s.waved = self.interaction_mal()
         if s.waved:  # Stop execution if waved
             return
+    def handle_team_5_or_6(self):
+     s.j = 3
+     prompts = [('what_inter', 4), ('why_inter', 3)]  # Adjusted repetitions to 3 and 2
+     for prompt, reps in prompts:
+        if s.have_voice:
+            say(prompt)
+            time.sleep(1)
+        else:
+            s.screen.switch_frame(globals()[prompt.capitalize()])
+            time.sleep(1)
+        if self.check_wave_and_exit():  # Exit if wave detected
+            return
+        for _ in range(reps):
+            self.run_exercise('impossible_EX')
+            if s.have_voice:
+                say(str(s.j))
+                s.j += 1
+                print(s.j)
+            if self.check_wave_and_exit():  # Exit if wave detected
+                return
+            s.waved = self.interaction_mal()
+            if s.waved:  # Stop execution if waved
+                return
 
     def handle_team_2_or_4(self):
      s.j = 3
      if s.have_voice:
-        say('how_inter')
+        say('error')
      else:
-        s.screen.switch_frame(How_inter)
+        s.screen.switch_frame(error)
      time.sleep(1)
      if self.check_wave_and_exit():  # Exit if wave detected
         return
@@ -375,9 +400,37 @@ class Training(threading.Thread):
         time.sleep(2)
         s.have_voice = False
         return  s.have_voice
+     if team in [5,6]:  # Groups with multi-stage hardware checks
+        hardware_stages = [
+            (What_Hardware, "what Finished hardware problem"),
+            (Why_Hardware, "why Finished hardware problem"),
+            (Continue, "Finished hardware check, no solution found"),
+        ]
+        for frame, message in hardware_stages[:-1]:  # Exclude the "Continue" stage for now
+            s.screen.switch_frame(frame)
+            time.sleep(2)
+            print(f"Checking for speaker activity during '{frame.__name__}'")
+            
+            for _ in range(30):  # Check for 40 seconds in 1-second intervals
+                s.Fake_speaker = self.is_speaker_Active(csv_path)
+                time.sleep(1)
+                
+                if s.Fake_speaker:  # If speaker is active
+                    s.have_voice = True
+                    print(message)
+                    say("Fix_Hardware_Good")
+                    s.screen.switch_frame(EyesPage)
+                    return  s.have_voice  # Exit early as the issue is resolved
+            
+        # If no speaker is detected after all stages
+        s.screen.switch_frame(hardware_stages[-1][0])  # "Continue" frame
+        print(hardware_stages[-1][1])
+        time.sleep(2)
+        s.have_voice = False
+        return  s.have_voice
 
      elif s.team in [2, 4]:  # Groups with single-stage (120s) hardware checks
-        s.screen.switch_frame(How_Hardware)
+        s.screen.switch_frame(error)
         print("Team 2 or 4: Checking hardware for 120 seconds in 'How_Hardware'")
         
         for _ in range(60):  # Check for 120 seconds in 2-second intervals
