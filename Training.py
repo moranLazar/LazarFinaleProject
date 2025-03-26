@@ -6,8 +6,7 @@ import random
 from Audio import say
 import os
 import pandas as pd
-from Screen import error, one,two,three,four,five,six,seven,eight
-from Screen import How_inter,EyesPage,goodbye,Alert,continue_inter,finished_impossible_ex_good,raise_arms_bend_elbows,open_and_close_arms,raise_arms_forward,bend_elbows,impossible_EX,Continue,Why_inter,What_inter,Why_Hardware,What_Hardware,How_Hardware
+from Screen import error, one,two,three,four,five,six,seven,eight,How_inter,EyesPage,goodbye,Alert,continue_inter,finished_impossible_ex_good,raise_arms_bend_elbows,open_and_close_arms,raise_arms_forward,bend_elbows,impossible_EX,Continue,Why_inter,What_inter,Why_Hardware,What_Hardware,How_Hardware
 ######### this is the correct one lazars !!
 class Training(threading.Thread):
     
