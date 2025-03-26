@@ -445,7 +445,7 @@ class Training(threading.Thread):
         # If no speaker is detected after 120 seconds
         s.screen.switch_frame(Continue)
         print("No hardware solution found after 120 seconds. Showing 'Continue'.")
-        time.sleep(1)
+        time.sleep(5)
         s.have_voice = False
         return  s.have_voice
      

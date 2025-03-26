@@ -29,7 +29,7 @@ class Poppy(threading.Thread):
         "7": seven,
         "8": eight,
     }
-     func = counter_to_write.get(str(number))
+     func = counter_to_write.get(str(number),None)
      return func() if func else None
     def __init__(self):
         threading.Thread.__init__(self)
