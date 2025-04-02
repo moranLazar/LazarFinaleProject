@@ -205,7 +205,7 @@ class Training(threading.Thread):
             time.sleep(1)
             s.screen.switch_frame(finished_impossible_ex_good)
             print("Wave motion detected. Exiting function.")
-            time.sleep(1)
+            time.sleep(4)
         return True
      return False
 
@@ -387,7 +387,7 @@ class Training(threading.Thread):
             time.sleep(2)
             print(f"Checking for speaker activity during '{frame.__name__}'")
             
-            for _ in range(20):  # Check for 40 seconds in 1-second intervals
+            for _ in range(15):  # Check for 30 seconds in 1-second intervals
                 s.Fake_speaker = self.is_speaker_Active(csv_path)
                 time.sleep(1)
                 
@@ -437,7 +437,7 @@ class Training(threading.Thread):
         s.screen.switch_frame(error)
         print("Team 2 or 4: Checking hardware for 120 seconds in 'How_Hardware'")
         
-        for _ in range(60):  # Check for 120 seconds in 2-second intervals
+        for _ in range(30):  # Check for 60 seconds in 2-second intervals
             s.Fake_speaker = self.is_speaker_Active(csv_path)
             time.sleep(2)
             if s.Fake_speaker:  # If speaker is active
