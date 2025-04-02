@@ -138,6 +138,11 @@ class Training(threading.Thread):
         else:
          s.screen.switch_frame(goodbye) #screen goodbye
          time.sleep(5)
+        s.have_voice = True
+        if s.team == 6:
+         s.team =1
+        else:
+         s.team =+ s.team
         s.finish_workout = True
         Excel.success_worksheet()
         Excel.close_workbook()
