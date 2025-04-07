@@ -80,6 +80,7 @@ class Camera(threading.Thread):
             else:  # skeleton is not recognized in frame
                 print("user is not recognized")
         # say("calibration_complete")
+        say("confirmation for returning the arms")
         s.calibration = True
         print("CAMERA: init position verified")
 
