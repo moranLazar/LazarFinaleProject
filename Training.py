@@ -163,13 +163,13 @@ class Training(threading.Thread):
         if s.have_voice:
             say(str(i + 1))
             print(i + 1)
-        time.sleep(2)
+        time.sleep(1)
 
      if s.waved:  # Ensure no further execution if s.waved is True
         print("Wave detected. Exiting after first loop.")
         return
 
-     for _ in range(20):  # Wait for 20 seconds, checking for a wave
+     for _ in range(15):  # Wait for 20 seconds, checking for a wave
         if self.check_wave_and_exit():  # Immediately exit if wave detected
             print("Exited because wave detected during waiting loop")
             return

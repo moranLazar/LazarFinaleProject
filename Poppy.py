@@ -44,7 +44,7 @@ class Poppy(threading.Thread):
         for m in self.poppy.motors:
             if not m.name == 'r_elbow_y' and not m.name == 'l_elbow_y' and not m.name == 'head_y' and not m.name == 'abs_z':
                 m.goto_position(0, 1, wait=True)
-        self.poppy.abs_Z.goto_position(30, 1, wait=True)
+        self.poppy.abs_z.goto_position(33, 1, wait=True)
         self.poppy.head_y.goto_position(0, 1, wait=True)
         self.poppy.r_elbow_y.goto_position(90, 1, wait=True)
         self.poppy.l_elbow_y.goto_position(90, 1, wait=True)
@@ -90,7 +90,7 @@ class Poppy(threading.Thread):
             if s.success_exercise:
                 break
     def calibration(self):
-        self.poppy.abs_Z.goto_position(30, 1, wait=False)
+        self.poppy.abs_z.goto_position(33, 1, wait=False)
         hands_up = [self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False),
                     self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False),
                     self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False),
