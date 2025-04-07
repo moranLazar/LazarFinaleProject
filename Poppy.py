@@ -42,8 +42,9 @@ class Poppy(threading.Thread):
 
     def init_robot(self):
         for m in self.poppy.motors:
-            if not m.name == 'r_elbow_y' and not m.name == 'l_elbow_y' and not m.name == 'head_y':
+            if not m.name == 'r_elbow_y' and not m.name == 'l_elbow_y' and not m.name == 'head_y' and not m.name == 'abs_z':
                 m.goto_position(0, 1, wait=True)
+        self.poppy.abs_Z.goto_position(30, 1, wait=True)
         self.poppy.head_y.goto_position(0, 1, wait=True)
         self.poppy.r_elbow_y.goto_position(90, 1, wait=True)
         self.poppy.l_elbow_y.goto_position(90, 1, wait=True)
