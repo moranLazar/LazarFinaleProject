@@ -199,6 +199,7 @@ class Poppy(threading.Thread):
 
     # EX1 - Raise arms horizontally
     def raise_arms_horizontally(self, counter):
+        self.poppy.abs_Z.goto_position(30, 1, wait=False)
         hands_up = [self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False),
                     self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False),
                     self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False),
